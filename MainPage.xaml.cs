@@ -24,6 +24,9 @@ namespace Kerncentrale
     {
         public MainPage()
         {
+            Generator gen = new Generator(0);
+
+            gen.SetStoom(1);
             this.InitializeComponent();
         }
     }
