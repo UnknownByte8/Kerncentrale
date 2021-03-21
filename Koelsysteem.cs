@@ -9,12 +9,45 @@ namespace Kerncentrale
     class Koelsysteem
     {
         private int water;
+        private int waterTemp;
 
-        public int Water { get => water; set => water = value; }
+        /// <summary>
+        /// Constructor of Koelsysteem
+        /// </summary>
+        /// <param name="waterTemp">Initial Water temperature</param>
+        public Koelsysteem(int waterTemp)
+        {
+            this.SetWaterTemp(waterTemp);
+        }
 
-        public int DistributeWater()
+        public int GetWater()
         {
             return water;
         }
+
+        public void SetWater(int value)
+        {
+            water = value;
+        }
+
+        public int GetWaterTemp()
+        {
+            return waterTemp;
+        }
+
+        private void SetWaterTemp(int value)
+        {
+            waterTemp = value;
+        }
+
+        public int DistributeWater()
+        {
+
+
+
+            return water;
+        }
+
+
     }
 }
