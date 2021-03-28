@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace Kerncentrale
 {
     //voorbeeld soort fuelrod
-    class Uranium : FuelRod
+    class Plutonium : FuelRod
     {
-        private string name = "Uranium";
+        private string name = "Plutonium";
         private int huidigeTemperatuur = 0;
-        private int overhittingstemperatuur = 5000;
-        private int optimaleTemperatuur = 4000;
-        private int onderLimietTemperatuur = 3000;
-        private double graadPerLiter = 0.5;
+        private int overhittingstemperatuur = 2500;
+        private int optimaleTemperatuur = 2000;
+        private int onderLimietTemperatuur = 1500;
+        private double graadPerLiter = 1.5;
 
         public string GetName()
         {
