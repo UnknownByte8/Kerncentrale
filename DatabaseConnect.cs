@@ -18,20 +18,26 @@ namespace Kerncentrale
 
         public async static void CreateDB()
         {
-            await ApplicationData.Current.LocalFolder.CreateFileAsync("data.db", CreationCollisionOption.OpenIfExists);
-            string pathToDB = Path.Combine(ApplicationData.Current.LocalFolder.Path, "data.db");
+            await ApplicationData.Current.LocalFolder.CreateFileAsync("PowerPlantData.db", CreationCollisionOption.OpenIfExists);
+            string pathToDB = Path.Combine(ApplicationData.Current.LocalFolder.Path, "PowerPlantData.db");
             using (SqliteConnection con = new SqliteConnection($"Filename={pathToDB}"))
-            { 
+            {
+                try { 
                 con.Open();
                 string initCMD = "CREATE TABLE IF NOT EXISTS " +
                     "PowerPlantData (RodNumber NVARCHAR(100) PRIMARY KEY," +
-                        "FuelType NVARCHAR(25)" +
-                        "Temparature NVARCHAR(25)" +
-                        "Water NVARCHAR(25)" +
-                        "Generated NVARCHAR(25)";
+                        "FuelType NVARCHAR(25)," +
+                        "Temparature NVARCHAR(25)," +
+                        "Water NVARCHAR(25)," +
+                        "Generated NVARCHAR(25));";
                 SqliteCommand CMDcreateTable = new SqliteCommand(initCMD, con);
                 CMDcreateTable.ExecuteReader();
                 con.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
 
@@ -67,7 +73,6 @@ namespace Kerncentrale
                 Temparature = Temparature1;
                 Water = Water1;
                 Generated = Generated1;
-
             }
         }
         public static List<DBinfo> GetRecords()

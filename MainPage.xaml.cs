@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,12 +26,14 @@ namespace Kerncentrale
         public MainPage()
         {
             Generator gen = new Generator(0);
-
             gen.SetStoom(1);
             this.InitializeComponent();
+            this.InitDB();
+        }
+    private void InitDB()
+        {
             DatabaseConnect.CreateDB();
             DatabaseConnect.InitRod("Test1");
-            DatabaseConnect.InitRod("Test2");
             userView.ItemsSource = DatabaseConnect.GetRecords();
         }
     }
