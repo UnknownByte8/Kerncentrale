@@ -28,6 +28,10 @@ namespace Kerncentrale
 
             gen.SetStoom(1);
             this.InitializeComponent();
+            DatabaseConnect.CreateDB();
+            DatabaseConnect.InitRod("Test1");
+            DatabaseConnect.InitRod("Test2");
+            userView.ItemsSource = DatabaseConnect.GetRecords();
         }
     }
 }
