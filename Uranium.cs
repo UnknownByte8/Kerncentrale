@@ -10,6 +10,11 @@ namespace Kerncentrale
     class Uranium : FuelRod
     {
         private string name;
+        private int huidigeTemperatuur;
+        private int overhittingstemperatuur;
+        private int optimaleTemperatuur;
+        private int onderLimietTemperatuur;
+        private double graadPerLiter;
 
         public bool Execute()
         {
@@ -18,7 +23,31 @@ namespace Kerncentrale
 
         public string GetName()
         {
-            throw new NotImplementedException();
+            return name;
+        }
+
+        public int getHuidigeTemperature(){
+            return huidigeTemperatuur;
+        }
+
+        public int getOnderLimietTemperatuur(){
+            return onderLimietTemperatuur;
+        }
+
+        public int getOptimaleTemperatuur(){
+            return optimaleTemperatuur;
+        }
+
+        public int getOverhittingsTemperatuur(){
+            return overhittingstemperatuur;
+        }
+
+        public double getGraadPerLiter(){
+            return graadPerLiter;
+        }
+
+        public void setTemperature(int newTemprature){
+            huidigeTemperatuur = newTemprature;
         }
     }
 }
