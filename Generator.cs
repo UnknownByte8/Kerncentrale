@@ -47,7 +47,7 @@ namespace Kerncentrale
 
         }
 
-        public void GenerateHWH()
+        public void GenerateKWH()
         {
             SetKWh(Stoom * 9.0);
 
