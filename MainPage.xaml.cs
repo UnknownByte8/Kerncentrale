@@ -25,8 +25,8 @@ namespace Kerncentrale
         public MainPage()
         {
             Generator gen = new Generator(0);
+            double xd = gen.GetTotalKWh();
 
-            gen.SetStoom(1);
             this.InitializeComponent();
         }
     }
