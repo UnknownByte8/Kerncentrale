@@ -10,10 +10,14 @@ namespace Kerncentrale.FuelRod
     {
         private string name;
         private int huidigeTemperatuur;
-        private int overhittingstemperatuur;
+        private int temperatuur;
         private int optimaleTemperatuur;
-        private int onderLimietTemperatuur;
         private double graadPerLiter;
+        private int overhittingsTemperatuur;
+        private int onderLimietTemperatuur;
+        private int tempIncrease;
+
+
 
         public Plutonium()
         {
@@ -23,6 +27,13 @@ namespace Kerncentrale.FuelRod
             SetOptimaleTemperatuur(2500);
             SetOnderLimietTemperatuur(1500);
             SetGraadPerLiter(1.8);
+        }
+
+        public override void Excecute()
+        {
+            
+            
+
         }
 
         public override void SetGraadPerLiter(double value) => this.graadPerLiter = value;
@@ -35,8 +46,10 @@ namespace Kerncentrale.FuelRod
 
         public override void SetOptimaleTemperatuur(int value) => this.optimaleTemperatuur = value;
 
-        public override void SetOverhittingsTemperatuur(int value) => this.overhittingstemperatuur = value;
+        public override void SetOverhittingsTemperatuur(int value) => this.overhittingsTemperatuur = value;
 
         public override void SetTemperatuur(int value) => this.onderLimietTemperatuur = value;
+
+        public override int SetTempIncrease(int value) => this.tempIncrease = value;
     }
 }
