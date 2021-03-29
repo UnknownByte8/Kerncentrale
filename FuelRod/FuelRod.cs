@@ -15,6 +15,9 @@ namespace Kerncentrale.FuelRod
         private double graadPerLiter;
         private int overhittingsTemperatuur;
         private int onderLimietTemperatuur;
+        private int tempIncrease;
+
+        public abstract void Excecute();
 
         public string Name => name;
         public abstract void SetName(string value);
@@ -36,6 +39,10 @@ namespace Kerncentrale.FuelRod
         public abstract void SetOverhittingsTemperatuur(int value);
 
         public int OnderLimietTemperatuur => onderLimietTemperatuur;
+
+        public int TempIncrease => tempIncrease;
+        public abstract int SetTempIncrease(int value);
+
         public abstract void SetOnderLimietTemperatuur(int value);
     }   
 }
