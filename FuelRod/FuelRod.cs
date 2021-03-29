@@ -17,7 +17,12 @@ namespace Kerncentrale.FuelRod
         private int onderLimietTemperatuur;
         private int tempIncrease;
 
+        public void MeltDown(){
+              // Alles kapot
+        }
+        
         public abstract void Excecute();
+        public abstract void AfkoelenMetLitersWater(int waterInLiter);
 
         public string Name => name;
         public abstract void SetName(string value);

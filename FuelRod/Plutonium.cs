@@ -18,7 +18,6 @@ namespace Kerncentrale.FuelRod
         private int tempIncrease;
 
 
-
         public Plutonium()
         {
             SetName("Plutonium");
@@ -27,13 +26,24 @@ namespace Kerncentrale.FuelRod
             SetOptimaleTemperatuur(2500);
             SetOnderLimietTemperatuur(1500);
             SetGraadPerLiter(1.8);
+            SetTempIncrease(3);
         }
 
         public override void Excecute()
         {
+            if(huidigeTemperatuur < onderLimietTemperatuur){
+                 SetHuidigeTemperatuur(huidigeTemperatuur + (tempIncrease * 10));
+            } else{
+                 SetHuidigeTemperatuur(huidigeTemperatuur + tempIncrease);
+            }    
             
-            
+            if(huidigeTemperatuur > overhittingsTemperatuur){
+             MeltDown();
+            }           
+        }
 
+        public override void AfkoelenMetLitersWater(int waterInLiter){
+            SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
         }
 
         public override void SetGraadPerLiter(double value) => this.graadPerLiter = value;
