@@ -30,7 +30,7 @@ namespace Kerncentrale.FuelRod
 
         public override void Excecute()
         {
-            throw new NotImplementedException();
+
         }
 
         public override void SetGraadPerLiter(double value) => this.graadPerLiter = value;
@@ -46,5 +46,10 @@ namespace Kerncentrale.FuelRod
         public override void SetOverhittingsTemperatuur(int value) => this.overhittingsTemperatuur = value;
 
         public override void SetTemperatuur(int value) => this.onderLimietTemperatuur = value;
+
+        public override int SetTempIncrease(int value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
