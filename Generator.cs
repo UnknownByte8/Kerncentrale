@@ -8,25 +8,48 @@ namespace Kerncentrale
 {
     class Generator
     {
-        private int stoom;
+        private double kWh;
+
+        public double GetKWh()
+        {
+            return kWh;
+        }
+        /// <summary>
+        /// Sets current KWh
+        /// </summary>
+        /// <param name="value">Value to set KWh to</param>
+        private void SetKWh(double value)
+        {
+            kWh = value;
+        }
+
+        private double totalKWh;
+
+        public double GetTotalKWh()
+        {
+            return totalKWh;
+        }
+
+        private void SetTotalKWh(double value)
+        {
+            totalKWh = value;
+        }
+
+        public int Stoom { get; set; }
 
         public Generator(int stoom)
         {
-            SetStoom(stoom);
+            Stoom = stoom;
         }
 
-        public int GetStoom()
+        public Generator()
         {
-            return stoom;
+
         }
 
-        public void SetStoom(int value)
+        public void GenerateKWH()
         {
-            stoom = value;
-        }
-
-        public void GenerateHWH()
-        {
+            SetKWh(Stoom * 9.0);
 
         }
     }
