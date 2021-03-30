@@ -5,14 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
 namespace Kerncentrale
 {
     class Reactor : Controllable
     {
-        private List<FuelRod> fuelRods = new List<FuelRod>();
+        private List<FuelRod.FuelRod> fuelRods = new List<FuelRod.FuelRod>();
+        private ThreadingType selectedThreadingType;
 
-        public void addFuelRod(FuelRod fuelRod)
+        public void setSelectedThreadingType(ThreadingType threadingType)
+        {
+            this.selectedThreadingType = threadingType;
+        }
+        public void addFuelRod(FuelRod.FuelRod fuelRod)
         {
             this.fuelRods.Add(fuelRod);
         }
@@ -45,11 +49,25 @@ namespace Kerncentrale
 
         public void threadProcess(Object stateInfo)
         {
-            Debug.WriteLine("Hello this process is being executed");
-            Debug.WriteLine("StateInfo {" + stateInfo + "}");
-            Thread.Sleep(1000);
+            executeThread();
             ThreadPool.QueueUserWorkItem(threadProcess);
         }
+        public void executeThread()
+        {
+            foreach (FuelRod.FuelRod fuelRod in fuelRods)
+            {
+                fuelRod.Excecute();
+                Debug.WriteLine("FuelRod {" + fuelRod.ToString() + "} is being executed");
+            }
+            Thread.Sleep(1000);
 
+            if (this.selectedThreadingType == ThreadingType.MultiThreading)
+            {
+                Thread thread = new Thread(executeThread);
+                thread.Name = this.ToString();
+                thread.Start();
+            }
+
+        }
     }
 }

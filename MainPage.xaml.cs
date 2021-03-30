@@ -27,6 +27,10 @@ namespace Kerncentrale
             Generator gen = new Generator(0);
             double xd = gen.GetTotalKWh();
 
+            Kerncentrale kerncentrale = new Kerncentrale(new Controlroom(), new List<Reactor>(), gen, new Koelsysteem(0));
+            kerncentrale.initializeTmpReactors();
+            kerncentrale.generateThreads();
+
             this.InitializeComponent();
         }
     }
