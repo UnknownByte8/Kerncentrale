@@ -31,9 +31,8 @@ namespace Kerncentrale
             this.InitDB();
         }
     private void InitDB()
-        {
-            DatabaseConnect.CreateDB();
-            DatabaseConnect.InitRod("Test1");
+        {   
+            DatabaseConnect.InitRod("Plutonium","5090","5000000", "90000000");
             userView.ItemsSource = DatabaseConnect.GetRecords();
         }
     }
