@@ -6,9 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource SystemChromeGrayColor}" HorizontalAlignment="Center" VerticalAlignment="Center">
+    
 
     <Grid>
+        <Button Content="Play" Margin="0,397,0,0" Width="377" Height="79" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="48"/>
+        <Button Content="Settings" Margin="0,540,0,0" VerticalAlignment="Top" Width="377" Height="79" HorizontalAlignment="Center" FontSize="48"/>
+        <Button Content="Highscore" Margin="0,677,0,0" VerticalAlignment="Top" Click="Button_Click" Height="79" Width="377" HorizontalAlignment="Center" FontSize="48"/>
 
     </Grid>
 </Page>
