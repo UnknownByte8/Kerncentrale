@@ -5,8 +5,8 @@
     xmlns:local="using:Kerncentrale"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource SystemChromeGrayColor}" HorizontalAlignment="Center" VerticalAlignment="Center">
+    mc:Ignorable="d">
+    
 
     <Grid>
         <ComboBox x:Name="Threads" Header="Aantal Threads" PlaceholderText="Selecteer antaal threads" Margin="0,286,0,0" Width="335" Height="100" SelectionChanged="ComboBox_SelectionChanged" FontSize="24" HorizontalAlignment="Center">
