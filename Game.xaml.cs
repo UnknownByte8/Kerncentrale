@@ -13,36 +13,23 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Kerncentrale
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class Game : Page
     {
-        public MainPage()
+        public Game()
         {
-            Generator gen = new Generator(0);
-
-            gen.SetStoom(1);
             this.InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
-        }
 
-        private void Settings_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(Settings));
-        }
-
-        private void Play_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(Game));
         }
     }
 }
