@@ -10,6 +10,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Custom:DataGrid x:Name="userView" Margin="10,10,10,10"/>
+        <!-- <Rectangle HorizontalAlignment="Left" Height="600" Margin="394,84,0,0" Stroke="Black" VerticalAlignment="Top" Width="150"/> -->
+
+        <Custom:DataGrid x:Name="userView" Margin="10,10,960,10"/>
+        <Custom:DataGrid x:Name="userView2" Margin="500,10,350,10"/>
     </Grid>
 </Page>

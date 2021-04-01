@@ -28,12 +28,18 @@ namespace Kerncentrale
             Generator gen = new Generator(0);
             gen.SetStoom(1);
             this.InitializeComponent();
+            
             this.InitDB();
         }
-    private void InitDB()
-        {   
+
+
+        private void InitDB()
+        {
+            DatabaseConnect.CreateDB();
             DatabaseConnect.InitRod("Plutonium","5090","5000000", "90000000");
             userView.ItemsSource = DatabaseConnect.GetRecords();
+            userView2.ItemsSource = DatabaseConnect.GetHighscore();
         }
     }
+
 }
