@@ -26,10 +26,24 @@ namespace Kerncentrale.FuelRod
             SetOptimaleTemperatuur(4000);
             SetOnderLimietTemperatuur(3000);
             SetGraadPerLiter(0.5);
+            SetTempIncrease(5);
         }
 
         public override void Excecute()
         {
+            if(huidigeTemperatuur < onderLimietTemperatuur){
+                 SetHuidigeTemperatuur(huidigeTemperatuur + (tempIncrease * 10));
+            } else{
+                 SetHuidigeTemperatuur(huidigeTemperatuur + tempIncrease);
+            }    
+            
+            if(huidigeTemperatuur > overhittingsTemperatuur){
+             MeltDown();
+            }
+        }
+
+         public override void AfkoelenMetLitersWater(int waterInLiter){
+            SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
 
         }
 
