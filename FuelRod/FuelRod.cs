@@ -9,45 +9,45 @@ namespace Kerncentrale.FuelRod
     public abstract class FuelRod
     {
         private string name;
-        private int huidigeTemperatuur;
-        private int temperatuur;
-        private int optimaleTemperatuur;
+        private double huidigeTemperatuur;
+        private double temperatuur;
+        private double optimaleTemperatuur;
         private double graadPerLiter;
-        private int overhittingsTemperatuur;
-        private int onderLimietTemperatuur;
-        private int tempIncrease;
+        private double overhittingsTemperatuur;
+        private double onderLimietTemperatuur;
+        private double tempIncrease;
 
         public void MeltDown(){
               // Alles kapot
         }
         
         public abstract void Excecute();
-        public abstract void AfkoelenMetLitersWater(int waterInLiter);
+        public abstract void AfkoelenMetLitersWater(double waterInLiter);
 
         public string Name => name;
         public abstract void SetName(string value);
 
-        public int HuidigeTemperatuur => huidigeTemperatuur;
+        public double HuidigeTemperatuur => huidigeTemperatuur;
 
-        public abstract void SetHuidigeTemperatuur(int value);
+        public abstract void SetHuidigeTemperatuur(double value);
 
-        public int Temperatuur => temperatuur;
-        public abstract void SetTemperatuur(int value);
+        public double Temperatuur => temperatuur;
+        public abstract void SetTemperatuur(double value);
 
-        public int OptimaleTemperatuur => optimaleTemperatuur;
-        public abstract void SetOptimaleTemperatuur(int value);
+        public double OptimaleTemperatuur => optimaleTemperatuur;
+        public abstract void SetOptimaleTemperatuur(double value);
 
         public double GraadPerLiter => graadPerLiter;
         public abstract void SetGraadPerLiter(double value);
 
-        public int OverhittingsTemperatuur => overhittingsTemperatuur;
-        public abstract void SetOverhittingsTemperatuur(int value);
+        public double OverhittingsTemperatuur => overhittingsTemperatuur;
+        public abstract void SetOverhittingsTemperatuur(double value);
 
-        public int OnderLimietTemperatuur => onderLimietTemperatuur;
+        public double OnderLimietTemperatuur => onderLimietTemperatuur;
 
-        public int TempIncrease => tempIncrease;
-        public abstract int SetTempIncrease(int value);
+        public double TempIncrease => tempIncrease;
+        public abstract double SetTempIncrease(double value);
 
-        public abstract void SetOnderLimietTemperatuur(int value);
+        public abstract void SetOnderLimietTemperatuur(double value);
     }   
 }
