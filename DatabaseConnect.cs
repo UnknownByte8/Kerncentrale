@@ -122,7 +122,7 @@ namespace Kerncentrale
             using (SqliteConnection con = new SqliteConnection($"Filename={DBPath}"))
             {
                 con.Open();
-                String selectCmd = "SELECT GameNumber, WaterUsed, WattGenerated, PointsScored FROM HighScoreData";
+                String selectCmd = "SELECT GameNumber, WaterUsed, WattGenerated, PointsScored FROM HighScoreData ORDER BY PointsScored ASC";
                 SqliteCommand cmd_getData = new SqliteCommand(selectCmd, con);
                 SqliteDataReader reader = cmd_getData.ExecuteReader();
                 while (reader.Read())
@@ -133,5 +133,33 @@ namespace Kerncentrale
             }
             return ScoreList;
         }
+        public static void UpdateHighScore(String GameNumber, String WaterUsed, String WattGenerated, String PointsScored)
+        {
+            if (!GameNumber.Equals("") && !WaterUsed.Equals("") && !WattGenerated.Equals("") && !PointsScored.Equals(""))
+            {
+                string pathToDB = Path.Combine(ApplicationData.Current.LocalFolder.Path, "PowerPlantDatabase.db");
+                using (SqliteConnection con = new SqliteConnection($"Filename={pathToDB}"))
+                {
+                    try
+                    {
+                        con.Open();
+                        SqliteCommand CMD_Insert = new SqliteCommand();
+                        CMD_Insert.Connection = con;
+                        CMD_Insert.CommandText = "INSERT INTO [HighScoreData] (GameNumber, WaterUsed, WattGenerated, PointsScored) VALUES (@GameNumber, @WaterUsed, @WattGenerated, @PointsScored)";
+                        CMD_Insert.Parameters.AddWithValue("GameNumber", GameNumber);
+                        CMD_Insert.Parameters.AddWithValue("WaterUsed", WaterUsed);
+                        CMD_Insert.Parameters.AddWithValue("WattGenerated", WattGenerated);
+                        CMD_Insert.Parameters.AddWithValue("PointsScored", PointsScored);
+                        CMD_Insert.ExecuteReader();
+                        con.Close();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
+        }
+
     }
 }
