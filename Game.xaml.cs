@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,11 +27,36 @@ namespace Kerncentrale
         public Game()
         {
             this.InitializeComponent();
+            WaterText.Text = Water.Value.ToString();
+            TemperatureText.Text = Temperature.Value.ToString();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void WaterUp(object sender, RoutedEventArgs e)
         {
+            Water.Value += 1;
+            WaterText.Text = Water.Value.ToString();
+            Debug.WriteLine(Water.Value);
+        }
+
+        private void WaterDown(object sender, RoutedEventArgs e)
+        {
+            Water.Value -= 1;
+            WaterText.Text = Water.Value.ToString();
 
         }
+
+        private void EnergyUp(object sender, RoutedEventArgs e)
+        {
+            Energy.Value += 1;
+            EnergyText.Text = Energy.Value.ToString();
+        }
+
+        private void EnergyDown(object sender, RoutedEventArgs e)
+        {
+            Energy.Value -= 1;
+            EnergyText.Text = Energy.Value.ToString();
+        }
+
+
     }
 }

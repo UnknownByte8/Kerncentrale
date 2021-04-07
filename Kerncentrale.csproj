@@ -144,6 +144,8 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="System\Windows\Media.cs" />
+    <Compile Include="System\Windows\Shapes.cs" />
     <Compile Include="Uranium.cs" />
   </ItemGroup>
   <ItemGroup>
