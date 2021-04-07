@@ -26,13 +26,26 @@ namespace Kerncentrale
     {
         public Game()
         {
+
             this.InitializeComponent();
             WaterText.Text = Water.Value.ToString();
+            EnergyText.Text = Energy.Value.ToString();
             TemperatureText.Text = Temperature.Value.ToString();
         }
 
+        public void createButton(string name)
+        {
+
+        }
+
+        public void createProgressbar(string name)
+        {
+
+        }
+        // Reactor 1
         private void WaterUp(object sender, RoutedEventArgs e)
         {
+            
             Water.Value += 1;
             WaterText.Text = Water.Value.ToString();
             Debug.WriteLine(Water.Value);
@@ -57,6 +70,63 @@ namespace Kerncentrale
             EnergyText.Text = Energy.Value.ToString();
         }
 
+        //Reactor 2
+
+        private void WaterUp2(object sender, RoutedEventArgs e)
+        {
+
+            Water2.Value += 1;
+            WaterText2.Text = Water2.Value.ToString();
+            Debug.WriteLine(Water.Value);
+        }
+
+        private void WaterDown2(object sender, RoutedEventArgs e)
+        {
+            Water2.Value -= 1;
+            WaterText2.Text = Water2.Value.ToString();
+
+        }
+
+        private void EnergyUp2(object sender, RoutedEventArgs e)
+        {
+            Energy2.Value += 1;
+            EnergyText2.Text = Energy2.Value.ToString();
+        }
+
+        private void EnergyDown2(object sender, RoutedEventArgs e)
+        {
+            Energy2.Value -= 1;
+            EnergyText2.Text = Energy2.Value.ToString();
+        }
+
+        //Reactor 3
+
+        private void WaterUp3(object sender, RoutedEventArgs e)
+        {
+
+            Water3.Value += 1;
+            WaterText3.Text = Water3.Value.ToString();
+            Debug.WriteLine(Water3.Value);
+        }
+
+        private void WaterDown3(object sender, RoutedEventArgs e)
+        {
+            Water3.Value -= 1;
+            WaterText3.Text = Water3.Value.ToString();
+
+        }
+
+        private void EnergyUp3(object sender, RoutedEventArgs e)
+        {
+            Energy3.Value += 1;
+            EnergyText3.Text = Energy3.Value.ToString();
+        }
+
+        private void EnergyDown3(object sender, RoutedEventArgs e)
+        {
+            Energy3.Value -= 1;
+            EnergyText3.Text = Energy3.Value.ToString();
+        }
 
     }
 }
