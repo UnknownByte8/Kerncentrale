@@ -43,6 +43,7 @@ namespace Kerncentrale
 
         }
         // Reactor 1
+        // Water wordt toegevoegd aan de reactor
         private void WaterUp(object sender, RoutedEventArgs e)
         {
             
