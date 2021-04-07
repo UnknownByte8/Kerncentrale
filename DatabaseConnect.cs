@@ -42,7 +42,7 @@ namespace Kerncentrale
             }
         }
 
-        public static void InitRod(String FuelType, String Temparature, String Water, String Generated)
+        public static void UpdateCurrentGame(String FuelType, String Temparature, String Water, String Generated)
         {
             if (!FuelType.Equals("") && !Temparature.Equals("") && !Water.Equals("") && !Generated.Equals(""))
             {
