@@ -24,13 +24,6 @@ namespace Kerncentrale
     {
         public MainPage()
         {
-            Generator gen = new Generator(0);
-            var xd = gen.TotalKWh;
-
-            Kerncentrale kerncentrale = new Kerncentrale(new Controlroom(), new List<Reactor>(), gen, new Koelsysteem(0));
-            kerncentrale.initializeTmpReactors();
-            kerncentrale.generateThreads();
-
             this.InitializeComponent();
         }
 

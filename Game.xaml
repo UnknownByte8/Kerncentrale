@@ -125,6 +125,8 @@
             <TextBlock x:Name="TemperatureText3" HorizontalAlignment="Left" Margin="466,66,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
         </Grid>
+        <Button Content="Button Up" Margin="278,60,0,0" Grid.Row="1" VerticalAlignment="Top" Click="reactorOffsetUp"/>
+        <Button Content="Button Down" Margin="386,58,0,0" Grid.Row="1" VerticalAlignment="Top" Click="reactorOffsetDown"/>
 
     </Grid>
 </Page>

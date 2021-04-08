@@ -21,15 +21,20 @@ namespace Kerncentrale
         private Koelsysteem koelsysteem;
         private ThreadingType threadingType;
 
-        public Kerncentrale(Controlroom controlroom, List<Reactor> reactors, Generator generator, Koelsysteem koelsysteem)
+        public Kerncentrale()
         {
-            this.controlroom = controlroom;
-            this.reactors = reactors;
-            this.generator = generator;
-            this.koelsysteem = koelsysteem;
+            this.controlroom = new Controlroom();
+            this.reactors = new List<Reactor>(); 
+            this.generator = new Generator(); ;
+            this.koelsysteem = new Koelsysteem(15);
             this.threadingType = ThreadingType.SingleThreading;
             this.initializeTmpReactors();
             this.generateThreads();
+        }
+
+        public List<Reactor> getReactors()
+        {
+            return this.reactors;
         }
 
         public void initializeTmpReactors()
