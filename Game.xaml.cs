@@ -32,6 +32,7 @@ namespace Kerncentrale
             this.InitializeComponent();
 
             updateWaterLabels();
+            updateEnergyLabels();
             
             WaterText.Text = Water.Value.ToString();
             EnergyText.Text = Energy.Value.ToString();
@@ -56,6 +57,15 @@ namespace Kerncentrale
             WaterText2.Text = Water2.Value.ToString();
             Water3.Value = kerncentrale.getReactors()[reactorOffset + 2].getWaterFuelRods();
             WaterText3.Text = Water3.Value.ToString();
+        }
+        private void updateEnergyLabels()
+        {
+            Energy.Value = kerncentrale.getReactors()[reactorOffset].getEnergy();
+            EnergyText.Text = Energy.Value.ToString();
+            Energy2.Value = kerncentrale.getReactors()[reactorOffset + 1].getEnergy();
+            EnergyText2.Text = Energy2.Value.ToString();
+            Energy3.Value = kerncentrale.getReactors()[reactorOffset + 2].getEnergy();
+            EnergyText3.Text = Energy3.Value.ToString();
         }
         private void execute(int offset, int labelNumber)
         {
@@ -82,12 +92,16 @@ namespace Kerncentrale
             if ((this.reactorOffset + 2) < kerncentrale.getReactors().Count)
                 this.reactorOffset++;
             updateWaterLabels();
+            updateEnergyLabels();
+
         }
         private void reactorOffsetDown(object sender, RoutedEventArgs e)
         {
             if (this.reactorOffset > 1)
                 reactorOffset--;
             updateWaterLabels();
+            updateEnergyLabels();
+
         }
 
         // Reactor 1

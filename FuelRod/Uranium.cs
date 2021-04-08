@@ -17,11 +17,12 @@ namespace Kerncentrale.FuelRod
         private double overhittingsTemperatuur;
         private double onderLimietTemperatuur;
         private double tempIncrease;
+        private double stoom;
 
         public Uranium()
         {
             SetName("Uranium");
-            SetHuidigeTemperatuur(0);
+            SetHuidigeTemperatuur(20);
             SetOverhittingsTemperatuur(5000);
             SetOptimaleTemperatuur(4000);
             SetOnderLimietTemperatuur(3000);
@@ -43,8 +44,17 @@ namespace Kerncentrale.FuelRod
             AfkoelenMetLitersWater(this.LiterWater);
         }
 
-         public override void AfkoelenMetLitersWater(double waterInLiter){
+        public override void AfkoelenMetLitersWater(double waterInLiter){
             SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
+
+            GenerateSteam(this.huidigeTemperatuur);
+        }
+
+        public override void GenerateSteam(double temperatuur)
+        {
+            double tmp = (temperatuur / 61) * 0.8;
+            
+            Stoom = tmp;
 
         }
 

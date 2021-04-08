@@ -17,16 +17,12 @@ namespace Kerncentrale
     {
         private Controlroom controlroom;
         private List<Reactor> reactors;
-        private Generator generator;
-        private Koelsysteem koelsysteem;
         private ThreadingType threadingType;
 
         public Kerncentrale()
         {
             this.controlroom = new Controlroom();
             this.reactors = new List<Reactor>(); 
-            this.generator = new Generator(); ;
-            this.koelsysteem = new Koelsysteem(15);
             this.threadingType = ThreadingType.MultiThreading;
             this.initializeTmpReactors();
             this.generateThreads();

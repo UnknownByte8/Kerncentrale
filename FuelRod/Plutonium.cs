@@ -16,12 +16,14 @@ namespace Kerncentrale.FuelRod
         private double overhittingsTemperatuur;
         private double onderLimietTemperatuur;
         private double tempIncrease;
+        private double stoom;
+
 
 
         public Plutonium()
         {
             SetName("Plutonium");
-            SetHuidigeTemperatuur(0);
+            SetHuidigeTemperatuur(20);
             SetOverhittingsTemperatuur(6000);
             SetOptimaleTemperatuur(2500);
             SetOnderLimietTemperatuur(1500);
@@ -47,6 +49,16 @@ namespace Kerncentrale.FuelRod
 
         public override void AfkoelenMetLitersWater(double waterInLiter){
             SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
+
+            GenerateSteam(HuidigeTemperatuur);
+        }
+
+        public override void GenerateSteam(double temperatuur)
+        {
+            double tmpStoom = temperatuur*38;
+
+            Stoom = tmpStoom;
+
         }
 
         public override void SetGraadPerLiter(double value) => this.graadPerLiter = value;
@@ -64,5 +76,6 @@ namespace Kerncentrale.FuelRod
         public override void SetTemperatuur(double value) => this.onderLimietTemperatuur = value;
 
         public override double SetTempIncrease(double value) => this.tempIncrease = value;
+
     }
 }

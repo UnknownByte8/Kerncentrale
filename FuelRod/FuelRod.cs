@@ -17,12 +17,14 @@ namespace Kerncentrale.FuelRod
         private double onderLimietTemperatuur;
         private double tempIncrease;
         private double literWater;
+        private double stoom;
         public void MeltDown(){
               // Alles kapot
         }
         
         public abstract void Excecute();
         public abstract void AfkoelenMetLitersWater(double waterInLiter);
+        public abstract void GenerateSteam(double temperatuur);
 
         public string Name => name;
         public abstract void SetName(string value);
@@ -48,6 +50,7 @@ namespace Kerncentrale.FuelRod
         public double TempIncrease => tempIncrease;
 
         public double LiterWater { get => literWater; set => literWater = value; }
+        public double Stoom { get => stoom; set => stoom = value; }
 
         public abstract double SetTempIncrease(double value);
 

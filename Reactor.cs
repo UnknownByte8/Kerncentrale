@@ -11,6 +11,12 @@ namespace Kerncentrale
     {
         private List<FuelRod.FuelRod> fuelRods = new List<FuelRod.FuelRod>();
         private ThreadingType selectedThreadingType;
+        private Generator generator;
+
+        public Reactor()
+        {
+            this.generator = new Generator();
+        }
 
         public void setSelectedThreadingType(ThreadingType threadingType)
         {
@@ -32,10 +38,20 @@ namespace Kerncentrale
         {
             return this.fuelRods[0].LiterWater;
         }
-        public int generateSteam()
+        public double getEnergy()
         {
-            int stoom = 1;
-            return stoom;
+            double tmpStoom = 0;
+            double energy = 0;
+            foreach (FuelRod.FuelRod fuelrod in fuelRods)
+            {
+                tmpStoom += fuelrod.Stoom; 
+            }
+            if(tmpStoom != 0 && tmpStoom > 0)
+            {
+                generator.GenerateEnergy(tmpStoom);
+                energy = generator.GetKWh();
+            }
+            return energy;
         }
 
         public void threadProcess(Object stateInfo)
@@ -50,7 +66,7 @@ namespace Kerncentrale
                 fuelRod.Excecute();
                 Debug.WriteLine("FuelRod {" + fuelRod.ToString() + "} is being executed");
             }
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
 
             if (this.selectedThreadingType == ThreadingType.MultiThreading)
             {
