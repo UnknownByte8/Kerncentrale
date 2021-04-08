@@ -35,28 +35,36 @@ namespace Kerncentrale
             updateWaterLabels();
             updateEnergyLabels();
             updateNameLabels(reactorOffset);
-            continuousThread();
+            
 
             WaterText.Text = Water.Value.ToString();
             EnergyText.Text = Energy.Value.ToString();
             TemperatureText.Text = Temperature.Value.ToString();
 
         }
+
+
         private void continuousThread()
         {
             Thread th = new Thread(() =>
             {
                 while (true)
                 {
-                    //call getEnergy & update labels
+                    //call getEnergy for given reactor & update labels
                     updateEnergyLabels();
-                    kerncentrale.getReactors()[reactorOffset].executeThread();
+
+
+                    //call executethread in given reactor
+                    //why?
+
+                    //kerncentrale.getReactors()[reactorOffset].executeThread();
 
                 }
             });
 
             th.Start();
         }
+
         private void updateWaterLabels()
         {
             if ((reactorOffset + 2) != 100)
