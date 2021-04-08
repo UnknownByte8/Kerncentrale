@@ -129,7 +129,8 @@
     </Compile>
     <Compile Include="Controllable.cs" />
     <Compile Include="Controlroom.cs" />
-    <Compile Include="FuelRod.cs" />
+    <Compile Include="FuelRod\FuelRod.cs" />
+    <Compile Include="FuelRod\Plutonium.cs" />
     <Compile Include="Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
     </Compile>
@@ -141,12 +142,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reactor.cs" />
+    <Compile Include="FuelRod\Uranium.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="System\Windows\Media.cs" />
     <Compile Include="System\Windows\Shapes.cs" />
-    <Compile Include="Uranium.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
