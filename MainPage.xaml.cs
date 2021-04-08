@@ -41,8 +41,6 @@ namespace Kerncentrale
         private void InitDB()
         {
             DatabaseConnect.CreateDB();
-            DatabaseConnect.UpdateCurrentGame("Plutonium","5090","5000000", "90000000");
-            DatabaseConnect.UpdateHighScore("2", "6964", "35243456", "245624456546574567");
             userView.ItemsSource = DatabaseConnect.GetRecords();
             userView2.ItemsSource = DatabaseConnect.GetHighscore();
         }

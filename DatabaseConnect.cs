@@ -17,8 +17,10 @@ namespace Kerncentrale
             
         }
 
+        //init for the database
         public async static void CreateDB()
         {
+            //file location for the DB
             await ApplicationData.Current.LocalFolder.CreateFileAsync("PowerPlantDatabase.db", CreationCollisionOption.OpenIfExists);
             string pathToDB = Path.Combine(ApplicationData.Current.LocalFolder.Path, "PowerPlantDatabase.db");
             using (SqliteConnection con = new SqliteConnection($"Filename={pathToDB}"))
@@ -32,9 +34,11 @@ namespace Kerncentrale
                     string PowerPlantInfo = "CREATE TABLE IF NOT EXISTS PowerPlantData (RodNumber NVARCHAR(25), FuelType NVARCHAR(25), Temparature NVARCHAR(25), Water NVARCHAR(25), Generated NVARCHAR(25));";
                     //creates the highscoredata table with its columns
                     string HighScoreInfo = "CREATE TABLE IF NOT EXISTS HighScoreData (GameNumber NVARCHAR(25), WaterUsed NVARCHAR(25), WattGenerated NVARCHAR(25), PointsScored NVARCHAR(25));";
+                    //combined string that sets up the database
                     string initCMD = DropPowerPlantInfo + PowerPlantInfo + HighScoreInfo;
-                      
+                    //combined database command
                     SqliteCommand CMDcreateTable = new SqliteCommand(initCMD, con);
+                    //executes the database command
                     CMDcreateTable.ExecuteReader();
                     con.Close();
                 }
@@ -58,6 +62,7 @@ namespace Kerncentrale
                         con.Open();
                         SqliteCommand CMD_Insert = new SqliteCommand();
                         CMD_Insert.Connection = con;
+                        //command that prepares the data to be inserted to the database
                         CMD_Insert.CommandText = "INSERT INTO [PowerPlantData] (FuelType, Temparature, Water, Generated) VALUES (@FuelType, @Temparature, @Water, @Generated)";
                         CMD_Insert.Parameters.AddWithValue("FuelType", FuelType);
                         CMD_Insert.Parameters.AddWithValue("Temparature", Temparature);
@@ -105,6 +110,34 @@ namespace Kerncentrale
             }
             return powerPlantList;
         }
+        public static void UpdateHighScore(String GameNumber, String WaterUsed, String WattGenerated, String PointsScored)
+        {
+            if (!GameNumber.Equals("") && !WaterUsed.Equals("") && !WattGenerated.Equals("") && !PointsScored.Equals(""))
+            {
+                string pathToDB = Path.Combine(ApplicationData.Current.LocalFolder.Path, "PowerPlantDatabase.db");
+                using (SqliteConnection con = new SqliteConnection($"Filename={pathToDB}"))
+                {
+                    try
+                    {
+                        con.Open();
+                        SqliteCommand CMD_Insert = new SqliteCommand();
+                        CMD_Insert.Connection = con;
+                        //command that prepares the data to be inserted to the database
+                        CMD_Insert.CommandText = "INSERT INTO [HighScoreData] (GameNumber, WaterUsed, WattGenerated, PointsScored) VALUES (@GameNumber, @WaterUsed, @WattGenerated, @PointsScored)";
+                        CMD_Insert.Parameters.AddWithValue("GameNumber", GameNumber);
+                        CMD_Insert.Parameters.AddWithValue("WaterUsed", WaterUsed);
+                        CMD_Insert.Parameters.AddWithValue("WattGenerated", WattGenerated);
+                        CMD_Insert.Parameters.AddWithValue("PointsScored", PointsScored);
+                        CMD_Insert.ExecuteReader();
+                        con.Close();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
+        }
         public class ScoreInfo
         {
             public String GameNumber { get; set; }
@@ -126,6 +159,7 @@ namespace Kerncentrale
             using (SqliteConnection con = new SqliteConnection($"Filename={DBPath}"))
             {
                 con.Open();
+
                 String selectCmd = "SELECT GameNumber, WaterUsed, WattGenerated, PointsScored FROM HighScoreData ORDER BY PointsScored ASC";
                 SqliteCommand cmd_getData = new SqliteCommand(selectCmd, con);
                 SqliteDataReader reader = cmd_getData.ExecuteReader();
@@ -136,33 +170,6 @@ namespace Kerncentrale
                 con.Close();
             }
             return ScoreList;
-        }
-        public static void UpdateHighScore(String GameNumber, String WaterUsed, String WattGenerated, String PointsScored)
-        {
-            if (!GameNumber.Equals("") && !WaterUsed.Equals("") && !WattGenerated.Equals("") && !PointsScored.Equals(""))
-            {
-                string pathToDB = Path.Combine(ApplicationData.Current.LocalFolder.Path, "PowerPlantDatabase.db");
-                using (SqliteConnection con = new SqliteConnection($"Filename={pathToDB}"))
-                {
-                    try
-                    {
-                        con.Open();
-                        SqliteCommand CMD_Insert = new SqliteCommand();
-                        CMD_Insert.Connection = con;
-                        CMD_Insert.CommandText = "INSERT INTO [HighScoreData] (GameNumber, WaterUsed, WattGenerated, PointsScored) VALUES (@GameNumber, @WaterUsed, @WattGenerated, @PointsScored)";
-                        CMD_Insert.Parameters.AddWithValue("GameNumber", GameNumber);
-                        CMD_Insert.Parameters.AddWithValue("WaterUsed", WaterUsed);
-                        CMD_Insert.Parameters.AddWithValue("WattGenerated", WattGenerated);
-                        CMD_Insert.Parameters.AddWithValue("PointsScored", PointsScored);
-                        CMD_Insert.ExecuteReader();
-                        con.Close();
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                }
-            }
         }
     }
 }
