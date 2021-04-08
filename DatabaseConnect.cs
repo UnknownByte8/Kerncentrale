@@ -26,8 +26,11 @@ namespace Kerncentrale
                 try
                 {
                     con.Open();
+                    //resets the powerplantdata table
                     string DropPowerPlantInfo = "DROP TABLE PowerPlantData;";
+                    //creates the powerplantdata table with its columns
                     string PowerPlantInfo = "CREATE TABLE IF NOT EXISTS PowerPlantData (RodNumber NVARCHAR(25), FuelType NVARCHAR(25), Temparature NVARCHAR(25), Water NVARCHAR(25), Generated NVARCHAR(25));";
+                    //creates the highscoredata table with its columns
                     string HighScoreInfo = "CREATE TABLE IF NOT EXISTS HighScoreData (GameNumber NVARCHAR(25), WaterUsed NVARCHAR(25), WattGenerated NVARCHAR(25), PointsScored NVARCHAR(25));";
                     string initCMD = DropPowerPlantInfo + PowerPlantInfo + HighScoreInfo;
                       
@@ -46,6 +49,7 @@ namespace Kerncentrale
         {
             if (!FuelType.Equals("") && !Temparature.Equals("") && !Water.Equals("") && !Generated.Equals(""))
             {
+                //the path to the database
                 string pathToDB = Path.Combine(ApplicationData.Current.LocalFolder.Path, "PowerPlantDatabase.db");
                 using (SqliteConnection con = new SqliteConnection($"Filename={pathToDB}"))
                 {
@@ -160,6 +164,5 @@ namespace Kerncentrale
                 }
             }
         }
-
     }
 }

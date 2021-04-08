@@ -67,7 +67,6 @@ namespace Kerncentrale
                 thread.Name = this.ToString();
                 thread.Start();
             }
-
         }
     }
 }

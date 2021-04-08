@@ -27,7 +27,7 @@ namespace Kerncentrale
             this.reactors = reactors;
             this.generator = generator;
             this.koelsysteem = koelsysteem;
-            this.threadingType = ThreadingType.SingleThreading;
+            this.threadingType = ThreadingType.MultiThreading;
             this.initializeTmpReactors();
             this.generateThreads();
         }

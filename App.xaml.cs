@@ -30,9 +30,6 @@ namespace Kerncentrale
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-
-
-    
         }
 
         /// <summary>

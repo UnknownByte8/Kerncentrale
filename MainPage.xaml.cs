@@ -47,5 +47,4 @@ namespace Kerncentrale
             userView2.ItemsSource = DatabaseConnect.GetHighscore();
         }
     }
-
 }
