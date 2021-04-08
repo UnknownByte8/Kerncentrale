@@ -38,7 +38,7 @@ namespace Kerncentrale.FuelRod
             }    
             
             if(huidigeTemperatuur > overhittingsTemperatuur){
-             MeltDown();
+                MeltDown();
             }           
         }
 

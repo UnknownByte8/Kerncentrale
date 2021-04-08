@@ -11,6 +11,8 @@ namespace Kerncentrale
         private double water;
         private double waterTemp;
 
+        public double Temp { get; set; }
+
         /// <summary>
         /// Constructor of Koelsysteem
         /// </summary>
@@ -42,9 +44,6 @@ namespace Kerncentrale
 
         public double DistributeWater()
         {
-
-
-
             return water;
         }
 
