@@ -40,6 +40,7 @@ namespace Kerncentrale.FuelRod
             if(huidigeTemperatuur > overhittingsTemperatuur){
              MeltDown();
             }
+            AfkoelenMetLitersWater(this.LiterWater);
         }
 
          public override void AfkoelenMetLitersWater(double waterInLiter){

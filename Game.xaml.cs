@@ -28,11 +28,14 @@ namespace Kerncentrale
         int reactorOffset = 0;
         public Game()
         {
-
             this.InitializeComponent();
+
+            updateWaterLabels();
+            
             WaterText.Text = Water.Value.ToString();
             EnergyText.Text = Energy.Value.ToString();
             TemperatureText.Text = Temperature.Value.ToString();
+
 
             kerncentrale = new Kerncentrale();
         }
@@ -46,52 +49,62 @@ namespace Kerncentrale
         {
 
         }
+        private void updateWaterLabels()
+        {
+            Water.Value = kerncentrale.getReactors()[reactorOffset].getWaterFuelRods();
+            Water2.Value = kerncentrale.getReactors()[reactorOffset + 1].getWaterFuelRods();
+            Water3.Value = kerncentrale.getReactors()[reactorOffset + 2].getWaterFuelRods();
+        }
+        private void execute(int offset, int labelNumber)
+        {
+            string water = ""; 
+            switch(labelNumber)
+            {
+                case 1:
+                    water = WaterText.Text;
+                    break;
+                case 2:
+                    water = WaterText2.Text;
+                    break;
+                case 3:
+                    water = WaterText3.Text;
+                    break;
+            }
+            //stoom water electriciteit?
+            kerncentrale.getReactors()[offset].koelFuelrods(Int32.Parse(water));
+        }
+        #region reactor_buttons
+
         private void reactorOffsetUp(object sender, RoutedEventArgs e)
         {
-            if((this.reactorOffset+2) < kerncentrale.getReactors().Count)
+            if ((this.reactorOffset + 2) < kerncentrale.getReactors().Count)
                 this.reactorOffset++;
+            updateWaterLabels();
         }
         private void reactorOffsetDown(object sender, RoutedEventArgs e)
         {
-            if(this.reactorOffset > 1)
+            if (this.reactorOffset > 1)
                 reactorOffset--;
-        }
-
-        private void execute(int offset)
-        {
-            //stoom water electriciteit?
+            updateWaterLabels();
         }
 
         // Reactor 1
         // Water wordt toegevoegd aan de reactor
         private void WaterUp(object sender, RoutedEventArgs e)
         {
-            
             Water.Value += 1;
             WaterText.Text = Water.Value.ToString();
             Debug.WriteLine(Water.Value);
-            this.execute(reactorOffset);
+            this.execute(reactorOffset, 1);
         }
 
         private void WaterDown(object sender, RoutedEventArgs e)
         {
             Water.Value -= 1;
             WaterText.Text = Water.Value.ToString();
-            this.execute(reactorOffset);
+            this.execute(reactorOffset, 1);
 
         }
-
-        //private void EnergyUp(object sender, RoutedEventArgs e)
-        //{
-        //    Energy.Value += 1;
-        //    EnergyText.Text = Energy.Value.ToString();
-        //}
-
-        //private void EnergyDown(object sender, RoutedEventArgs e)
-        //{
-        //    Energy.Value -= 1;
-        //    EnergyText.Text = Energy.Value.ToString();
-        //}
 
         //Reactor 2
 
@@ -101,28 +114,16 @@ namespace Kerncentrale
             Water2.Value += 1;
             WaterText2.Text = Water2.Value.ToString();
             Debug.WriteLine(Water.Value);
-            this.execute(reactorOffset+1);
+            this.execute(reactorOffset+1, 2);
         }
 
         private void WaterDown2(object sender, RoutedEventArgs e)
         {
             Water2.Value -= 1;
             WaterText2.Text = Water2.Value.ToString();
-            this.execute(reactorOffset+1);
+            this.execute(reactorOffset+1, 2);
 
         }
-
-        //private void EnergyUp2(object sender, RoutedEventArgs e)
-        //{
-        //    Energy2.Value += 1;
-        //    EnergyText2.Text = Energy2.Value.ToString();
-        //}
-
-        //private void EnergyDown2(object sender, RoutedEventArgs e)
-        //{
-        //    Energy2.Value -= 1;
-        //    EnergyText2.Text = Energy2.Value.ToString();
-        //}
 
         //Reactor 3
 
@@ -132,27 +133,16 @@ namespace Kerncentrale
             Water3.Value += 1;
             WaterText3.Text = Water3.Value.ToString();
             Debug.WriteLine(Water3.Value);
-            this.execute(reactorOffset+2);
+            this.execute(reactorOffset+2, 3);
         }
 
         private void WaterDown3(object sender, RoutedEventArgs e)
         {
             Water3.Value -= 1;
             WaterText3.Text = Water3.Value.ToString();
-            this.execute(reactorOffset+2);
+            this.execute(reactorOffset+2, 3);
         }
-
-        //private void EnergyUp3(object sender, RoutedEventArgs e)
-        //{
-        //    Energy3.Value += 1;
-        //    EnergyText3.Text = Energy3.Value.ToString();
-        //}
-
-        //private void EnergyDown3(object sender, RoutedEventArgs e)
-        //{
-        //    Energy3.Value -= 1;
-        //    EnergyText3.Text = Energy3.Value.ToString();
-        //}
+        #endregion
 
     }
 }

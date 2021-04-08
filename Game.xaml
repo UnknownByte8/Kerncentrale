@@ -26,8 +26,6 @@
 
             <RepeatButton Content="Up" Margin="103,699,0,0" VerticalAlignment="Top" Click="WaterUp"/>
             <RepeatButton Content="Down" Margin="94,745,0,0" VerticalAlignment="Top" Click="WaterDown"/>
-            <RepeatButton Content="Up" Margin="276,698,0,0" VerticalAlignment="Top" Click="EnergyUp"/>
-            <RepeatButton Content="Down" Margin="265,744,0,0" VerticalAlignment="Top" Click="EnergyDown"/>
             <Rectangle HorizontalAlignment="Left" Height="600" Margin="50,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="150"/>
 
             <ProgressBar x:Name="Water" Value="50" Maximum="100" Foreground="Aqua" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="150" Margin="-175,311,0,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">
@@ -62,8 +60,6 @@
 
             <RepeatButton Content="Up" Margin="103,699,0,0" VerticalAlignment="Top" Click="WaterUp2"/>
             <RepeatButton Content="Down" Margin="94,745,0,0" VerticalAlignment="Top" Click="WaterDown2"/>
-            <RepeatButton Content="Up" Margin="276,698,0,0" VerticalAlignment="Top" Click="EnergyUp2"/>
-            <RepeatButton Content="Down" Margin="265,744,0,0" VerticalAlignment="Top" Click="EnergyDown2"/>
             <Rectangle HorizontalAlignment="Left" Height="600" Margin="50,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="150"/>
 
             <ProgressBar x:Name="Water2" Value="50" Maximum="100" Foreground="Aqua" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="150" Margin="-175,311,0,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">
@@ -97,8 +93,6 @@
 
             <RepeatButton Content="Up" Margin="103,699,0,0" VerticalAlignment="Top" Click="WaterUp3"/>
             <RepeatButton Content="Down" Margin="94,745,0,0" VerticalAlignment="Top" Click="WaterDown3"/>
-            <RepeatButton Content="Up" Margin="276,698,0,0" VerticalAlignment="Top" Click="EnergyUp3"/>
-            <RepeatButton Content="Down" Margin="265,744,0,0" VerticalAlignment="Top" Click="EnergyDown3"/>
             <Rectangle HorizontalAlignment="Left" Height="600" Margin="50,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="150"/>
 
             <ProgressBar x:Name="Water3" Value="50" Maximum="100" Foreground="Aqua" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="150" Margin="-175,311,0,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">

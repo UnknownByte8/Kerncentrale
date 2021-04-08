@@ -16,7 +16,7 @@ namespace Kerncentrale.FuelRod
         private double overhittingsTemperatuur;
         private double onderLimietTemperatuur;
         private double tempIncrease;
-
+        private double literWater;
         public void MeltDown(){
               // Alles kapot
         }
@@ -46,6 +46,9 @@ namespace Kerncentrale.FuelRod
         public double OnderLimietTemperatuur => onderLimietTemperatuur;
 
         public double TempIncrease => tempIncrease;
+
+        public double LiterWater { get => literWater; set => literWater = value; }
+
         public abstract double SetTempIncrease(double value);
 
         public abstract void SetOnderLimietTemperatuur(double value);

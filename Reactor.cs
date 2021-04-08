@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Kerncentrale
 {
-    class Reactor : Controllable
+    class Reactor
     {
         private List<FuelRod.FuelRod> fuelRods = new List<FuelRod.FuelRod>();
         private ThreadingType selectedThreadingType;
@@ -21,26 +21,17 @@ namespace Kerncentrale
             this.fuelRods.Add(fuelRod);
         }
 
-        public void ChangeWater()
+        public void koelFuelrods(int water)
         {
-            throw new NotImplementedException();
+            foreach (FuelRod.FuelRod fuelrod in fuelRods)
+            {
+                fuelrod.LiterWater = water;
+            }
         }
-
-        public void ExecutekillSwitch()
+        public double getWaterFuelRods()
         {
-            throw new NotImplementedException();
+            return this.fuelRods[0].LiterWater;
         }
-
-        public void GetTemperatuur()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TestSwtitch()
-        {
-            throw new NotImplementedException();
-        }
-
         public int generateSteam()
         {
             int stoom = 1;
