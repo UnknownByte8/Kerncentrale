@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
 
-        <Grid x:Name="Grid1" Grid.Column="0" Grid.Row="0" Padding="20" VerticalAlignment="Top" BorderBrush="Black"  Background="White" >
+        <Grid x:Name="Grid1" Grid.Column="0" Grid.Row="0" Padding="20" VerticalAlignment="Top" BorderBrush="Black" >
             <Rectangle HorizontalAlignment="Center" Stroke="Black" Height="800" Margin="0,0,0,0"  VerticalAlignment="Top" Width="580"/>
 
             <RepeatButton Content="Up" Margin="103,699,0,0" VerticalAlignment="Top" Click="WaterUp"/>
@@ -54,7 +54,7 @@
 
         </Grid>
 
-        <Grid x:Name="Grid2" Grid.Column="1" Grid.Row="0" Padding="20" VerticalAlignment="Top" Background="White" >
+        <Grid x:Name="Grid2" Grid.Column="1" Grid.Row="0" Padding="20" VerticalAlignment="Top" >
             <Rectangle HorizontalAlignment="Center" Height="800" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="580"/>
             <Rectangle HorizontalAlignment="Center" Stroke="Black" Height="800" Margin="0,0,0,0"  VerticalAlignment="Top" Width="580"/>
 
@@ -87,7 +87,7 @@
 
         </Grid>
 
-        <Grid x:Name="Grid3" Grid.Column="2" Grid.Row="0" Padding="20" VerticalAlignment="Top" Background="White" >
+        <Grid x:Name="Grid3" Grid.Column="2" Grid.Row="0" Padding="20" VerticalAlignment="Top" >
             <Rectangle HorizontalAlignment="Center" Height="800" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="580"/>
             <Rectangle HorizontalAlignment="Center" Stroke="Black" Height="800" Margin="0,0,0,0"  VerticalAlignment="Top" Width="580"/>
 
