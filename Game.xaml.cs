@@ -24,8 +24,9 @@ namespace Kerncentrale
     /// </summary>
     public sealed partial class Game : Page
     {
-        Kerncentrale kerncentrale;
+        Kerncentrale kerncentrale = new Kerncentrale();
         int reactorOffset = 0;
+
         public Game()
         {
             this.InitializeComponent();
@@ -36,8 +37,6 @@ namespace Kerncentrale
             EnergyText.Text = Energy.Value.ToString();
             TemperatureText.Text = Temperature.Value.ToString();
 
-
-            kerncentrale = new Kerncentrale();
         }
 
         public void createButton(string name)
@@ -52,8 +51,11 @@ namespace Kerncentrale
         private void updateWaterLabels()
         {
             Water.Value = kerncentrale.getReactors()[reactorOffset].getWaterFuelRods();
+            WaterText.Text = Water.Value.ToString();
             Water2.Value = kerncentrale.getReactors()[reactorOffset + 1].getWaterFuelRods();
+            WaterText2.Text = Water2.Value.ToString();
             Water3.Value = kerncentrale.getReactors()[reactorOffset + 2].getWaterFuelRods();
+            WaterText3.Text = Water3.Value.ToString();
         }
         private void execute(int offset, int labelNumber)
         {
