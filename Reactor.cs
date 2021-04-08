@@ -66,7 +66,7 @@ namespace Kerncentrale
                 fuelRod.Excecute();
                 Debug.WriteLine("FuelRod {" + fuelRod.ToString() + "} is being executed");
             }
-            //Thread.Sleep(1000);
+            Thread.Sleep(1000);
 
             if (this.selectedThreadingType == ThreadingType.MultiThreading)
             {

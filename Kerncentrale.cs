@@ -40,7 +40,7 @@ namespace Kerncentrale
             {
                 Reactor reactor = new Reactor();
                 reactor.setSelectedThreadingType(this.threadingType);
-                int rndNumber = rnd.Next(0, 25);
+                int rndNumber = rnd.Next(5, 25);
                 for (int j = 0; j < rndNumber; j++)
                 {
                     if (rndNumber % 2 == 1)

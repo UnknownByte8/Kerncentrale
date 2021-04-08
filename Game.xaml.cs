@@ -33,7 +33,9 @@ namespace Kerncentrale
 
             updateWaterLabels();
             updateEnergyLabels();
-            
+            updateNameLabels(reactorOffset);
+
+
             WaterText.Text = Water.Value.ToString();
             EnergyText.Text = Energy.Value.ToString();
             TemperatureText.Text = Temperature.Value.ToString();
@@ -67,6 +69,13 @@ namespace Kerncentrale
             Energy3.Value = kerncentrale.getReactors()[reactorOffset + 2].getEnergy();
             EnergyText3.Text = Energy3.Value.ToString();
         }
+
+        private void updateNameLabels(int id)
+        {
+            NameLabel.Text = "Reactor " + (id+1);
+            NameLabel2.Text = "Reactor " + (id+2);
+            NameLabel3.Text = "Reactor " + (id+3);
+        }
         private void execute(int offset, int labelNumber)
         {
             string water = ""; 
@@ -93,14 +102,16 @@ namespace Kerncentrale
                 this.reactorOffset++;
             updateWaterLabels();
             updateEnergyLabels();
+            updateNameLabels(reactorOffset);
 
         }
         private void reactorOffsetDown(object sender, RoutedEventArgs e)
         {
-            if (this.reactorOffset > 1)
+            if (this.reactorOffset > 0)
                 reactorOffset--;
             updateWaterLabels();
             updateEnergyLabels();
+            updateNameLabels(reactorOffset);
 
         }
 
