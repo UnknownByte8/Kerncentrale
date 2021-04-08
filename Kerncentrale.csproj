@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="Controllable.cs" />
     <Compile Include="Controlroom.cs" />
+    <Compile Include="DatabaseConnect.cs" />
     <Compile Include="FuelRod\FuelRod.cs" />
     <Compile Include="FuelRod\Plutonium.cs" />
     <Compile Include="Generator.cs" />
@@ -167,8 +168,14 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite">
+      <Version>5.0.4</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
+      <Version>6.1.1</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

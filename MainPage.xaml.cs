@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +26,7 @@ namespace Kerncentrale
         public MainPage()
         {
             Generator gen = new Generator(0);
+
             double xd = gen.GetTotalKWh();
 
             Kerncentrale kerncentrale = new Kerncentrale(new Controlroom(), new List<Reactor>(), gen, new Koelsysteem(0));
@@ -32,6 +34,18 @@ namespace Kerncentrale
             kerncentrale.generateThreads();
 
             this.InitializeComponent();
+            
+            this.InitDB();
+        }
+
+        private void InitDB()
+        {
+            DatabaseConnect.CreateDB();
+            DatabaseConnect.UpdateCurrentGame("Plutonium","5090","5000000", "90000000");
+            DatabaseConnect.UpdateHighScore("2", "6964", "35243456", "245624456546574567");
+            userView.ItemsSource = DatabaseConnect.GetRecords();
+            userView2.ItemsSource = DatabaseConnect.GetHighscore();
         }
     }
+
 }
