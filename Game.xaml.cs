@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -34,22 +35,27 @@ namespace Kerncentrale
             updateWaterLabels();
             updateEnergyLabels();
             updateNameLabels(reactorOffset);
-
+            continuousThread();
 
             WaterText.Text = Water.Value.ToString();
             EnergyText.Text = Energy.Value.ToString();
             TemperatureText.Text = Temperature.Value.ToString();
 
         }
-
-        public void createButton(string name)
+        private void continuousThread()
         {
+            Thread th = new Thread(() =>
+            {
+                while (true)
+                {
+                    //call getEnergy & update labels
+                    updateEnergyLabels();
+                    kerncentrale.getReactors()[reactorOffset].executeThread();
 
-        }
+                }
+            });
 
-        public void createProgressbar(string name)
-        {
-
+            th.Start();
         }
         private void updateWaterLabels()
         {
@@ -93,6 +99,7 @@ namespace Kerncentrale
             }
             //stoom water electriciteit?
             kerncentrale.getReactors()[offset].koelFuelrods(Int32.Parse(water));
+
         }
         #region reactor_buttons
 

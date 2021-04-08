@@ -50,7 +50,7 @@ namespace Kerncentrale.FuelRod
         public override void AfkoelenMetLitersWater(double waterInLiter){
             SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
 
-            GenerateSteam(HuidigeTemperatuur);
+            GenerateSteam(GetHuidigeTemperatuur());
         }
 
         public override void GenerateSteam(double temperatuur)
@@ -64,7 +64,10 @@ namespace Kerncentrale.FuelRod
         public override void SetGraadPerLiter(double value) => this.graadPerLiter = value;
 
         public override void SetHuidigeTemperatuur(double value) => this.huidigeTemperatuur = value;
-
+        public override double GetHuidigeTemperatuur()
+        {
+            return this.huidigeTemperatuur;
+        }
         public override void SetName(string value) => this.name = value;
 
         public override void SetOnderLimietTemperatuur(double value) => this.onderLimietTemperatuur = value;

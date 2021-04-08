@@ -38,8 +38,9 @@ namespace Kerncentrale.FuelRod
                  SetHuidigeTemperatuur(huidigeTemperatuur + tempIncrease);
             }    
             
-            if(huidigeTemperatuur > overhittingsTemperatuur){
-             MeltDown();
+            if(huidigeTemperatuur >= overhittingsTemperatuur)
+            {
+                MeltDown();
             }
             AfkoelenMetLitersWater(this.LiterWater);
         }
@@ -47,7 +48,7 @@ namespace Kerncentrale.FuelRod
         public override void AfkoelenMetLitersWater(double waterInLiter){
             SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
 
-            GenerateSteam(this.huidigeTemperatuur);
+            GenerateSteam(GetHuidigeTemperatuur());
         }
 
         public override void GenerateSteam(double temperatuur)
@@ -61,6 +62,10 @@ namespace Kerncentrale.FuelRod
         public override void SetGraadPerLiter(double value) => this.graadPerLiter = value;
 
         public override void SetHuidigeTemperatuur(double value) => this.huidigeTemperatuur = value;
+        public override double GetHuidigeTemperatuur()
+        {
+            return this.huidigeTemperatuur;
+        }
 
         public override void SetName(string value) => this.name = value;
 
@@ -74,5 +79,6 @@ namespace Kerncentrale.FuelRod
 
         public override double SetTempIncrease(double value) => this.tempIncrease = value;
 
+        
     }
 }

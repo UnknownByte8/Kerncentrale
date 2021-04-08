@@ -20,6 +20,7 @@ namespace Kerncentrale.FuelRod
         private double stoom;
         public void MeltDown(){
               // Alles kapot
+            
         }
         
         public abstract void Excecute();
@@ -29,7 +30,8 @@ namespace Kerncentrale.FuelRod
         public string Name => name;
         public abstract void SetName(string value);
 
-        public double HuidigeTemperatuur => huidigeTemperatuur;
+        public abstract double GetHuidigeTemperatuur();
+
 
         public abstract void SetHuidigeTemperatuur(double value);
 

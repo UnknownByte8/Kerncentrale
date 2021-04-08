@@ -10,7 +10,7 @@ namespace Kerncentrale
     {
         private double kWh;
         private double totalKWh;
-        public int Stoom { get; set; }
+        public double stoom;
         public double TotalKWh { get => totalKWh; set => totalKWh = value; }
 
         public double GetKWh()
@@ -26,9 +26,18 @@ namespace Kerncentrale
             kWh = value;
         }
 
+        public void SetStoom(double value)
+        {
+            this.stoom = value;
+        }
+
+        public double GetStoom()
+        {
+            return this.stoom;
+        }
         public Generator(int stoom)
         {
-            Stoom = stoom;
+            SetStoom(stoom);
         }
 
         public Generator()
@@ -36,11 +45,13 @@ namespace Kerncentrale
 
         }
 
-        public void GenerateEnergy(double stoom)
+        public void GenerateEnergy(double tmpStoom)
         {
-            SetKWh(Stoom * 9.0);
+            SetStoom(tmpStoom);
+            double tmpKwh = (GetStoom() *9.0);
+            SetKWh(tmpKwh);
 
-            TotalKWh += kWh;
+            this.TotalKWh += this.kWh;
         }
     }
 }
