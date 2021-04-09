@@ -80,6 +80,8 @@ namespace Kerncentrale
         }
         private void updateEnergyLabels()
         {
+            Thread thread = new Thread(this.updateEnergyLabels);
+            thread.Name = "Update Energy Labels ";
             if ((reactorOffset + 2) != 100)
             {
                 Energy.Value = kerncentrale.getReactors()[reactorOffset].getEnergy();
@@ -89,6 +91,8 @@ namespace Kerncentrale
                 Energy3.Value = kerncentrale.getReactors()[reactorOffset + 2].getEnergy();
                 EnergyText3.Text = Energy3.Value.ToString();
             }
+            Thread.Sleep(1000);
+            thread.Start();
         }
 
         private void updateNameLabels(int id)
