@@ -19,8 +19,8 @@ namespace Kerncentrale.FuelRod
         private double literWater;
         private double stoom;
         public void MeltDown(){
-              // Alles kapot
-            
+            throw new MeltdownExeption();
+              // Alles kapot            
         }
         
         public abstract void Excecute();

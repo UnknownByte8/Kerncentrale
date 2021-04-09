@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace Kerncentrale.FuelRod
         {
             SetName("Uranium");
             SetHuidigeTemperatuur(20);
-            SetOverhittingsTemperatuur(5000);
+            SetOverhittingsTemperatuur(500);
             SetOptimaleTemperatuur(4000);
             SetOnderLimietTemperatuur(3000);
             SetGraadPerLiter(0.5);
@@ -32,17 +33,19 @@ namespace Kerncentrale.FuelRod
 
         public override void Excecute()
         {
-            if(huidigeTemperatuur < onderLimietTemperatuur){
+  if(huidigeTemperatuur < onderLimietTemperatuur){
                  SetHuidigeTemperatuur(huidigeTemperatuur + (tempIncrease * 10));
-            } else{
+            } else if (huidigeTemperatuur < overhittingsTemperatuur){
                  SetHuidigeTemperatuur(huidigeTemperatuur + tempIncrease);
             }    
-            
+                           
             if(huidigeTemperatuur >= overhittingsTemperatuur)
             {
                 MeltDown();
             }
             AfkoelenMetLitersWater(this.LiterWater);
+           
+          
         }
 
         public override void AfkoelenMetLitersWater(double waterInLiter){

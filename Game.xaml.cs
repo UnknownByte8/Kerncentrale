@@ -1,35 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Kerncentrale
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class Game : Page
+     public sealed partial class Game : Page
     {
         Kerncentrale kerncentrale = new Kerncentrale();
         int reactorOffset = 0;
 
         public Game()
         {
+   
             this.InitializeComponent();
 
             updateWaterLabels();
@@ -67,7 +51,7 @@ namespace Kerncentrale
 
         private void updateWaterLabels()
         {
-            if ((reactorOffset + 2) != 100)
+            if ((reactorOffset + 2) < 20 )
             {
                 Water.Value = kerncentrale.getReactors()[reactorOffset].getWaterFuelRods();
                 WaterText.Text = Water.Value.ToString();
@@ -80,7 +64,7 @@ namespace Kerncentrale
         }
         private void updateEnergyLabels()
         {
-            if ((reactorOffset + 2) != 100)
+            if ((reactorOffset + 2) < 20)
             {
                 Energy.Value = kerncentrale.getReactors()[reactorOffset].getEnergy();
                 EnergyText.Text = Energy.Value.ToString();
@@ -99,6 +83,7 @@ namespace Kerncentrale
         }
         private void execute(int offset, int labelNumber)
         {
+            if(offset < 20) { 
             string water = ""; 
             switch(labelNumber)
             {
@@ -114,7 +99,7 @@ namespace Kerncentrale
             }
             //stoom water electriciteit?
             kerncentrale.getReactors()[offset].koelFuelrods(Int32.Parse(water));
-
+            }
         }
         #region reactor_buttons
 
@@ -190,6 +175,12 @@ namespace Kerncentrale
             Water3.Value -= 1;
             WaterText3.Text = Water3.Value.ToString();
             this.execute(reactorOffset+2, 3);
+        }
+
+        public void backToMenu()
+        {
+            Debug.WriteLine("GA UIT");
+          //  this.Frame.Navigate(typeof(MainPage));
         }
         #endregion
 

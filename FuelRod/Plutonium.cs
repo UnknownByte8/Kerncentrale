@@ -24,7 +24,7 @@ namespace Kerncentrale.FuelRod
         {
             SetName("Plutonium");
             SetHuidigeTemperatuur(20);
-            SetOverhittingsTemperatuur(6000);
+            SetOverhittingsTemperatuur(500);
             SetOptimaleTemperatuur(2500);
             SetOnderLimietTemperatuur(1500);
             SetGraadPerLiter(1.8);
@@ -33,9 +33,11 @@ namespace Kerncentrale.FuelRod
 
         public override void Excecute()
         {
-            if(huidigeTemperatuur < onderLimietTemperatuur){
+                 if(huidigeTemperatuur < onderLimietTemperatuur){
                  SetHuidigeTemperatuur(huidigeTemperatuur + (tempIncrease * 10));
-            } else{
+            }
+            else if (huidigeTemperatuur < overhittingsTemperatuur)
+            {
                  SetHuidigeTemperatuur(huidigeTemperatuur + tempIncrease);
             }    
             
@@ -44,6 +46,8 @@ namespace Kerncentrale.FuelRod
             }
 
             AfkoelenMetLitersWater(this.LiterWater);
+           
+            
 
         }
 

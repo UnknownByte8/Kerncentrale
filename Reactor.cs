@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+
 namespace Kerncentrale
 {
     class Reactor
@@ -12,7 +15,6 @@ namespace Kerncentrale
         private List<FuelRod.FuelRod> fuelRods = new List<FuelRod.FuelRod>();
         private ThreadingType selectedThreadingType;
         private Generator generator;
-
         public Reactor()
         {
             this.generator = new Generator();
@@ -44,9 +46,9 @@ namespace Kerncentrale
             double energy = 0;
             foreach (FuelRod.FuelRod fuelrod in fuelRods)
             {
-                tmpStoom += fuelrod.Stoom; 
+                tmpStoom += fuelrod.Stoom;
             }
-            if(tmpStoom != 0 && tmpStoom > 0)
+            if (tmpStoom != 0 && tmpStoom > 0)
             {
                 generator.GenerateEnergy(tmpStoom);
                 energy = generator.GetKWh();
@@ -61,10 +63,22 @@ namespace Kerncentrale
         }
         public void executeThread()
         {
-            foreach (FuelRod.FuelRod fuelRod in fuelRods)
+            try
             {
-                fuelRod.Excecute();
-                Debug.WriteLine("FuelRod {" + fuelRod.ToString() + "} is being executed");
+                foreach (FuelRod.FuelRod fuelRod in fuelRods)
+                {
+
+                    fuelRod.Excecute();
+
+                }
+            }
+            catch (MeltdownExeption e)
+            {
+                //score doorgeven
+
+                Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.");
+                Environment.Exit(Environment.ExitCode);
+                return;
             }
             Thread.Sleep(1000);
 
@@ -72,7 +86,14 @@ namespace Kerncentrale
             {
                 Thread thread = new Thread(executeThread);
                 thread.Name = this.ToString();
-                thread.Start();
+                try
+                {
+                    thread.Start();
+                }
+                catch (MeltdownExeption e)
+                {
+                    thread.Abort();
+                }
             }
 
         }
