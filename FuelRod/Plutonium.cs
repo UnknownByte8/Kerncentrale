@@ -4,18 +4,17 @@
     {
         private string name;
         private double huidigeTemperatuur;
-        private double temperatuur;
         private double optimaleTemperatuur;
         private double graadPerLiter;
         private double overhittingsTemperatuur;
         private double onderLimietTemperatuur;
         private double tempIncrease;
-        private double stoom;
-
-
 
         public Plutonium()
         {
+            /*
+             * assign data to plutonium
+             */
             SetName("Plutonium");
             SetHuidigeTemperatuur(20);
             SetOverhittingsTemperatuur(5000);
@@ -25,6 +24,9 @@
             SetTempIncrease(3);
         }
 
+        /*
+         * This wil get executed to increase the temperature or cool 
+         */
         public override void Excecute()
         {
             if (huidigeTemperatuur < onderLimietTemperatuur)
@@ -40,11 +42,7 @@
             {
                 MeltDown();
             }
-
             AfkoelenMetLitersWater(this.LiterWater);
-
-
-
         }
 
         public override void AfkoelenMetLitersWater(double waterInLiter)
@@ -54,11 +52,13 @@
             GenerateSteam(GetHuidigeTemperatuur());
         }
 
+        /*
+         * Steam will be created so energy will come to existence 
+         */
         public override void GenerateSteam(double temperatuur)
         {
             double tmpStoom = temperatuur * 0.2;
             Stoom = tmpStoom;
-
         }
 
         public override void SetGraadPerLiter(double value) => this.graadPerLiter = value;
@@ -79,6 +79,5 @@
         public override void SetTemperatuur(double value) => this.onderLimietTemperatuur = value;
 
         public override double SetTempIncrease(double value) => this.tempIncrease = value;
-
     }
 }

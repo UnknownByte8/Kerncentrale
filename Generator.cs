@@ -11,10 +11,13 @@
         {
             return kWh;
         }
-        /// <summary>
-        /// Sets current KWh
-        /// </summary>
-        /// <param name="value">Value to set KWh to</param>
+
+        /* 
+         * <summary>
+         * Sets current KWh
+         *</summary>
+         *<param name="value">Value to set KWh to</param>
+         */
         private void SetKWh(double value)
         {
             kWh = value;
@@ -39,6 +42,9 @@
 
         }
 
+        /*
+       * calculate how much energy is created
+       */
         public void GenerateEnergy(double tmpStoom)
         {
             SetStoom(tmpStoom);

@@ -128,7 +128,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="MeltdownExeption.cs" />
-    <Compile Include="Controllable.cs" />
     <Compile Include="FuelRod\FuelRod.cs" />
     <Compile Include="FuelRod\Plutonium.cs" />
     <Compile Include="Game.xaml.cs">
@@ -136,7 +135,6 @@
     </Compile>
     <Compile Include="Generator.cs" />
     <Compile Include="Kerncentrale.cs" />
-    <Compile Include="Koelsysteem.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

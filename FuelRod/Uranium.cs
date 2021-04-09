@@ -5,16 +5,17 @@
     {
         private string name;
         private double huidigeTemperatuur;
-        private double temperatuur;
         private double optimaleTemperatuur;
         private double graadPerLiter;
         private double overhittingsTemperatuur;
         private double onderLimietTemperatuur;
         private double tempIncrease;
-        private double stoom;
 
         public Uranium()
         {
+            /*
+             * assign data to uranium
+             */
             SetName("Uranium");
             SetHuidigeTemperatuur(20);
             SetOverhittingsTemperatuur(6000);
@@ -24,6 +25,9 @@
             SetTempIncrease(5);
         }
 
+        /*
+        * This wil get executed to increase the temperature or cool 
+        */
         public override void Excecute()
         {
             if (huidigeTemperatuur < onderLimietTemperatuur)
@@ -51,9 +55,13 @@
             GenerateSteam(GetHuidigeTemperatuur());
         }
 
+        /*
+         * Steam will be created so energy will come to existence 
+         */
         public override void GenerateSteam(double temperatuur)
         {
-            double tmp = temperatuur * 0.1;          
+            double tmp = temperatuur * 0.1;
+
             Stoom = tmp;
 
         }
@@ -77,7 +85,5 @@
         public override void SetTemperatuur(double value) => this.onderLimietTemperatuur = value;
 
         public override double SetTempIncrease(double value) => this.tempIncrease = value;
-
-
     }
 }

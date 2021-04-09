@@ -15,15 +15,22 @@ namespace Kerncentrale
             this.generator = new Generator();
         }
 
+        /*
+         * set the selected TreadingType 
+         */
         public void setSelectedThreadingType(ThreadingType threadingType)
         {
             this.selectedThreadingType = threadingType;
         }
+
         public void addFuelRod(FuelRod.FuelRod fuelRod)
         {
             this.fuelRods.Add(fuelRod);
         }
 
+        /*
+         * every fuelrods will be cooled of with an assigned amount of water
+         */
         public void koelFuelrods(int water)
         {
             foreach (FuelRod.FuelRod fuelrod in fuelRods)
@@ -35,6 +42,10 @@ namespace Kerncentrale
         {
             return this.fuelRods[0].LiterWater;
         }
+
+        /*
+         * create and return the amount of energy gotton out of steam
+         */
         public double getEnergy()
         {
             double tmpStoom = 0;
@@ -56,21 +67,22 @@ namespace Kerncentrale
             executeThread();
             ThreadPool.QueueUserWorkItem(threadProcess);
         }
+
+        /*
+         * execute thread
+         * when MeltdownExeption is thrown the program will shut down becouse the whole kerncentrale exploded.
+         */
         public void executeThread()
         {
             try
             {
                 foreach (FuelRod.FuelRod fuelRod in fuelRods)
                 {
-
                     fuelRod.Excecute();
-
                 }
             }
             catch (MeltdownExeption e)
             {
-                //score doorgeven
-
                 Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.");
                 Environment.Exit(Environment.ExitCode);
                 return;

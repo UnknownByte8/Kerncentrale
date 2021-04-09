@@ -28,6 +28,9 @@ namespace Kerncentrale
             return this.reactors;
         }
 
+        /*
+         * Set random fuelRods to the reactor
+         */
         public void initializeTmpReactors()
         {
             Random rnd = new Random();
@@ -47,11 +50,9 @@ namespace Kerncentrale
             }
         }
 
-        public int AddThreads(int amount)
-        {
-            return amount;
-        }
-
+        /*
+         * setup for threads
+         */
         public void generateThreads()
         {
             foreach (Reactor reactor in this.reactors)

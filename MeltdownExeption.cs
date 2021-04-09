@@ -6,6 +6,7 @@ namespace Kerncentrale
     {
         public MeltdownExeption()
         {
+
         }
 
         public MeltdownExeption(string message)

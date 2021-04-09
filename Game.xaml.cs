@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -14,42 +13,20 @@ namespace Kerncentrale
 
         public Game()
         {
-
             this.InitializeComponent();
 
             updateWaterLabels();
             updateEnergyLabels();
             updateNameLabels(reactorOffset);
 
-
             WaterText.Text = Water.Value.ToString();
             EnergyText.Text = Energy.Value.ToString();
             TemperatureText.Text = Temperature.Value.ToString();
-
         }
 
-
-        private void continuousThread()
-        {
-            Thread th = new Thread(() =>
-            {
-                while (true)
-                {
-                    //call getEnergy for given reactor & update labels
-                    updateEnergyLabels();
-
-
-                    //call executethread in given reactor
-                    //why?
-
-                    //kerncentrale.getReactors()[reactorOffset].executeThread();
-
-                }
-            });
-
-            th.Start();
-        }
-
+        /*
+       * This wil change waterlabels 
+       */
         private void updateWaterLabels()
         {
             if ((reactorOffset + 2) < 20)
@@ -61,8 +38,11 @@ namespace Kerncentrale
                 Water3.Value = kerncentrale.getReactors()[reactorOffset + 2].getWaterFuelRods();
                 WaterText3.Text = Water3.Value.ToString();
             }
-
         }
+
+        /*
+          * This wil change energylabels 
+        */
         private void updateEnergyLabels()
         {
             if (!energyLabeInUse)
@@ -103,6 +83,10 @@ namespace Kerncentrale
             NameLabel2.Text = "Reactor " + (id + 2);
             NameLabel3.Text = "Reactor " + (id + 3);
         }
+
+        /*
+        * This wil get executed to change labels 
+        */
         private void execute(int offset, int labelNumber)
         {
             if (offset < 20)
@@ -120,7 +104,6 @@ namespace Kerncentrale
                         water = WaterText3.Text;
                         break;
                 }
-                //stoom water electriciteit?
                 kerncentrale.getReactors()[offset].koelFuelrods(Int32.Parse(water));
             }
         }
@@ -142,7 +125,6 @@ namespace Kerncentrale
             updateWaterLabels();
             updateEnergyLabels();
             updateNameLabels(reactorOffset);
-
         }
 
         // Reactor 1
@@ -160,14 +142,11 @@ namespace Kerncentrale
             Water.Value -= 1;
             WaterText.Text = Water.Value.ToString();
             this.execute(reactorOffset, 1);
-
         }
 
         //Reactor 2
-
         private void WaterUp2(object sender, RoutedEventArgs e)
         {
-
             Water2.Value += 1;
             WaterText2.Text = Water2.Value.ToString();
             Debug.WriteLine(Water.Value);
@@ -179,14 +158,11 @@ namespace Kerncentrale
             Water2.Value -= 1;
             WaterText2.Text = Water2.Value.ToString();
             this.execute(reactorOffset + 1, 2);
-
         }
 
         //Reactor 3
-
         private void WaterUp3(object sender, RoutedEventArgs e)
         {
-
             Water3.Value += 1;
             WaterText3.Text = Water3.Value.ToString();
             Debug.WriteLine(Water3.Value);
@@ -199,13 +175,6 @@ namespace Kerncentrale
             WaterText3.Text = Water3.Value.ToString();
             this.execute(reactorOffset + 2, 3);
         }
-
-        public void backToMenu()
-        {
-            Debug.WriteLine("GA UIT");
-            //  this.Frame.Navigate(typeof(MainPage));
-        }
         #endregion
-
     }
 }
