@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kerncentrale
+﻿namespace Kerncentrale
 {
     class Generator
     {
@@ -48,7 +42,7 @@ namespace Kerncentrale
         public void GenerateEnergy(double tmpStoom)
         {
             SetStoom(tmpStoom);
-            double tmpKwh = (GetStoom() *9.0);
+            double tmpKwh = (GetStoom() * 9.0);
             SetKWh(tmpKwh);
 
             this.TotalKWh += this.kWh;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kerncentrale.FuelRod
+﻿namespace Kerncentrale.FuelRod
 {
     class Plutonium : FuelRod
     {
@@ -24,7 +18,7 @@ namespace Kerncentrale.FuelRod
         {
             SetName("Plutonium");
             SetHuidigeTemperatuur(20);
-            SetOverhittingsTemperatuur(500);
+            SetOverhittingsTemperatuur(500000000);
             SetOptimaleTemperatuur(2500);
             SetOnderLimietTemperatuur(1500);
             SetGraadPerLiter(1.8);
@@ -33,25 +27,28 @@ namespace Kerncentrale.FuelRod
 
         public override void Excecute()
         {
-                 if(huidigeTemperatuur < onderLimietTemperatuur){
-                 SetHuidigeTemperatuur(huidigeTemperatuur + (tempIncrease * 10));
+            if (huidigeTemperatuur < onderLimietTemperatuur)
+            {
+                SetHuidigeTemperatuur(huidigeTemperatuur + (tempIncrease * 10));
             }
             else if (huidigeTemperatuur < overhittingsTemperatuur)
             {
-                 SetHuidigeTemperatuur(huidigeTemperatuur + tempIncrease);
-            }    
-            
-            if(huidigeTemperatuur > overhittingsTemperatuur){
+                SetHuidigeTemperatuur(huidigeTemperatuur + tempIncrease);
+            }
+
+            if (huidigeTemperatuur > overhittingsTemperatuur)
+            {
                 MeltDown();
             }
 
             AfkoelenMetLitersWater(this.LiterWater);
-           
-            
+
+
 
         }
 
-        public override void AfkoelenMetLitersWater(double waterInLiter){
+        public override void AfkoelenMetLitersWater(double waterInLiter)
+        {
             SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
 
             GenerateSteam(GetHuidigeTemperatuur());
@@ -59,7 +56,7 @@ namespace Kerncentrale.FuelRod
 
         public override void GenerateSteam(double temperatuur)
         {
-            double tmpStoom = temperatuur*38;
+            double tmpStoom = temperatuur * 38;
 
             Stoom = tmpStoom;
 

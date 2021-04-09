@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kerncentrale
+﻿namespace Kerncentrale
 {
     class Koelsysteem
     {
@@ -39,7 +33,7 @@ namespace Kerncentrale
 
         private void SetWaterTemp(double restWaarde)
         {
-            waterTemp = restWaarde*0.40;
+            waterTemp = restWaarde * 0.40;
         }
 
         public double DistributeWater()

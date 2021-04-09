@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Kerncentrale
 {
@@ -21,7 +17,7 @@ namespace Kerncentrale
 
         public Kerncentrale()
         {
-            this.reactors = new List<Reactor>(); 
+            this.reactors = new List<Reactor>();
             this.threadingType = ThreadingType.MultiThreading;
             this.initializeTmpReactors();
             this.generateThreads();
@@ -59,24 +55,24 @@ namespace Kerncentrale
         public void generateThreads()
         {
             foreach (Reactor reactor in this.reactors)
-            {                
-                    switch (this.threadingType)
-                    {
-                        case ThreadingType.SingleThreading:
+            {
+                switch (this.threadingType)
+                {
+                    case ThreadingType.SingleThreading:
                         reactor.executeThread();
-                     break;
-                        case ThreadingType.MultiThreading:
-                       
-                            Thread thread = new Thread(reactor.executeThread);
-                            thread.Name = reactor.ToString();
-                            thread.Start(); 
-                            break;
-                            case ThreadingType.ThreadPool:
-                            ThreadPool.QueueUserWorkItem(reactor.threadProcess);
-                            break;
-                    
+                        break;
+                    case ThreadingType.MultiThreading:
+
+                        Thread thread = new Thread(reactor.executeThread);
+                        thread.Name = reactor.ToString();
+                        thread.Start();
+                        break;
+                    case ThreadingType.ThreadPool:
+                        ThreadPool.QueueUserWorkItem(reactor.threadProcess);
+                        break;
+
                 }
-            
+
             }
         }
     }

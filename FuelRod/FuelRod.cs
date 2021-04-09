@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kerncentrale.FuelRod
+﻿namespace Kerncentrale.FuelRod
 {
     public abstract class FuelRod
     {
@@ -18,11 +12,12 @@ namespace Kerncentrale.FuelRod
         private double tempIncrease;
         private double literWater;
         private double stoom;
-        public void MeltDown(){
+        public void MeltDown()
+        {
             throw new MeltdownExeption();
-              // Alles kapot            
+            // Alles kapot            
         }
-        
+
         public abstract void Excecute();
         public abstract void AfkoelenMetLitersWater(double waterInLiter);
         public abstract void GenerateSteam(double temperatuur);
@@ -57,5 +52,5 @@ namespace Kerncentrale.FuelRod
         public abstract double SetTempIncrease(double value);
 
         public abstract void SetOnderLimietTemperatuur(double value);
-    }   
+    }
 }
