@@ -17,7 +17,7 @@
         {
             SetName("Uranium");
             SetHuidigeTemperatuur(20);
-            SetOverhittingsTemperatuur(5000);
+            SetOverhittingsTemperatuur(6000);
             SetOptimaleTemperatuur(4000);
             SetOnderLimietTemperatuur(3000);
             SetGraadPerLiter(0.5);
@@ -53,8 +53,7 @@
 
         public override void GenerateSteam(double temperatuur)
         {
-            double tmp = (temperatuur / 61) * 0.8;
-
+            double tmp = temperatuur * 0.1;          
             Stoom = tmp;
 
         }

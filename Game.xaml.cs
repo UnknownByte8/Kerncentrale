@@ -65,7 +65,6 @@ namespace Kerncentrale
         }
         private void updateEnergyLabels()
         {
-
             if (!energyLabeInUse)
             {
                 if ((reactorOffset + 2) < 20)
@@ -96,8 +95,6 @@ namespace Kerncentrale
             thread.Name = "Update Energy Labels ";
             Thread.Sleep(1000);
             thread.Start();
-
-
         }
 
         private void updateNameLabels(int id)
