@@ -24,7 +24,7 @@ namespace Kerncentrale.FuelRod
         {
             SetName("Plutonium");
             SetHuidigeTemperatuur(20);
-            SetOverhittingsTemperatuur(500);
+            SetOverhittingsTemperatuur(5000);
             SetOptimaleTemperatuur(2500);
             SetOnderLimietTemperatuur(1500);
             SetGraadPerLiter(1.8);
@@ -59,7 +59,7 @@ namespace Kerncentrale.FuelRod
 
         public override void GenerateSteam(double temperatuur)
         {
-            double tmpStoom = temperatuur*38;
+            double tmpStoom = temperatuur * 0.2;
 
             Stoom = tmpStoom;
 
