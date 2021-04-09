@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,13 +16,11 @@ namespace Kerncentrale
     }
     class Kerncentrale
     {
-        private Controlroom controlroom;
         private List<Reactor> reactors;
         private ThreadingType threadingType;
 
         public Kerncentrale()
         {
-            this.controlroom = new Controlroom();
             this.reactors = new List<Reactor>(); 
             this.threadingType = ThreadingType.MultiThreading;
             this.initializeTmpReactors();
@@ -36,7 +35,7 @@ namespace Kerncentrale
         public void initializeTmpReactors()
         {
             Random rnd = new Random();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 20; i++)
             {
                 Reactor reactor = new Reactor();
                 reactor.setSelectedThreadingType(this.threadingType);
@@ -60,21 +59,24 @@ namespace Kerncentrale
         public void generateThreads()
         {
             foreach (Reactor reactor in this.reactors)
-            {
-                switch (this.threadingType)
-                {
-                    case ThreadingType.SingleThreading:
+            {                
+                    switch (this.threadingType)
+                    {
+                        case ThreadingType.SingleThreading:
                         reactor.executeThread();
-                        break;
-                    case ThreadingType.MultiThreading:
-                        Thread thread = new Thread(reactor.executeThread);
-                        thread.Name = reactor.ToString();
-                        thread.Start();
-                        break;
-                    case ThreadingType.ThreadPool:
-                        ThreadPool.QueueUserWorkItem(reactor.threadProcess);
-                        break;
+                     break;
+                        case ThreadingType.MultiThreading:
+                       
+                            Thread thread = new Thread(reactor.executeThread);
+                            thread.Name = reactor.ToString();
+                            thread.Start(); 
+                            break;
+                            case ThreadingType.ThreadPool:
+                            ThreadPool.QueueUserWorkItem(reactor.threadProcess);
+                            break;
+                    
                 }
+            
             }
         }
     }

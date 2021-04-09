@@ -127,8 +127,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MeltdownExeption.cs" />
     <Compile Include="Controllable.cs" />
-    <Compile Include="Controlroom.cs" />
     <Compile Include="FuelRod\FuelRod.cs" />
     <Compile Include="FuelRod\Plutonium.cs" />
     <Compile Include="Game.xaml.cs">
