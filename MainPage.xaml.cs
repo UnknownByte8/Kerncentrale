@@ -1,3 +1,14 @@
+
+
+
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -14,6 +25,7 @@ namespace Kerncentrale
         {
             this.InitializeComponent();
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -34,6 +46,15 @@ namespace Kerncentrale
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Game));
+            this.InitDB();
+        }
+
+        private void InitDB()
+        {
+            DatabaseConnect.CreateDB();
+            //userView.ItemsSource = DatabaseConnect.GetRecords();
+            //userView2.ItemsSource = DatabaseConnect.GetHighscore();
+
         }
     }
 }

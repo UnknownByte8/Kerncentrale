@@ -102,7 +102,6 @@ namespace Kerncentrale
                     thread.Abort();
                 }
             }
-
         }
     }
 }
