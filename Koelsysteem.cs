@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kerncentrale
+﻿namespace Kerncentrale
 {
     class Koelsysteem
     {
         private double water;
         private double waterTemp;
+
+        public double Temp { get; set; }
 
         /// <summary>
         /// Constructor of Koelsysteem
@@ -37,14 +33,11 @@ namespace Kerncentrale
 
         private void SetWaterTemp(double restWaarde)
         {
-            waterTemp = restWaarde*0.40;
+            waterTemp = restWaarde * 0.40;
         }
 
         public double DistributeWater()
         {
-
-
-
             return water;
         }
 

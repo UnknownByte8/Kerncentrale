@@ -6,13 +6,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,24 +20,39 @@ namespace Kerncentrale
     {
         public MainPage()
         {
-            Generator gen = new Generator(0);
-
-            double xd = gen.GetTotalKWh();
-
-            Kerncentrale kerncentrale = new Kerncentrale(new Controlroom(), new List<Reactor>(), gen, new Koelsysteem(0));
-            kerncentrale.initializeTmpReactors();
-            kerncentrale.generateThreads();
-
             this.InitializeComponent();
-            
+        }
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.InitializeComponent();
             this.InitDB();
+
+        }
+
+        /*
+         * click on settings button
+         */
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Settings));
+        }
+
+        /*
+         * click on play button
+         */
+        private void Play_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Game));
         }
 
         private void InitDB()
         {
             DatabaseConnect.CreateDB();
-            userView.ItemsSource = DatabaseConnect.GetRecords();
-            userView2.ItemsSource = DatabaseConnect.GetHighscore();
+            //userView.ItemsSource = DatabaseConnect.GetRecords();
+            //userView2.ItemsSource = DatabaseConnect.GetHighscore();
+
         }
     }
 }

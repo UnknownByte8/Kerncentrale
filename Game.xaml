@@ -1,0 +1,129 @@
+﻿<Page
+    x:Class="Kerncentrale.Game"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kerncentrale"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="mainGrid" Padding="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" MaxWidth="640" />
+            <ColumnDefinition Width="1*" MaxWidth="640" />
+            <ColumnDefinition Width="1*" MaxWidth="640" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="900" />
+            <RowDefinition Height="180" />
+        </Grid.RowDefinitions>
+
+
+        <Grid x:Name="Grid1" Grid.Column="0" Grid.Row="0" Padding="20" VerticalAlignment="Top" BorderBrush="Black" >
+            <Rectangle HorizontalAlignment="Center" Stroke="Black" Height="800" Margin="0,0,0,0"  VerticalAlignment="Top" Width="580"/>
+
+            <RepeatButton Content="Up" Margin="103,699,0,0" VerticalAlignment="Top" Click="WaterUp"/>
+            <RepeatButton Content="Down" Margin="94,745,0,0" VerticalAlignment="Top" Click="WaterDown"/>
+            <Rectangle HorizontalAlignment="Left" Height="600" Margin="50,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="150"/>
+
+            <ProgressBar x:Name="Water" Value="50" Maximum="100" Foreground="Aqua" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="150" Margin="-175,311,0,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">
+                <ProgressBar.RenderTransform>
+                    <CompositeTransform Rotation="-90"/>
+                </ProgressBar.RenderTransform>
+            </ProgressBar>
+            <Grid Margin="0,86,0,0" Height="600" Width="150" VerticalAlignment="Top">
+
+                <ProgressBar x:Name="Energy" Value="1" Maximum="1000000" Foreground="Yellow" BorderBrush="Black" BorderThickness="2" Height="150" Width="600" RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="False" d:LayoutRounding="Auto" Margin="-225,0,-225,0" >
+                    <ProgressBar.RenderTransform>
+                        <CompositeTransform Rotation="-90"/>
+                    </ProgressBar.RenderTransform>
+                </ProgressBar>
+            </Grid>
+            <ProgressBar x:Name="Temperature" Value="1" Maximum="100" Foreground="Red" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Right" Height="150" Margin="0,311,-178,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">
+                <ProgressBar.RenderTransform>
+                    <CompositeTransform Rotation="-90"/>
+                </ProgressBar.RenderTransform>
+            </ProgressBar>
+
+            <TextBlock x:Name="WaterText" HorizontalAlignment="Left" Margin="114,61,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="EnergyText" HorizontalAlignment="Left" Margin="291,64,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="TemperatureText" HorizontalAlignment="Left" Margin="466,66,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="NameLabel" HorizontalAlignment="Left" Margin="269,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+
+        </Grid>
+
+        <Grid x:Name="Grid2" Grid.Column="1" Grid.Row="0" Padding="20" VerticalAlignment="Top" >
+            <Rectangle HorizontalAlignment="Center" Height="800" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="580"/>
+            <Rectangle HorizontalAlignment="Center" Stroke="Black" Height="800" Margin="0,0,0,0"  VerticalAlignment="Top" Width="580"/>
+
+            <RepeatButton Content="Up" Margin="103,699,0,0" VerticalAlignment="Top" Click="WaterUp2"/>
+            <RepeatButton Content="Down" Margin="94,745,0,0" VerticalAlignment="Top" Click="WaterDown2"/>
+            <Rectangle HorizontalAlignment="Left" Height="600" Margin="50,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="150"/>
+
+            <ProgressBar x:Name="Water2" Value="50" Maximum="100" Foreground="Aqua" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="150" Margin="-175,311,0,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">
+                <ProgressBar.RenderTransform>
+                    <CompositeTransform Rotation="-90"/>
+                </ProgressBar.RenderTransform>
+            </ProgressBar>
+            <Grid Margin="0,86,0,0" Height="600" Width="150" VerticalAlignment="Top">
+
+                <ProgressBar x:Name="Energy2" Value="1" Maximum="1000000" Foreground="Yellow" BorderBrush="Black" BorderThickness="2" Height="150" Width="600" RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="False" d:LayoutRounding="Auto" Margin="-225,0,-225,0" >
+                    <ProgressBar.RenderTransform>
+                        <CompositeTransform Rotation="-90"/>
+                    </ProgressBar.RenderTransform>
+                </ProgressBar>
+            </Grid>
+            <ProgressBar x:Name="Temperature2" Value="1" Maximum="100" Foreground="Red" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Right" Height="150" Margin="0,311,-178,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">
+                <ProgressBar.RenderTransform>
+                    <CompositeTransform Rotation="-90"/>
+                </ProgressBar.RenderTransform>
+            </ProgressBar>
+
+            <TextBlock x:Name="WaterText2" HorizontalAlignment="Left" Margin="114,61,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="EnergyText2" HorizontalAlignment="Left" Margin="291,64,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="TemperatureText2" HorizontalAlignment="Left" Margin="466,66,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="NameLabel2" HorizontalAlignment="Center" Margin="0,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+        </Grid>
+
+        <Grid x:Name="Grid3" Grid.Column="2" Grid.Row="0" Padding="20" VerticalAlignment="Top" >
+            <Rectangle HorizontalAlignment="Center" Height="800" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="580"/>
+            <Rectangle HorizontalAlignment="Center" Stroke="Black" Height="800" Margin="0,0,0,0"  VerticalAlignment="Top" Width="580"/>
+
+            <RepeatButton Content="Up" Margin="103,699,0,0" VerticalAlignment="Top" Click="WaterUp3"/>
+            <RepeatButton Content="Down" Margin="94,745,0,0" VerticalAlignment="Top" Click="WaterDown3"/>
+            <Rectangle HorizontalAlignment="Left" Height="600" Margin="50,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="150"/>
+
+            <ProgressBar x:Name="Water3" Value="50" Maximum="100" Foreground="Aqua" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="150" Margin="-175,311,0,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">
+                <ProgressBar.RenderTransform>
+                    <CompositeTransform Rotation="-90"/>
+                </ProgressBar.RenderTransform>
+            </ProgressBar>
+            <Grid Margin="0,86,0,0" Height="600" Width="150" VerticalAlignment="Top">
+
+                <ProgressBar x:Name="Energy3" Value="1" Maximum="1000000" Foreground="Yellow" BorderBrush="Black" BorderThickness="2" Height="150" Width="600" RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="False" d:LayoutRounding="Auto" Margin="-225,0,-225,0" >
+                    <ProgressBar.RenderTransform>
+                        <CompositeTransform Rotation="-90"/>
+                    </ProgressBar.RenderTransform>
+                </ProgressBar>
+            </Grid>
+            <ProgressBar x:Name="Temperature3" Value="1" Maximum="100" Foreground="Red" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Right" Height="150" Margin="0,311,-178,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">
+                <ProgressBar.RenderTransform>
+                    <CompositeTransform Rotation="-90"/>
+                </ProgressBar.RenderTransform>
+            </ProgressBar>
+
+            <TextBlock x:Name="WaterText3" HorizontalAlignment="Left" Margin="114,61,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="EnergyText3" HorizontalAlignment="Left" Margin="291,64,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="TemperatureText3" HorizontalAlignment="Left" Margin="466,66,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="NameLabel3" HorizontalAlignment="Left" Margin="286,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+        </Grid>
+        <Button Content="Button Up" Margin="278,60,0,0" Grid.Row="1" VerticalAlignment="Top" Click="reactorOffsetUp"/>
+        <Button Content="Button Down" Margin="386,58,0,0" Grid.Row="1" VerticalAlignment="Top" Click="reactorOffsetDown"/>
+
+    </Grid>
+</Page>

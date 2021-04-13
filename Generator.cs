@@ -1,45 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kerncentrale
+﻿namespace Kerncentrale
 {
     class Generator
     {
         private double kWh;
+        private double totalKWh;
+        public double stoom;
+        public double TotalKWh { get => totalKWh; set => totalKWh = value; }
 
         public double GetKWh()
         {
             return kWh;
         }
-        /// <summary>
-        /// Sets current KWh
-        /// </summary>
-        /// <param name="value">Value to set KWh to</param>
+
+        /* 
+         * <summary>
+         * Sets current KWh
+         *</summary>
+         *<param name="value">Value to set KWh to</param>
+         */
         private void SetKWh(double value)
         {
             kWh = value;
         }
 
-        private double totalKWh;
-
-        public double GetTotalKWh()
+        public void SetStoom(double value)
         {
-            return totalKWh;
+            this.stoom = value;
         }
 
-        private void SetTotalKWh(double value)
+        public double GetStoom()
         {
-            totalKWh = value;
+            return this.stoom;
         }
-
-        public int Stoom { get; set; }
-
         public Generator(int stoom)
         {
-            Stoom = stoom;
+            SetStoom(stoom);
         }
 
         public Generator()
@@ -47,10 +42,16 @@ namespace Kerncentrale
 
         }
 
-        public void GenerateKWH()
+        /*
+       * calculate how much energy is created
+       */
+        public void GenerateEnergy(double tmpStoom)
         {
-            SetKWh(Stoom * 9.0);
+            SetStoom(tmpStoom);
+            double tmpKwh = (GetStoom() * 9.0);
+            SetKWh(tmpKwh);
 
+            this.TotalKWh += this.kWh;
         }
     }
 }

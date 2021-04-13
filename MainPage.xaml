@@ -6,11 +6,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Custom="using:Microsoft.Toolkit.Uwp.UI.Controls"
     x:Class="Kerncentrale.MainPage"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    mc:Ignorable="d">
+    
     <Grid>
-        <Custom:DataGrid x:Name="userView" Margin="10,10,960,10"/>
-        <Custom:DataGrid x:Name="userView2" Margin="500,10,350,10"/>
+        <Button x:Name="Play" Content="Play" Margin="0,342,0,0" Width="377" Height="79" VerticalAlignment="Top" FontSize="48" Click="Play_Click" HorizontalAlignment="Center"/>
+        <Button x:Name="Settings" Content="Settings" Margin="0,485,0,0" VerticalAlignment="Top" Width="377" Height="79" FontSize="48" Click="Settings_Click" HorizontalAlignment="Center"/>
+        <Button x:Name="Highscore" Content="Highscore" Margin="0,622,0,0" VerticalAlignment="Top" Click="Button_Click" Height="79" Width="377" FontSize="48" HorizontalAlignment="Center"/>
     </Grid>
 </Page>

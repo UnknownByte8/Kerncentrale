@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Kerncentrale
 {
@@ -15,31 +12,33 @@ namespace Kerncentrale
     }
     class Kerncentrale
     {
-        private Controlroom controlroom;
         private List<Reactor> reactors;
-        private Generator generator;
-        private Koelsysteem koelsysteem;
         private ThreadingType threadingType;
 
-        public Kerncentrale(Controlroom controlroom, List<Reactor> reactors, Generator generator, Koelsysteem koelsysteem)
+        public Kerncentrale()
         {
-            this.controlroom = controlroom;
-            this.reactors = reactors;
-            this.generator = generator;
-            this.koelsysteem = koelsysteem;
+            this.reactors = new List<Reactor>();
             this.threadingType = ThreadingType.MultiThreading;
             this.initializeTmpReactors();
             this.generateThreads();
         }
 
+        public List<Reactor> getReactors()
+        {
+            return this.reactors;
+        }
+
+        /*
+         * Set random fuelRods to the reactor
+         */
         public void initializeTmpReactors()
         {
             Random rnd = new Random();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 20; i++)
             {
                 Reactor reactor = new Reactor();
                 reactor.setSelectedThreadingType(this.threadingType);
-                int rndNumber = rnd.Next(0, 25);
+                int rndNumber = rnd.Next(5, 25);
                 for (int j = 0; j < rndNumber; j++)
                 {
                     if (rndNumber % 2 == 1)
@@ -51,11 +50,9 @@ namespace Kerncentrale
             }
         }
 
-        public int AddThreads(int amount)
-        {
-            return amount;
-        }
-
+        /*
+         * setup for threads
+         */
         public void generateThreads()
         {
             foreach (Reactor reactor in this.reactors)
@@ -66,6 +63,7 @@ namespace Kerncentrale
                         reactor.executeThread();
                         break;
                     case ThreadingType.MultiThreading:
+
                         Thread thread = new Thread(reactor.executeThread);
                         thread.Name = reactor.ToString();
                         thread.Start();
@@ -73,7 +71,9 @@ namespace Kerncentrale
                     case ThreadingType.ThreadPool:
                         ThreadPool.QueueUserWorkItem(reactor.threadProcess);
                         break;
+
                 }
+
             }
         }
     }
