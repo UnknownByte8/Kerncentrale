@@ -22,6 +22,7 @@
             SetOnderLimietTemperatuur(15000);
             SetGraadPerLiter(1.8);
             SetTempIncrease(3);
+            LiterWater = 20;
         }
 
         /*

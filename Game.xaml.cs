@@ -16,7 +16,6 @@ namespace Kerncentrale
         private Kerncentrale kerncentrale;
         private int reactorOffset = 0;
         private bool runThreads = true;
-        private int reactorAmount = 5;
         BackgroundWorker bgWorker;
         
 
@@ -29,52 +28,45 @@ namespace Kerncentrale
             bgWorker = new BackgroundWorker();
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ThreadingType = (App.Current as App).threadingType;
             kerncentrale = new Kerncentrale(threadingType: threadingType);
 
             UpdateLabels();
 
-            await Task.Delay(TimeSpan.FromSeconds(5));
+            // wacht 5 seconden om de UI in te laten laden, voer dan de functie uit.
+            Task.Delay(TimeSpan.FromSeconds(5));
 
             ExecuteThreads();
         }
 
-        private async void ExecuteThreads()
+        private void ExecuteThreads()
         {
             try
             {
-                /*bgWorker.DoWork += new DoWorkEventHandler(BgWorker_do_work);
+                bgWorker.DoWork += new DoWorkEventHandler(BgWorker_do_work);
                 bgWorker.ProgressChanged += new ProgressChangedEventHandler
                         (BgWorker_ProgressChanged);
                 bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler
                         (BgWorker_RunWorkerCompleted);
                 bgWorker.WorkerReportsProgress = true;
-                bgWorker.WorkerSupportsCancellation = true;*/
+                bgWorker.WorkerSupportsCancellation = true;
 
-                while (runThreads)
+                bgWorker.RunWorkerAsync();
+
+                /*while (runThreads)
                 {
-                    
+                    UpdateLabels();
 
-                    var aaa = await kerncentrale.GenerateThreads();
-                    if (!aaa)
-                    {
-                        runThreads = false;
-                    }
-                    else
-                    {
-                        UpdateLabels();
-                    }
-                    //bgWorker.RunWorkerAsync();
 
-                    /*kerncentrale.GenerateThreads();
+                    *//*kerncentrale.GenerateThreads();
                     await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                         UpdateLabels();
 
-                    });*/
-                    Thread.Sleep(200);
-                }
+                    });*//*
+                    //Thread.Sleep(200);
+                }*/
             }
             catch (Exception e)
             {
@@ -91,20 +83,38 @@ namespace Kerncentrale
         void BgWorker_do_work(object sender, DoWorkEventArgs e)
         {
             kerncentrale.GenerateThreads();
-
-            if (bgWorker.CancellationPending)
+            for (int i = 0; i < 100; i++)
             {
-                // Set the e.Cancel flag so that the WorkerCompleted event
-                // knows that the process was cancelled.
-                e.Cancel = true;
-                bgWorker.ReportProgress(0);
-                return;
+                Thread.Sleep(100);
+                bgWorker.ReportProgress(i);
+
+                if (bgWorker.CancellationPending)
+                {
+                    // Set the e.Cancel flag so that the WorkerCompleted event
+                    // knows that the process was cancelled.
+                    e.Cancel = true;
+                    bgWorker.ReportProgress(0);
+                    return;
+                }
             }
+
+            bgWorker.ReportProgress(100);
         }
 
         void BgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-                Debug.WriteLine("Worker progress: {0}\n", e.ProgressPercentage);
+            Debug.WriteLine("Worker progress: {0}\n", e.ProgressPercentage);
+            switch (e.ProgressPercentage)
+            {
+                case 10:
+                case 40:
+                case 80:
+                    UpdateLabels();
+                    break;
+                default:
+                    break;
+            }
+            UpdateLabels();
 
         }
 
@@ -126,6 +136,8 @@ namespace Kerncentrale
             }
             //update the labels with updated values
             UpdateLabels();
+            //run bgworker again when it finished.
+            bgWorker.RunWorkerAsync();
 
         }
 
@@ -155,13 +167,13 @@ namespace Kerncentrale
         {
             try
             {
-                if ((reactorOffset + 2) < 20)
+                if ((reactorOffset + 2) < 5)
                 {
-                    Water.Value = kerncentrale.GetReactors()[reactorOffset].getWaterFuelRods();
+                    Water.Value = kerncentrale.GetReactors()[reactorOffset].GetWaterFuelRods();
                     WaterText.Text = Water.Value.ToString();
-                    Water2.Value = kerncentrale.GetReactors()[reactorOffset + 1].getWaterFuelRods();
+                    Water2.Value = kerncentrale.GetReactors()[reactorOffset + 1].GetWaterFuelRods();
                     WaterText2.Text = Water2.Value.ToString();
-                    Water3.Value = kerncentrale.GetReactors()[reactorOffset + 2].getWaterFuelRods();
+                    Water3.Value = kerncentrale.GetReactors()[reactorOffset + 2].GetWaterFuelRods();
                     WaterText3.Text = Water3.Value.ToString();
                 }
             }
@@ -172,14 +184,40 @@ namespace Kerncentrale
             
         }
 
-        private async void UpdateValuesDispatch(double value = 0, Control progressbarControl = null, TextBlock textBlock = null)
+        private void UpdateTemperatureLabels()
+        {
+            //energy value
+            UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset].GetEnergy(),
+                                 progressbarControl: Temperature);
+            //energy text
+            UpdateValuesDispatch(value: Energy.Value,
+                                 textBlock: TemperatureText);
+            //energy value
+            UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 1].GetEnergy(),
+                                 progressbarControl: Temperature2);
+            //energy text
+            UpdateValuesDispatch(value: Energy2.Value,
+                                 textBlock: TemperatureText2);
+            //energy value
+            UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 2].GetEnergy(),
+                                 progressbarControl: Temperature3);
+            //energy text
+            UpdateValuesDispatch(value: Energy3.Value,
+                                 textBlock: TemperatureText3);
+        }
+
+        private async void UpdateValuesDispatch(double value, Control progressbarControl = null, TextBlock textBlock = null)
         {
             if (progressbarControl != null)
             {
                 if (progressbarControl.GetType() == typeof(ProgressBar))
                 {
-                    ProgressBar progressbar = (ProgressBar)progressbarControl;
-                    await (progressbarControl as ProgressBar).Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                    //ProgressBar progressbar = (ProgressBar)progressbarControl;
+                    /*await (progressbarControl as ProgressBar).Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                        (progressbarControl as ProgressBar).Value = value;
+
+                    });*/
+                    await (progressbarControl as ProgressBar).Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                         (progressbarControl as ProgressBar).Value = value;
 
                     });
@@ -189,7 +227,7 @@ namespace Kerncentrale
             {
                 if (textBlock.GetType() == typeof(TextBlock))
                 {
-                    await textBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                    await textBlock.Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                         //control. = value;
                         textBlock.Text = value.ToString();
                     });
@@ -197,63 +235,54 @@ namespace Kerncentrale
                 }
             }
 
-
-
         }
+
         /*
           * This wil change energylabels 
         */
         private void UpdateEnergyLabels()
         {
-            if (!EnergyLabelInUse)
+            if ((reactorOffset + 2) < 5)
             {
-                if ((reactorOffset + 2) < 20)
+                try
                 {
-                    try
-                    {
-                        //energy value
-                        UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset].getEnergy(),
-                                             progressbarControl: Energy);
-                        //energy text
-                        UpdateValuesDispatch(value: Energy.Value,
-                                             textBlock: EnergyText);
-                        //energy value
-                        UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 1].getEnergy(),
-                                             progressbarControl: Energy2);
-                        //energy text
-                        UpdateValuesDispatch(value: Energy2.Value,
-                                             textBlock: EnergyText2);
-                        //energy value
-                        UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 2].getEnergy(),
-                                             progressbarControl: Energy3);
-                        //energy text
-                        UpdateValuesDispatch(value: Energy3.Value,
-                                             textBlock: EnergyText3);
+                    //energy value
+                    UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset].GetEnergy(),
+                                         progressbarControl: Energy);
+                    //energy text
+                    UpdateValuesDispatch(value: Energy.Value,
+                                         textBlock: EnergyText);
+                    //energy value
+                    UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 1].GetEnergy(),
+                                         progressbarControl: Energy2);
+                    //energy text
+                    UpdateValuesDispatch(value: Energy2.Value,
+                                         textBlock: EnergyText2);
+                    //energy value
+                    UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 2].GetEnergy(),
+                                         progressbarControl: Energy3);
+                    //energy text
+                    UpdateValuesDispatch(value: Energy3.Value,
+                                         textBlock: EnergyText3);
 
-                       /* Energy.Value = kerncentrale.GetReactors()[reactorOffset].getEnergy();
-                        EnergyText.Text = Energy.Value.ToString();
-                        Energy2.Value = kerncentrale.GetReactors()[reactorOffset + 1].getEnergy();
-                        EnergyText2.Text = Energy2.Value.ToString();
-                        Energy3.Value = kerncentrale.GetReactors()[reactorOffset + 2].getEnergy();
-                        EnergyText3.Text = Energy3.Value.ToString();*/
+                    /* Energy.Value = kerncentrale.GetReactors()[reactorOffset].getEnergy();
+                     EnergyText.Text = Energy.Value.ToString();
+                     Energy2.Value = kerncentrale.GetReactors()[reactorOffset + 1].getEnergy();
+                     EnergyText2.Text = Energy2.Value.ToString();
+                     Energy3.Value = kerncentrale.GetReactors()[reactorOffset + 2].getEnergy();
+                     EnergyText3.Text = Energy3.Value.ToString();*/
 
-                    }
-                    catch(Exception e)
-                    {
-                        Debug.WriteLine("Exception occurred during updating of energy labels!\n", e.Message);
-                    }
                 }
-                EnergyLabelInUse = true;
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Exception occurred during updating of energy labels!\n", e.Message);
+                }
             }
-            else
-            {
-                EnergyLabelInUse = false;
 
-            }
-            Thread thread = new Thread(this.UpdateEnergyLabels);
+            /*Thread thread = new Thread(this.UpdateEnergyLabels);
             thread.Name = "Update Energy Labels ";
             //Thread.Sleep(1000);
-            thread.Start();
+            thread.Start();*/
         }
 
         private void UpdateNameLabels(int id)
@@ -268,7 +297,7 @@ namespace Kerncentrale
         */
         private void Execute(int offset, int labelNumber)
         {
-            if (offset < 20)
+            if (offset < 5)
             {
                 string water = "";
                 switch (labelNumber)
@@ -283,7 +312,7 @@ namespace Kerncentrale
                         water = WaterText3.Text;
                         break;
                 }
-                kerncentrale.GetReactors()[offset].koelFuelrods(Int32.Parse(water));
+                kerncentrale.GetReactors()[offset].KoelFuelrods(Int32.Parse(water));
             }
         }
         #region reactor_buttons

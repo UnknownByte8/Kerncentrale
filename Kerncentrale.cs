@@ -30,17 +30,17 @@ namespace Kerncentrale
         public void InitializeTmpReactors()
         {
             Random rnd = new Random();
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Reactor reactor = new Reactor();
-                reactor.setSelectedThreadingType(this.threadingType);
-                int rndNumber = rnd.Next(5, 25);
+                reactor.SetSelectedThreadingType(this.threadingType);
+                int rndNumber = rnd.Next(5, 10);
                 for (int j = 0; j < rndNumber; j++)
                 {
                     if (rndNumber % 2 == 1)
-                        reactor.addFuelRod(new FuelRod.Uranium());
+                        reactor.AddFuelRod(new FuelRod.Uranium());
                     else
-                        reactor.addFuelRod(new FuelRod.Plutonium());
+                        reactor.AddFuelRod(new FuelRod.Plutonium());
                 }
                 reactors.Add(reactor);
             }
@@ -49,7 +49,7 @@ namespace Kerncentrale
         /*
          * setup for threads
          */
-        public async Task<bool> GenerateThreads()
+        public void GenerateThreads()
         {
             try
             {
@@ -76,12 +76,10 @@ namespace Kerncentrale
                     Thread.Sleep(100);
                     i++;
                 }
-                return true;
             }
             catch (Exception e)
             {
                 Debug.WriteLine("\n\n\n\nException\nmessage: {0}\nStacktrace: {1}", e.Message,e.StackTrace);
-                return false;
             }
             
         }

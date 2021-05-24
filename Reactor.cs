@@ -10,6 +10,7 @@ namespace Kerncentrale
         private List<FuelRod.FuelRod> fuelRods = new List<FuelRod.FuelRod>();
         public ThreadingType selectedThreadingType;
         private Generator generator;
+        public double energy = 0;
         public Reactor()
         {
             this.generator = new Generator();
@@ -18,12 +19,12 @@ namespace Kerncentrale
         /*
          * set the selected TreadingType 
          */
-        public void setSelectedThreadingType(ThreadingType threadingType)
+        public void SetSelectedThreadingType(ThreadingType threadingType)
         {
             this.selectedThreadingType = threadingType;
         }
 
-        public void addFuelRod(FuelRod.FuelRod fuelRod)
+        public void AddFuelRod(FuelRod.FuelRod fuelRod)
         {
             this.fuelRods.Add(fuelRod);
         }
@@ -31,14 +32,14 @@ namespace Kerncentrale
         /*
          * every fuelrods will be cooled of with an assigned amount of water
          */
-        public void koelFuelrods(int water)
+        public void KoelFuelrods(int water)
         {
             foreach (FuelRod.FuelRod fuelrod in fuelRods)
             {
                 fuelrod.LiterWater = water;
             }
         }
-        public double getWaterFuelRods()
+        public double GetWaterFuelRods()
         {
             return this.fuelRods[0].LiterWater;
         }
@@ -46,10 +47,9 @@ namespace Kerncentrale
         /*
          * create and return the amount of energy gotton out of steam
          */
-        public double getEnergy()
+        public double GetEnergy()
         {
             double tmpStoom = 0;
-            double energy = 0;
             foreach (FuelRod.FuelRod fuelrod in fuelRods)
             {
                 tmpStoom += fuelrod.Stoom;
@@ -57,9 +57,9 @@ namespace Kerncentrale
             if (tmpStoom != 0 && tmpStoom > 0)
             {
                 generator.GenerateEnergy(tmpStoom);
-                energy = generator.GetKWh();
+                this.energy = generator.GetKWh();
             }
-            return energy;
+            return this.energy;
         }
 
         public void ThreadProcess(Object stateInfo)
@@ -93,6 +93,8 @@ namespace Kerncentrale
                         Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n"+ e);
 
                         thread.Abort();
+                        Environment.Exit(Environment.ExitCode);
+                        return;
                     }
                 }
 
@@ -100,6 +102,7 @@ namespace Kerncentrale
             catch (MeltdownExeption e)
             {
                 Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n"+e);
+
                 Environment.Exit(Environment.ExitCode);
                 return;
             }
