@@ -4,6 +4,7 @@
     {
         private double literWater;
         private double stoom;
+        private double tempIncrease;
         /*
          * Meldown will throw an MeltdownExeption
          */
@@ -29,6 +30,7 @@
 
         public double LiterWater { get => literWater; set => literWater = value; }
         public double Stoom { get => stoom; set => stoom = value; }
+        public double TempIncrease { get => tempIncrease; set => tempIncrease = value; }
 
         public abstract double SetTempIncrease(double value);
 

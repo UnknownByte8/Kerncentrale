@@ -40,6 +40,15 @@ namespace Kerncentrale
                 fuelrod.LiterWater = water;
             }
         }
+
+        public void IncTempIncrease(int increase)
+        {
+            foreach (FuelRod.FuelRod fuelrod in fuelRods)
+            {
+                fuelrod.SetTempIncrease(fuelrod.TempIncrease+increase);
+            }
+        }
+
         public double GetWaterFuelRods()
         {
             return this.fuelRods[0].LiterWater;

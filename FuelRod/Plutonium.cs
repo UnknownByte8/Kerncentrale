@@ -8,7 +8,7 @@
         private double graadPerLiter;
         private double overhittingsTemperatuur;
         private double onderLimietTemperatuur;
-        private double tempIncrease;
+
 
         public Plutonium()
         {
@@ -32,11 +32,11 @@
         {
             if (huidigeTemperatuur < onderLimietTemperatuur)
             {
-                SetHuidigeTemperatuur(huidigeTemperatuur + (tempIncrease * 10));
+                SetHuidigeTemperatuur(huidigeTemperatuur + (TempIncrease * 10));
             }
             else if (huidigeTemperatuur < overhittingsTemperatuur)
             {
-                SetHuidigeTemperatuur(huidigeTemperatuur + tempIncrease);
+                SetHuidigeTemperatuur(huidigeTemperatuur + TempIncrease);
             }
 
             if (huidigeTemperatuur > overhittingsTemperatuur)
@@ -79,6 +79,6 @@
 
         public override void SetTemperatuur(double value) => this.onderLimietTemperatuur = value;
 
-        public override double SetTempIncrease(double value) => this.tempIncrease = value;
+        public override double SetTempIncrease(double value) => this.TempIncrease = value;
     }
 }

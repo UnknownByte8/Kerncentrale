@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.System.Threading;
+using ThreadPool = System.Threading.ThreadPool;
 
 namespace Kerncentrale
 {
@@ -10,18 +12,34 @@ namespace Kerncentrale
     {
         private List<Reactor> reactors;
         private ThreadingType threadingType;
-        private int reactorAmount;
+        private ThreadPoolTimer timer;
 
         public Kerncentrale(ThreadingType threadingType)
         {
             this.reactors = new List<Reactor>();
             this.threadingType = threadingType;
             this.InitializeTmpReactors();
+            this.InitialiseTimer();
         }
 
         public List<Reactor> GetReactors()
         {
             return this.reactors;
+        }
+        /// <summary>
+        /// timer that increases temp increase for every reactor/ fuelrod every 10 seconds
+        /// </summary>
+        private void InitialiseTimer()
+        {
+            timer = ThreadPoolTimer.CreatePeriodicTimer(TimerElapsedHandler, new TimeSpan(0, 0, 10));
+        }
+
+        private void TimerElapsedHandler(ThreadPoolTimer timer)
+        {
+            foreach (var reactor in reactors)
+            {
+                reactor.IncTempIncrease(3);
+            }
         }
 
         /*
