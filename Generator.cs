@@ -3,7 +3,7 @@
     class Generator
     {
         private double kWh;
-        private double totalKWh;
+        private double totalKWh = 0;
         public double stoom;
         public double TotalKWh { get => totalKWh; set => totalKWh = value; }
 
@@ -21,6 +21,7 @@
         private void SetKWh(double value)
         {
             kWh = value;
+            TotalKWh += value;
         }
 
         public void SetStoom(double value)
@@ -45,13 +46,13 @@
         /*
        * calculate how much energy is created
        */
-        public void GenerateEnergy(double tmpStoom)
+        public double GenerateEnergy(double tmpStoom)
         {
             SetStoom(tmpStoom);
-            double tmpKwh = (GetStoom() * 9.0);
+            double tmpKwh = (tmpStoom * 9.0);
             SetKWh(tmpKwh);
 
-            this.TotalKWh += this.kWh;
+            return tmpKwh;
         }
     }
 }

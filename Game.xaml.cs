@@ -1,84 +1,262 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Kerncentrale
 {
+
     public sealed partial class Game : Page
     {
-        bool energyLabeInUse = false;
-        Kerncentrale kerncentrale = new Kerncentrale();
-        int reactorOffset = 0;
+        private static ThreadingType threadingType;
+        private Kerncentrale kerncentrale;
+        private int reactorOffset = 0;
+        private bool runThreads = true;
+        private int reactorAmount = 5;
+        BackgroundWorker bgWorker;
+        
+
+        public ThreadingType ThreadingType { get => threadingType; set => threadingType = value; }
+        public bool EnergyLabelInUse { get; set; } = false;
 
         public Game()
         {
             this.InitializeComponent();
-
-            updateWaterLabels();
-            updateEnergyLabels();
-            updateNameLabels(reactorOffset);
-
-            WaterText.Text = Water.Value.ToString();
-            EnergyText.Text = Energy.Value.ToString();
-            TemperatureText.Text = Temperature.Value.ToString();
+            bgWorker = new BackgroundWorker();
         }
 
-        /*
-       * This wil change waterlabels 
-       */
-        private void updateWaterLabels()
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if ((reactorOffset + 2) < 20)
+            ThreadingType = (App.Current as App).threadingType;
+            kerncentrale = new Kerncentrale(threadingType: threadingType);
+
+            UpdateLabels();
+
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
+            ExecuteThreads();
+        }
+
+        private async void ExecuteThreads()
+        {
+            try
             {
-                Water.Value = kerncentrale.getReactors()[reactorOffset].getWaterFuelRods();
-                WaterText.Text = Water.Value.ToString();
-                Water2.Value = kerncentrale.getReactors()[reactorOffset + 1].getWaterFuelRods();
-                WaterText2.Text = Water2.Value.ToString();
-                Water3.Value = kerncentrale.getReactors()[reactorOffset + 2].getWaterFuelRods();
-                WaterText3.Text = Water3.Value.ToString();
+                /*bgWorker.DoWork += new DoWorkEventHandler(BgWorker_do_work);
+                bgWorker.ProgressChanged += new ProgressChangedEventHandler
+                        (BgWorker_ProgressChanged);
+                bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler
+                        (BgWorker_RunWorkerCompleted);
+                bgWorker.WorkerReportsProgress = true;
+                bgWorker.WorkerSupportsCancellation = true;*/
+
+                while (runThreads)
+                {
+                    
+
+                    var aaa = await kerncentrale.GenerateThreads();
+                    if (!aaa)
+                    {
+                        runThreads = false;
+                    }
+                    else
+                    {
+                        UpdateLabels();
+                    }
+                    //bgWorker.RunWorkerAsync();
+
+                    /*kerncentrale.GenerateThreads();
+                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                        UpdateLabels();
+
+                    });*/
+                    Thread.Sleep(200);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Exception occurred!\n", e.Message);
+            }
+            
+        }
+
+        /// <summary>
+        /// Exectute methods that have nothing to do with the UI
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void BgWorker_do_work(object sender, DoWorkEventArgs e)
+        {
+            kerncentrale.GenerateThreads();
+
+            if (bgWorker.CancellationPending)
+            {
+                // Set the e.Cancel flag so that the WorkerCompleted event
+                // knows that the process was cancelled.
+                e.Cancel = true;
+                bgWorker.ReportProgress(0);
+                return;
             }
         }
 
+        void BgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+                Debug.WriteLine("Worker progress: {0}\n", e.ProgressPercentage);
+
+        }
+
+        void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) 
+        {
+            if (e.Cancelled)
+            {
+                Debug.WriteLine("Worker was canceled\n");
+
+            }
+            // Check to see if an error occurred in the background process.
+            else if (e.Error != null)
+            {
+                Debug.WriteLine("Error while performing background operation.\n", e.Error);
+            }
+            else
+            {
+                Debug.WriteLine("Task Completed...");
+            }
+            //update the labels with updated values
+            UpdateLabels();
+
+        }
+
+        private void UpdateLabels()
+        {
+            try
+            {
+                UpdateEnergyLabels();
+                UpdateWaterLabels();
+                UpdateNameLabels(reactorOffset);
+                WaterText.Text = Water.Value.ToString();
+                EnergyText.Text = Energy.Value.ToString();
+                TemperatureText.Text = Temperature.Value.ToString();
+                
+                
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error while updating labels.\n", e.Message);
+
+            }
+        }
+        /*
+       * This wil change waterlabels 
+       */
+        private void UpdateWaterLabels()
+        {
+            try
+            {
+                if ((reactorOffset + 2) < 20)
+                {
+                    Water.Value = kerncentrale.GetReactors()[reactorOffset].getWaterFuelRods();
+                    WaterText.Text = Water.Value.ToString();
+                    Water2.Value = kerncentrale.GetReactors()[reactorOffset + 1].getWaterFuelRods();
+                    WaterText2.Text = Water2.Value.ToString();
+                    Water3.Value = kerncentrale.GetReactors()[reactorOffset + 2].getWaterFuelRods();
+                    WaterText3.Text = Water3.Value.ToString();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Exception occurred during updating of water labels!\n", e.Message);
+            }
+            
+        }
+
+        private async void UpdateValuesDispatch(double value = 0, Control progressbarControl = null, TextBlock textBlock = null)
+        {
+            if (progressbarControl != null)
+            {
+                if (progressbarControl.GetType() == typeof(ProgressBar))
+                {
+                    ProgressBar progressbar = (ProgressBar)progressbarControl;
+                    await (progressbarControl as ProgressBar).Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                        (progressbarControl as ProgressBar).Value = value;
+
+                    });
+                }
+            }
+            else if (textBlock != null)
+            {
+                if (textBlock.GetType() == typeof(TextBlock))
+                {
+                    await textBlock.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                        //control. = value;
+                        textBlock.Text = value.ToString();
+                    });
+
+                }
+            }
+
+
+
+        }
         /*
           * This wil change energylabels 
         */
-        private void updateEnergyLabels()
+        private void UpdateEnergyLabels()
         {
-            if (!energyLabeInUse)
+            if (!EnergyLabelInUse)
             {
                 if ((reactorOffset + 2) < 20)
                 {
                     try
                     {
-                        Energy.Value = kerncentrale.getReactors()[reactorOffset].getEnergy();
+                        //energy value
+                        UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset].getEnergy(),
+                                             progressbarControl: Energy);
+                        //energy text
+                        UpdateValuesDispatch(value: Energy.Value,
+                                             textBlock: EnergyText);
+                        //energy value
+                        UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 1].getEnergy(),
+                                             progressbarControl: Energy2);
+                        //energy text
+                        UpdateValuesDispatch(value: Energy2.Value,
+                                             textBlock: EnergyText2);
+                        //energy value
+                        UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 2].getEnergy(),
+                                             progressbarControl: Energy3);
+                        //energy text
+                        UpdateValuesDispatch(value: Energy3.Value,
+                                             textBlock: EnergyText3);
+
+                       /* Energy.Value = kerncentrale.GetReactors()[reactorOffset].getEnergy();
                         EnergyText.Text = Energy.Value.ToString();
-                        Energy2.Value = kerncentrale.getReactors()[reactorOffset + 1].getEnergy();
+                        Energy2.Value = kerncentrale.GetReactors()[reactorOffset + 1].getEnergy();
                         EnergyText2.Text = Energy2.Value.ToString();
-                        Energy3.Value = kerncentrale.getReactors()[reactorOffset + 2].getEnergy();
-                        EnergyText3.Text = Energy3.Value.ToString();
+                        Energy3.Value = kerncentrale.GetReactors()[reactorOffset + 2].getEnergy();
+                        EnergyText3.Text = Energy3.Value.ToString();*/
 
                     }
-                    catch
+                    catch(Exception e)
                     {
-
+                        Debug.WriteLine("Exception occurred during updating of energy labels!\n", e.Message);
                     }
                 }
-                energyLabeInUse = true;
+                EnergyLabelInUse = true;
             }
             else
             {
-                energyLabeInUse = false;
+                EnergyLabelInUse = false;
 
             }
-            Thread thread = new Thread(this.updateEnergyLabels);
+            Thread thread = new Thread(this.UpdateEnergyLabels);
             thread.Name = "Update Energy Labels ";
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
             thread.Start();
         }
 
-        private void updateNameLabels(int id)
+        private void UpdateNameLabels(int id)
         {
             NameLabel.Text = "Reactor " + (id + 1);
             NameLabel2.Text = "Reactor " + (id + 2);
@@ -88,7 +266,7 @@ namespace Kerncentrale
         /*
         * This wil get executed to change labels 
         */
-        private void execute(int offset, int labelNumber)
+        private void Execute(int offset, int labelNumber)
         {
             if (offset < 20)
             {
@@ -105,27 +283,27 @@ namespace Kerncentrale
                         water = WaterText3.Text;
                         break;
                 }
-                kerncentrale.getReactors()[offset].koelFuelrods(Int32.Parse(water));
+                kerncentrale.GetReactors()[offset].koelFuelrods(Int32.Parse(water));
             }
         }
         #region reactor_buttons
 
-        private void reactorOffsetUp(object sender, RoutedEventArgs e)
+        private void ReactorOffsetUp(object sender, RoutedEventArgs e)
         {
-            if ((this.reactorOffset + 2) < kerncentrale.getReactors().Count)
+            if ((this.reactorOffset + 2) < kerncentrale.GetReactors().Count)
                 this.reactorOffset++;
-            updateWaterLabels();
-            updateEnergyLabels();
-            updateNameLabels(reactorOffset);
+            UpdateWaterLabels();
+            UpdateEnergyLabels();
+            UpdateNameLabels(reactorOffset);
 
         }
-        private void reactorOffsetDown(object sender, RoutedEventArgs e)
+        private void ReactorOffsetDown(object sender, RoutedEventArgs e)
         {
             if (this.reactorOffset > 0)
                 reactorOffset--;
-            updateWaterLabels();
-            updateEnergyLabels();
-            updateNameLabels(reactorOffset);
+            UpdateWaterLabels();
+            UpdateEnergyLabels();
+            UpdateNameLabels(reactorOffset);
         }
 
         // Reactor 1
@@ -135,14 +313,14 @@ namespace Kerncentrale
             Water.Value += 1;
             WaterText.Text = Water.Value.ToString();
             Debug.WriteLine(Water.Value);
-            this.execute(reactorOffset, 1);
+            this.Execute(reactorOffset, 1);
         }
 
         private void WaterDown(object sender, RoutedEventArgs e)
         {
             Water.Value -= 1;
             WaterText.Text = Water.Value.ToString();
-            this.execute(reactorOffset, 1);
+            this.Execute(reactorOffset, 1);
         }
 
         //Reactor 2
@@ -151,14 +329,14 @@ namespace Kerncentrale
             Water2.Value += 1;
             WaterText2.Text = Water2.Value.ToString();
             Debug.WriteLine(Water.Value);
-            this.execute(reactorOffset + 1, 2);
+            this.Execute(reactorOffset + 1, 2);
         }
 
         private void WaterDown2(object sender, RoutedEventArgs e)
         {
             Water2.Value -= 1;
             WaterText2.Text = Water2.Value.ToString();
-            this.execute(reactorOffset + 1, 2);
+            this.Execute(reactorOffset + 1, 2);
         }
 
         //Reactor 3
@@ -167,14 +345,14 @@ namespace Kerncentrale
             Water3.Value += 1;
             WaterText3.Text = Water3.Value.ToString();
             Debug.WriteLine(Water3.Value);
-            this.execute(reactorOffset + 2, 3);
+            this.Execute(reactorOffset + 2, 3);
         }
 
         private void WaterDown3(object sender, RoutedEventArgs e)
         {
             Water3.Value -= 1;
             WaterText3.Text = Water3.Value.ToString();
-            this.execute(reactorOffset + 2, 3);
+            this.Execute(reactorOffset + 2, 3);
         }
         #endregion
     }

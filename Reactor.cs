@@ -8,7 +8,7 @@ namespace Kerncentrale
     class Reactor
     {
         private List<FuelRod.FuelRod> fuelRods = new List<FuelRod.FuelRod>();
-        private ThreadingType selectedThreadingType;
+        public ThreadingType selectedThreadingType;
         private Generator generator;
         public Reactor()
         {
@@ -62,17 +62,17 @@ namespace Kerncentrale
             return energy;
         }
 
-        public void threadProcess(Object stateInfo)
+        public void ThreadProcess(Object stateInfo)
         {
-            executeThread();
-            ThreadPool.QueueUserWorkItem(threadProcess);
+            ExecuteThread();
+            ThreadPool.QueueUserWorkItem(ThreadProcess);
         }
 
         /*
          * execute thread
          * when MeltdownExeption is thrown the program will shut down becouse the whole kerncentrale exploded.
          */
-        public void executeThread()
+        public void ExecuteThread()
         {
             try
             {
@@ -80,28 +80,32 @@ namespace Kerncentrale
                 {
                     fuelRod.Excecute();
                 }
+                if (this.selectedThreadingType == ThreadingType.MultiThreading)
+                {
+                    Thread thread = new Thread(ExecuteThread);
+                    thread.Name = this.ToString();
+                    try
+                    {
+                        thread.Start();
+                    }
+                    catch (MeltdownExeption e)
+                    {
+                        Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n"+ e);
+
+                        thread.Abort();
+                    }
+                }
+
             }
             catch (MeltdownExeption e)
             {
-                Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.");
+                Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n"+e);
                 Environment.Exit(Environment.ExitCode);
                 return;
             }
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
 
-            if (this.selectedThreadingType == ThreadingType.MultiThreading)
-            {
-                Thread thread = new Thread(executeThread);
-                thread.Name = this.ToString();
-                try
-                {
-                    thread.Start();
-                }
-                catch (MeltdownExeption e)
-                {
-                    thread.Abort();
-                }
-            }
+            
         }
     }
 }

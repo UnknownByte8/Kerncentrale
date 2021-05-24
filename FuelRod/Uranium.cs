@@ -18,7 +18,7 @@
              */
             SetName("Uranium");
             SetHuidigeTemperatuur(20);
-            SetOverhittingsTemperatuur(6000);
+            SetOverhittingsTemperatuur(60000);
             SetOptimaleTemperatuur(4000);
             SetOnderLimietTemperatuur(3000);
             SetGraadPerLiter(0.5);

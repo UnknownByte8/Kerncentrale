@@ -127,6 +127,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GameParameters.cs" />
     <Compile Include="MeltdownExeption.cs" />
     <Compile Include="DatabaseConnect.cs" />
     <Compile Include="FuelRod\FuelRod.cs" />
@@ -147,6 +148,7 @@
     </Compile>
     <Compile Include="System\Windows\Media.cs" />
     <Compile Include="System\Windows\Shapes.cs" />
+    <Compile Include="ThreadingType.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

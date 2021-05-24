@@ -1,29 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Kerncentrale
 {
-    public enum ThreadingType
-    {
-        ThreadPool,
-        MultiThreading,
-        SingleThreading
-    }
     class Kerncentrale
     {
         private List<Reactor> reactors;
         private ThreadingType threadingType;
+        private int reactorAmount;
 
-        public Kerncentrale()
+        public Kerncentrale(ThreadingType threadingType)
         {
             this.reactors = new List<Reactor>();
-            this.threadingType = ThreadingType.MultiThreading;
-            this.initializeTmpReactors();
-            this.generateThreads();
+            this.threadingType = threadingType;
+            this.InitializeTmpReactors();
         }
 
-        public List<Reactor> getReactors()
+        public List<Reactor> GetReactors()
         {
             return this.reactors;
         }
@@ -31,7 +27,7 @@ namespace Kerncentrale
         /*
          * Set random fuelRods to the reactor
          */
-        public void initializeTmpReactors()
+        public void InitializeTmpReactors()
         {
             Random rnd = new Random();
             for (int i = 0; i < 20; i++)
@@ -53,28 +49,41 @@ namespace Kerncentrale
         /*
          * setup for threads
          */
-        public void generateThreads()
+        public async Task<bool> GenerateThreads()
         {
-            foreach (Reactor reactor in this.reactors)
+            try
             {
-                switch (this.threadingType)
+                int i = 1;
+                foreach (Reactor reactor in this.reactors)
                 {
-                    case ThreadingType.SingleThreading:
-                        reactor.executeThread();
-                        break;
-                    case ThreadingType.MultiThreading:
+                    switch (reactor.selectedThreadingType)
+                    {
+                        case ThreadingType.SingleThreading:
+                            reactor.ExecuteThread();
+                            break;
+                        case ThreadingType.MultiThreading:
+                            Thread thread = new Thread(reactor.ExecuteThread)
+                            {
+                                Name = reactor.ToString() + i
+                            };
+                            thread.Start();
+                            break;
+                        case ThreadingType.ThreadPool:
+                            ThreadPool.QueueUserWorkItem(reactor.ThreadProcess);
+                            break;
 
-                        Thread thread = new Thread(reactor.executeThread);
-                        thread.Name = reactor.ToString();
-                        thread.Start();
-                        break;
-                    case ThreadingType.ThreadPool:
-                        ThreadPool.QueueUserWorkItem(reactor.threadProcess);
-                        break;
-
+                    }
+                    Thread.Sleep(100);
+                    i++;
                 }
-
+                return true;
             }
+            catch (Exception e)
+            {
+                Debug.WriteLine("\n\n\n\nException\nmessage: {0}\nStacktrace: {1}", e.Message,e.StackTrace);
+                return false;
+            }
+            
         }
     }
 }

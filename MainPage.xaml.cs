@@ -8,6 +8,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -18,16 +19,25 @@ namespace Kerncentrale
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public ThreadingType threadingType;
+        public GameParameters parameters = null;
+
+        public ThreadingType ThreadingType { get => threadingType; set => threadingType = value; }
+
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
+        public void SetThreadType(ThreadingType type)
+        {
+            ThreadingType = type;
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.InitializeComponent();
-            this.InitDB();
+            InitializeComponent();
+            InitDB();
 
         }
 
@@ -36,15 +46,15 @@ namespace Kerncentrale
          */
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Settings));
+            Frame.Navigate(sourcePageType: typeof(Settings));
         }
 
-        /*
+        /* 
          * click on play button
          */
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Game));
+            Frame.Navigate(sourcePageType: typeof(Game), parameters);
         }
 
         private void InitDB()
@@ -53,6 +63,23 @@ namespace Kerncentrale
             //userView.ItemsSource = DatabaseConnect.GetRecords();
             //userView2.ItemsSource = DatabaseConnect.GetHighscore();
 
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            //If action in EditPage occurred, determine that here
+            switch ((Application.Current as App).threadingType)
+            {
+                case ThreadingType.MultiThreading:
+                    SetThreadType(ThreadingType.MultiThreading);
+                    break;
+                case ThreadingType.SingleThreading:
+                    SetThreadType(ThreadingType.SingleThreading);
+                    break;
+                case ThreadingType.ThreadPool:
+                    SetThreadType(ThreadingType.ThreadPool);
+                    break;
+            }
         }
     }
 }

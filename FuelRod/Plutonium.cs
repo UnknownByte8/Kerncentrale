@@ -17,9 +17,9 @@
              */
             SetName("Plutonium");
             SetHuidigeTemperatuur(20);
-            SetOverhittingsTemperatuur(5000);
+            SetOverhittingsTemperatuur(50000);
             SetOptimaleTemperatuur(2500);
-            SetOnderLimietTemperatuur(1500);
+            SetOnderLimietTemperatuur(15000);
             SetGraadPerLiter(1.8);
             SetTempIncrease(3);
         }
