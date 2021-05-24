@@ -307,7 +307,7 @@ namespace Kerncentrale
 
         private void ReactorOffsetUp(object sender, RoutedEventArgs e)
         {
-            if ((this.reactorOffset + 2) < kerncentrale.GetReactors().Count)
+            if ((this.reactorOffset + 3) < kerncentrale.GetReactors().Count)
                 this.reactorOffset++;
             UpdateWaterLabels();
             UpdateEnergyLabels();
