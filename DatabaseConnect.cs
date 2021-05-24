@@ -29,17 +29,19 @@ namespace Kerncentrale
                 {
                     con.Open();
                     //resets the powerplantdata table
-                    string DropPowerPlantInfo = "DROP TABLE PowerPlantData;";
+                    //string DropPowerPlantInfo = "DROP TABLE [PowerPlantData];";
                     //creates the powerplantdata table with its columns
-                    string PowerPlantInfo = "CREATE TABLE IF NOT EXISTS PowerPlantData (RodNumber NVARCHAR(25), FuelType NVARCHAR(25), Temparature NVARCHAR(25), Water NVARCHAR(25), Generated NVARCHAR(25));";
+                    string PowerPlantInfo = "CREATE TABLE IF NOT EXISTS [PowerPlantData] (RodNumber NVARCHAR(25), FuelType NVARCHAR(25), Temparature NVARCHAR(25), Water NVARCHAR(25), Generated NVARCHAR(25));";
                     //creates the highscoredata table with its columns
-                    string HighScoreInfo = "CREATE TABLE IF NOT EXISTS HighScoreData (GameNumber NVARCHAR(25), WaterUsed NVARCHAR(25), WattGenerated NVARCHAR(25), PointsScored NVARCHAR(25));";
+                    string HighScoreInfo = "CREATE TABLE IF NOT EXISTS [HighScoreData] (GameNumber NVARCHAR(25), WaterUsed NVARCHAR(25), WattGenerated NVARCHAR(25), PointsScored NVARCHAR(25));";
                     //combined string that sets up the database
-                    string initCMD = DropPowerPlantInfo + PowerPlantInfo + HighScoreInfo;
+                    string initCMD = PowerPlantInfo + HighScoreInfo;
                     //combined database command
                     SqliteCommand CMDcreateTable = new SqliteCommand(initCMD, con);
                     //executes the database command
-                    CMDcreateTable.ExecuteReader();
+                    //CMDcreateTable.ExecuteReader();
+
+                    CMDcreateTable.ExecuteNonQuery();
                     con.Close();
                 }
                 catch (Exception e)
@@ -63,7 +65,7 @@ namespace Kerncentrale
                         SqliteCommand CMD_Insert = new SqliteCommand();
                         CMD_Insert.Connection = con;
                         //command that prepares the data to be inserted to the database
-                        CMD_Insert.CommandText = "INSERT INTO [PowerPlantData] (FuelType, Temparature, Water, Generated) VALUES (@FuelType, @Temparature, @Water, @Generated)";
+                        CMD_Insert.CommandText = "INSERT INTO PowerPlantData (FuelType, Temparature, Water, Generated) VALUES (@FuelType, @Temparature, @Water, @Generated)";
                         CMD_Insert.Parameters.AddWithValue("FuelType", FuelType);
                         CMD_Insert.Parameters.AddWithValue("Temparature", Temparature);
                         CMD_Insert.Parameters.AddWithValue("Water", Water);

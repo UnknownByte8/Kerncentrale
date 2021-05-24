@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+<<<<<<< Updated upstream
 using System.Threading.Tasks;
+=======
+using Windows.UI.Xaml.Controls;
+>>>>>>> Stashed changes
 
 namespace Kerncentrale
 {
@@ -80,9 +84,13 @@ namespace Kerncentrale
 
                 if (this.selectedThreadingType == ThreadingType.MultiThreading)
                 {
+<<<<<<< Updated upstream
                     var result = Task.Factory.StartNew(() => ExecuteThreadMulti());
 
                     Thread thread = new Thread(ExecuteThread);
+=======
+                    Thread thread = new Thread(this.ExecuteThread);
+>>>>>>> Stashed changes
                     thread.Name = this.ToString();
                     try
                     {
@@ -93,7 +101,10 @@ namespace Kerncentrale
                         Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n" + e);
 
                         thread.Abort();
-                        Environment.Exit(Environment.ExitCode);
+                        foreach (FuelRod.FuelRod fuelRod in fuelRods)
+                        {
+                            DatabaseConnect.UpdateCurrentGame(fuelRod.getName().ToString(), fuelRod.GetHuidigeTemperatuur().ToString(), fuelRod.LiterWater.ToString(), generator.GetKWh().ToString());
+                        }
                         return;
                     }
                 }
@@ -112,8 +123,10 @@ namespace Kerncentrale
             catch (MeltdownExeption e)
             {
                 Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n"+e);
-
-                Environment.Exit(Environment.ExitCode);
+                foreach (FuelRod.FuelRod fuelRod in fuelRods)
+                {
+                    DatabaseConnect.UpdateCurrentGame(fuelRod.getName().ToString(), fuelRod.GetHuidigeTemperatuur().ToString(), fuelRod.LiterWater.ToString(), generator.GetKWh().ToString());
+                }
                 return;
             }
             //Thread.Sleep(1000);

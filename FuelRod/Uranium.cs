@@ -3,7 +3,6 @@
     //voorbeeld soort fuelrod
     class Uranium : FuelRod
     {
-        private string name;
         private double huidigeTemperatuur;
         private double optimaleTemperatuur;
         private double graadPerLiter;
@@ -18,7 +17,7 @@
              */
             SetName("Uranium");
             SetHuidigeTemperatuur(20);
-            SetOverhittingsTemperatuur(60000);
+            SetOverhittingsTemperatuur(6000);
             SetOptimaleTemperatuur(4000);
             SetOnderLimietTemperatuur(3000);
             SetGraadPerLiter(0.5);

@@ -2,7 +2,6 @@
 {
     class Plutonium : FuelRod
     {
-        private string name;
         private double huidigeTemperatuur;
         private double optimaleTemperatuur;
         private double graadPerLiter;
@@ -17,7 +16,7 @@
              */
             SetName("Plutonium");
             SetHuidigeTemperatuur(20);
-            SetOverhittingsTemperatuur(50000);
+            SetOverhittingsTemperatuur(5000);
             SetOptimaleTemperatuur(2500);
             SetOnderLimietTemperatuur(15000);
             SetGraadPerLiter(1.8);
