@@ -15,7 +15,6 @@ namespace Kerncentrale
         private static ThreadingType threadingType;
         private Kerncentrale kerncentrale;
         private int reactorOffset = 0;
-        private bool runThreads = true;
         BackgroundWorker bgWorker;
         
 
@@ -56,18 +55,6 @@ namespace Kerncentrale
 
                 bgWorker.RunWorkerAsync();
 
-                /*while (runThreads)
-                {
-                    UpdateLabels();
-
-
-                    *//*kerncentrale.GenerateThreads();
-                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
-                        UpdateLabels();
-
-                    });*//*
-                    //Thread.Sleep(200);
-                }*/
             }
             catch (Exception e)
             {
@@ -86,7 +73,7 @@ namespace Kerncentrale
             kerncentrale.GenerateThreads();
             for (int i = 0; i < 100; i++)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(5);
                 bgWorker.ReportProgress(i);
 
                 if (bgWorker.CancellationPending)

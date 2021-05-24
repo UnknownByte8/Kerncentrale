@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Kerncentrale
 {
@@ -76,12 +77,11 @@ namespace Kerncentrale
         {
             try
             {
-                foreach (FuelRod.FuelRod fuelRod in fuelRods)
-                {
-                    fuelRod.Excecute();
-                }
+
                 if (this.selectedThreadingType == ThreadingType.MultiThreading)
                 {
+                    var result = Task.Factory.StartNew(() => ExecuteThreadMulti());
+
                     Thread thread = new Thread(ExecuteThread);
                     thread.Name = this.ToString();
                     try
@@ -90,12 +90,22 @@ namespace Kerncentrale
                     }
                     catch (MeltdownExeption e)
                     {
-                        Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n"+ e);
+                        Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n" + e);
 
                         thread.Abort();
                         Environment.Exit(Environment.ExitCode);
                         return;
                     }
+                }
+                else if (this.selectedThreadingType == ThreadingType.SingleThreading)
+                {
+                    /*foreach (FuelRod.FuelRod fuelRod in fuelRods)
+                    {
+                        fuelRod.Excecute();
+                    }*/
+                    Task t2 = Task.Factory.StartNew(ExecuteThreadSingle);
+
+
                 }
 
             }
@@ -109,6 +119,23 @@ namespace Kerncentrale
             //Thread.Sleep(1000);
 
             
+        }
+
+        private async Task<bool> ExecuteThreadMulti()
+        {
+            bool success = false;
+
+
+
+            return success;
+        }
+
+        private void ExecuteThreadSingle()
+        {
+            foreach (FuelRod.FuelRod fuelRod in fuelRods)
+            {
+                fuelRod.Excecute();
+            }
         }
     }
 }
