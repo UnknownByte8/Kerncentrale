@@ -40,7 +40,9 @@ namespace Kerncentrale
 
             ExecuteThreads();
         }
-
+        /// <summary>
+        /// Sets & executes a background worker
+        /// </summary>
         private void ExecuteThreads()
         {
             try
@@ -64,6 +66,7 @@ namespace Kerncentrale
         }
 
         /// <summary>
+        /// background worker method
         /// Exectute methods that have nothing to do with the UI
         /// </summary>
         /// <param name="sender"></param>
