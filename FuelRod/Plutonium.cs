@@ -1,4 +1,7 @@
-﻿namespace Kerncentrale.FuelRod
+﻿using System;
+using System.Diagnostics;
+
+namespace Kerncentrale.FuelRod
 {
     class Plutonium : FuelRod
     {
@@ -16,13 +19,13 @@
              * assign data to plutonium
              */
             SetName("Plutonium");
-            SetHuidigeTemperatuur(20);
-            SetOverhittingsTemperatuur(50000);
+            SetHuidigeTemperatuur(200);
+            SetOverhittingsTemperatuur(3500);
             SetOptimaleTemperatuur(2500);
-            SetOnderLimietTemperatuur(15000);
-            SetGraadPerLiter(1.8);
-            SetTempIncrease(3);
-            LiterWater = 20;
+            SetOnderLimietTemperatuur(1500);
+            SetGraadPerLiter(1.6);
+            SetTempIncrease(8);
+            LiterWater = 10;
         }
 
         /*
@@ -41,16 +44,25 @@
 
             if (huidigeTemperatuur > overhittingsTemperatuur)
             {
-                MeltDown();
+                try
+                {
+                    MeltDown();
+                }
+                catch (MeltdownExeption e)
+                {
+                    Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n" + e);
+                    Environment.Exit(Environment.ExitCode);
+                    return;
+                }
             }
             AfkoelenMetLitersWater(this.LiterWater);
         }
 
         public override void AfkoelenMetLitersWater(double waterInLiter)
         {
-            SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
+           SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
 
-            GenerateSteam(GetHuidigeTemperatuur());
+           GenerateSteam(GetHuidigeTemperatuur());
         }
 
         /*
@@ -68,6 +80,10 @@
         public override double GetHuidigeTemperatuur()
         {
             return this.huidigeTemperatuur;
+        }
+            public override double GetOverHittingsTempreatuur()
+        {
+            return this.overhittingsTemperatuur;
         }
         public override void SetName(string value) => this.name = value;
 

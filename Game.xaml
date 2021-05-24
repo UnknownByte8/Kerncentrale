@@ -35,7 +35,7 @@
             </ProgressBar>
             <Grid Margin="0,86,0,0" Height="600" Width="150" VerticalAlignment="Top">
 
-                <ProgressBar x:Name="Energy" Value="1" Maximum="1000000" Foreground="Yellow" BorderBrush="Black" BorderThickness="2" Height="150" Width="600" RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="False" d:LayoutRounding="Auto" Margin="-225,0,-225,0" >
+                <ProgressBar x:Name="Energy" Value="1" Maximum="100000" Foreground="Yellow" BorderBrush="Black" BorderThickness="2" Height="150" Width="600" RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="False" d:LayoutRounding="Auto" Margin="-225,0,-225,0" >
                     <ProgressBar.RenderTransform>
                         <CompositeTransform Rotation="-90"/>
                     </ProgressBar.RenderTransform>
@@ -70,7 +70,7 @@
             </ProgressBar>
             <Grid Margin="0,86,0,0" Height="600" Width="150" VerticalAlignment="Top">
 
-                <ProgressBar x:Name="Energy2" Value="1" Maximum="1000000" Foreground="Yellow" BorderBrush="Black" BorderThickness="2" Height="150" Width="600" RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="False" d:LayoutRounding="Auto" Margin="-225,0,-225,0" >
+                <ProgressBar x:Name="Energy2" Value="1" Maximum="100000" Foreground="Yellow" BorderBrush="Black" BorderThickness="2" Height="150" Width="600" RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="False" d:LayoutRounding="Auto" Margin="-225,0,-225,0" >
                     <ProgressBar.RenderTransform>
                         <CompositeTransform Rotation="-90"/>
                     </ProgressBar.RenderTransform>
@@ -106,7 +106,7 @@
             </ProgressBar>
             <Grid Margin="0,86,0,0" Height="600" Width="150" VerticalAlignment="Top">
 
-                <ProgressBar x:Name="Energy3" Value="1" Maximum="1000000" Foreground="Yellow" BorderBrush="Black" BorderThickness="2" Height="150" Width="600" RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="False" d:LayoutRounding="Auto" Margin="-225,0,-225,0" >
+                <ProgressBar x:Name="Energy3" Value="1" Maximum="100000" Foreground="Yellow" BorderBrush="Black" BorderThickness="2" Height="150" Width="600" RenderTransformOrigin="0.5,0.5"  UseLayoutRounding="False" d:LayoutRounding="Auto" Margin="-225,0,-225,0" >
                     <ProgressBar.RenderTransform>
                         <CompositeTransform Rotation="-90"/>
                     </ProgressBar.RenderTransform>

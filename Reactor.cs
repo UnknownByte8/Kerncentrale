@@ -44,6 +44,15 @@ namespace Kerncentrale
         {
             return this.fuelRods[0].LiterWater;
         }
+        public double GetTemperatureFuelRods(int i)
+        {
+            return fuelRods[i].GetHuidigeTemperatuur();
+        }
+
+        public double GetOverheatTemperatureFuelRods()
+        {
+            return fuelRods[0].GetOverHittingsTempreatuur();
+        }
 
         /*
          * create and return the amount of energy gotton out of steam
@@ -75,51 +84,19 @@ namespace Kerncentrale
          */
         public void ExecuteThread()
         {
-            try
-            {
-
                 if (this.selectedThreadingType == ThreadingType.MultiThreading)
                 {
                     var result = Task.Factory.StartNew(() => ExecuteThreadMulti());
 
                     Thread thread = new Thread(ExecuteThread);
-                    thread.Name = this.ToString();
-                    try
-                    {
-                        thread.Start();
-                    }
-                    catch (MeltdownExeption e)
-                    {
-                        Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n" + e);
-
-                        thread.Abort();
-                        Environment.Exit(Environment.ExitCode);
-                        return;
-                    }
+                    thread.Name = this.ToString();       
+                    thread.Start();
                 }
                 else if (this.selectedThreadingType == ThreadingType.SingleThreading)
                 {
-                    /*foreach (FuelRod.FuelRod fuelRod in fuelRods)
-                    {
-                        fuelRod.Excecute();
-                    }*/
-                    Task t2 = Task.Factory.StartNew(ExecuteThreadSingle);
-
-
+                        Task t2 = Task.Factory.StartNew(ExecuteThreadSingle);
                 }
-
-            }
-            catch (MeltdownExeption e)
-            {
-                Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n"+e);
-
-                Environment.Exit(Environment.ExitCode);
-                return;
-            }
-            //Thread.Sleep(1000);
-
-            
-        }
+             }
 
         private async Task<bool> ExecuteThreadMulti()
         {

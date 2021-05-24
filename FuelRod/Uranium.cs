@@ -1,4 +1,7 @@
-﻿namespace Kerncentrale.FuelRod
+﻿using System;
+using System.Diagnostics;
+
+namespace Kerncentrale.FuelRod
 {
     //voorbeeld soort fuelrod
     class Uranium : FuelRod
@@ -17,13 +20,13 @@
              * assign data to uranium
              */
             SetName("Uranium");
-            SetHuidigeTemperatuur(20);
-            SetOverhittingsTemperatuur(60000);
-            SetOptimaleTemperatuur(4000);
+            SetHuidigeTemperatuur(200);
+            SetOverhittingsTemperatuur(3500);
+            SetOptimaleTemperatuur(3200);
             SetOnderLimietTemperatuur(3000);
-            SetGraadPerLiter(0.5);
+            SetGraadPerLiter(1.9);
             SetTempIncrease(5);
-            LiterWater = 20;
+            LiterWater = 10;
 
         }
 
@@ -43,7 +46,17 @@
 
             if (huidigeTemperatuur >= overhittingsTemperatuur)
             {
-                MeltDown();
+                try
+                {
+                    MeltDown();
+                }
+                catch (MeltdownExeption e)
+                {
+                    Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n" + e);
+                    Environment.Exit(Environment.ExitCode);
+                    return;
+                }
+                
             }
             AfkoelenMetLitersWater(this.LiterWater);
 
@@ -74,6 +87,10 @@
         public override double GetHuidigeTemperatuur()
         {
             return this.huidigeTemperatuur;
+        }
+        public override double GetOverHittingsTempreatuur()
+        {
+            return this.overhittingsTemperatuur;
         }
 
         public override void SetName(string value) => this.name = value;

@@ -17,6 +17,8 @@
 
         public abstract double GetHuidigeTemperatuur();
 
+        public abstract double GetOverHittingsTempreatuur();
+
         public abstract void SetHuidigeTemperatuur(double value);
 
         public abstract void SetTemperatuur(double value);

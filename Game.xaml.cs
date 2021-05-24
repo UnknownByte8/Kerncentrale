@@ -137,10 +137,8 @@ namespace Kerncentrale
                 UpdateWaterLabels();
                 UpdateNameLabels(reactorOffset);
                 WaterText.Text = Water.Value.ToString();
-                EnergyText.Text = Energy.Value.ToString();
-                TemperatureText.Text = Temperature.Value.ToString();
-                
-                
+                UpdateTemperatureLabels();
+
             }
             catch (Exception e)
             {
@@ -160,7 +158,7 @@ namespace Kerncentrale
                     Water.Value = kerncentrale.GetReactors()[reactorOffset].GetWaterFuelRods();
                     WaterText.Text = Water.Value.ToString();
                     Water2.Value = kerncentrale.GetReactors()[reactorOffset + 1].GetWaterFuelRods();
-                    WaterText2.Text = Water2.Value.ToString();
+                    WaterText2.Text = Water2.Value.ToString(); 
                     Water3.Value = kerncentrale.GetReactors()[reactorOffset + 2].GetWaterFuelRods();
                     WaterText3.Text = Water3.Value.ToString();
                 }
@@ -174,37 +172,51 @@ namespace Kerncentrale
 
         private void UpdateTemperatureLabels()
         {
-            //energy value
-            UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset].GetEnergy(),
+            
+            double value1 = (kerncentrale.GetReactors()[reactorOffset].GetTemperatureFuelRods(1) / kerncentrale.GetReactors()[reactorOffset].GetOverheatTemperatureFuelRods()) * 100;
+            double value2 = (kerncentrale.GetReactors()[reactorOffset + 1].GetTemperatureFuelRods(1) / kerncentrale.GetReactors()[reactorOffset + 1].GetOverheatTemperatureFuelRods()) * 100;
+            double value3 = (kerncentrale.GetReactors()[reactorOffset + 2].GetTemperatureFuelRods(1) / kerncentrale.GetReactors()[reactorOffset + 2].GetOverheatTemperatureFuelRods()) * 100;
+            if (value1 < 0)
+            {
+                value1 = 0;
+            }
+            if (value2 < 0)
+            {
+                value2 = 0;
+            }
+            if (value3 < 0)
+            {
+                value3 = 0;
+            }
+            //Temperatuur value
+            UpdateValuesDispatch(value: value1,
                                  progressbarControl: Temperature);
             //energy text
-            UpdateValuesDispatch(value: Energy.Value,
-                                 textBlock: TemperatureText);
+            UpdateValuesDispatch(value: value1,
+                                 textBlock: TemperatureText,
+                                 text: "%");
             //energy value
-            UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 1].GetEnergy(),
+            UpdateValuesDispatch(value: value2,
                                  progressbarControl: Temperature2);
             //energy text
-            UpdateValuesDispatch(value: Energy2.Value,
-                                 textBlock: TemperatureText2);
+            UpdateValuesDispatch(value: value2,
+                                 textBlock: TemperatureText2,
+                                 text: "%");
             //energy value
-            UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 2].GetEnergy(),
+            UpdateValuesDispatch(value: value3,
                                  progressbarControl: Temperature3);
             //energy text
-            UpdateValuesDispatch(value: Energy3.Value,
-                                 textBlock: TemperatureText3);
+            UpdateValuesDispatch(value: value3,
+                                 textBlock: TemperatureText3,
+                                 text: "%");
         }
 
-        private async void UpdateValuesDispatch(double value, Control progressbarControl = null, TextBlock textBlock = null)
+        private async void UpdateValuesDispatch(double value, Control progressbarControl = null, TextBlock textBlock = null, String text = null)
         {
             if (progressbarControl != null)
             {
                 if (progressbarControl.GetType() == typeof(ProgressBar))
                 {
-                    //ProgressBar progressbar = (ProgressBar)progressbarControl;
-                    /*await (progressbarControl as ProgressBar).Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
-                        (progressbarControl as ProgressBar).Value = value;
-
-                    });*/
                     await (progressbarControl as ProgressBar).Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                         (progressbarControl as ProgressBar).Value = value;
 
@@ -216,9 +228,10 @@ namespace Kerncentrale
                 if (textBlock.GetType() == typeof(TextBlock))
                 {
                     await textBlock.Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
-                        //control. = value;
-                        textBlock.Text = value.ToString();
+                    double t = Math.Round(value, 2);
+                        textBlock.Text = t.ToString() + text;
                     });
+
 
                 }
             }
@@ -239,27 +252,22 @@ namespace Kerncentrale
                                          progressbarControl: Energy);
                     //energy text
                     UpdateValuesDispatch(value: Energy.Value,
-                                         textBlock: EnergyText);
+                                         textBlock: EnergyText,
+                                         text: "kWh");
                     //energy value
                     UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 1].GetEnergy(),
                                          progressbarControl: Energy2);
                     //energy text
                     UpdateValuesDispatch(value: Energy2.Value,
-                                         textBlock: EnergyText2);
+                                         textBlock: EnergyText2,
+                                         text: "kWh");
                     //energy value
                     UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 2].GetEnergy(),
                                          progressbarControl: Energy3);
                     //energy text
                     UpdateValuesDispatch(value: Energy3.Value,
-                                         textBlock: EnergyText3);
-
-                    /* Energy.Value = kerncentrale.GetReactors()[reactorOffset].getEnergy();
-                     EnergyText.Text = Energy.Value.ToString();
-                     Energy2.Value = kerncentrale.GetReactors()[reactorOffset + 1].getEnergy();
-                     EnergyText2.Text = Energy2.Value.ToString();
-                     Energy3.Value = kerncentrale.GetReactors()[reactorOffset + 2].getEnergy();
-                     EnergyText3.Text = Energy3.Value.ToString();*/
-
+                                         textBlock: EnergyText3,
+                                         text: "kWh");
                 }
                 catch (Exception e)
                 {
@@ -312,6 +320,7 @@ namespace Kerncentrale
             UpdateWaterLabels();
             UpdateEnergyLabels();
             UpdateNameLabels(reactorOffset);
+            UpdateTemperatureLabels();
 
         }
         private void ReactorOffsetDown(object sender, RoutedEventArgs e)
@@ -321,6 +330,7 @@ namespace Kerncentrale
             UpdateWaterLabels();
             UpdateEnergyLabels();
             UpdateNameLabels(reactorOffset);
+            UpdateTemperatureLabels();
         }
 
         // Reactor 1
@@ -360,7 +370,7 @@ namespace Kerncentrale
         private void WaterUp3(object sender, RoutedEventArgs e)
         {
             Water3.Value += 1;
-            WaterText3.Text = Water3.Value.ToString();
+            WaterText3.Text = Water3.Value.ToString() + "L";
             Debug.WriteLine(Water3.Value);
             this.Execute(reactorOffset + 2, 3);
         }
@@ -368,7 +378,7 @@ namespace Kerncentrale
         private void WaterDown3(object sender, RoutedEventArgs e)
         {
             Water3.Value -= 1;
-            WaterText3.Text = Water3.Value.ToString();
+            WaterText3.Text = Water3.Value.ToString() + "L";
             this.Execute(reactorOffset + 2, 3);
         }
         #endregion
