@@ -89,14 +89,42 @@ namespace Kerncentrale
                     var result = Task.Factory.StartNew(() => ExecuteThreadMulti());
 
                     Thread thread = new Thread(ExecuteThread);
-                    thread.Name = this.ToString();       
-                    thread.Start();
+                    thread.Name = this.ToString();
+                    try
+                    {
+                        thread.Start();
+                    }
+                    catch (MeltdownExeption e)
+                    {
+                        Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n" + e);
+
+                        thread.Abort();
+                        foreach (FuelRod.FuelRod fuelRod in fuelRods)
+                        {
+                            DatabaseConnect.UpdateCurrentGame(fuelRod.getName().ToString(), fuelRod.GetHuidigeTemperatuur().ToString(), fuelRod.LiterWater.ToString(), generator.GetKWh().ToString());
+                        }
+                        return;
+                    }
                 }
                 else if (this.selectedThreadingType == ThreadingType.SingleThreading)
                 {
                         Task t2 = Task.Factory.StartNew(ExecuteThreadSingle);
                 }
-             }
+
+            }
+            catch (MeltdownExeption e)
+            {
+                Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n"+e);
+                foreach (FuelRod.FuelRod fuelRod in fuelRods)
+                {
+                    DatabaseConnect.UpdateCurrentGame(fuelRod.getName().ToString(), fuelRod.GetHuidigeTemperatuur().ToString(), fuelRod.LiterWater.ToString(), generator.GetKWh().ToString());
+                }
+                return;
+            }
+            //Thread.Sleep(1000);
+
+            
+        }
 
         private async Task<bool> ExecuteThreadMulti()
         {

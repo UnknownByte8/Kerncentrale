@@ -37,7 +37,6 @@ namespace Kerncentrale
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             InitializeComponent();
-            InitDB();
 
         }
 
@@ -54,6 +53,7 @@ namespace Kerncentrale
          */
         private void Play_Click(object sender, RoutedEventArgs e)
         {
+            InitDB();
             Frame.Navigate(sourcePageType: typeof(Game), parameters);
         }
 

@@ -311,6 +311,11 @@ namespace Kerncentrale
                 kerncentrale.GetReactors()[offset].KoelFuelrods(Int32.Parse(water));
             }
         }
+
+        public void goMainPage()
+        {
+            Frame.Navigate(sourcePageType: typeof(MainPage));
+        }
         #region reactor_buttons
 
         private void ReactorOffsetUp(object sender, RoutedEventArgs e)

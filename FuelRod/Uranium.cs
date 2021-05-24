@@ -6,7 +6,6 @@ namespace Kerncentrale.FuelRod
     //voorbeeld soort fuelrod
     class Uranium : FuelRod
     {
-        private string name;
         private double huidigeTemperatuur;
         private double optimaleTemperatuur;
         private double graadPerLiter;

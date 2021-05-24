@@ -4,6 +4,7 @@
     {
         private double literWater;
         private double stoom;
+        protected string name;
         /*
          * Meldown will throw an MeltdownExeption
          */
@@ -14,6 +15,8 @@
         public abstract void GenerateSteam(double temperatuur);
 
         public abstract void SetName(string value);
+
+        public string getName() { return this.name; }
 
         public abstract double GetHuidigeTemperatuur();
 

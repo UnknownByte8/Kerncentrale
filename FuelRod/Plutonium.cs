@@ -5,7 +5,6 @@ namespace Kerncentrale.FuelRod
 {
     class Plutonium : FuelRod
     {
-        private string name;
         private double huidigeTemperatuur;
         private double optimaleTemperatuur;
         private double graadPerLiter;
