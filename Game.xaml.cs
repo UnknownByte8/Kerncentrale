@@ -35,6 +35,7 @@ namespace Kerncentrale
 
             UpdateLabels();
 
+            TotalReactors.Text = "Reactor present: " + (kerncentrale.GetReactors().Count);
             // wacht 5 seconden om de UI in te laten laden, voer dan de functie uit.
             Task.Delay(TimeSpan.FromSeconds(5));
 
