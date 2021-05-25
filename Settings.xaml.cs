@@ -1,8 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Kerncentrale
 {
     /// <summary>
@@ -14,7 +12,7 @@ namespace Kerncentrale
         public Settings()
         {
             this.InitializeComponent();
-            this.ThreadTypeTextBlock.Text = "Current threadtype: "+(App.Current as App).threadingType.ToString();
+            this.ThreadTypeTextBlock.Text = "Current threadtype: " + (App.Current as App).threadingType.ToString();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -40,7 +38,7 @@ namespace Kerncentrale
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
             this.Frame.Navigate(typeof(MainPage), sender);
         }
 

@@ -84,57 +84,54 @@ namespace Kerncentrale
          */
         public void ExecuteThread()
         {
+            try
+            {
                 if (this.selectedThreadingType == ThreadingType.MultiThreading)
                 {
-                    var result = Task.Factory.StartNew(() => ExecuteThreadMulti());
-
-                    Thread thread = new Thread(ExecuteThread);
-                    thread.Name = this.ToString();
-                    try
+                    foreach (var item in fuelRods)
                     {
-                        thread.Start();
-                    }
-                    catch (MeltdownExeption e)
-                    {
-                        Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n" + e);
-
-                        thread.Abort();
-                        foreach (FuelRod.FuelRod fuelRod in fuelRods)
-                        {
-                            DatabaseConnect.UpdateCurrentGame(fuelRod.getName().ToString(), fuelRod.GetHuidigeTemperatuur().ToString(), fuelRod.LiterWater.ToString(), generator.GetKWh().ToString());
-                        }
-                        return;
+                        Task.Factory.StartNew(() => ExecuteThreadMulti(item));
                     }
                 }
                 else if (this.selectedThreadingType == ThreadingType.SingleThreading)
                 {
-                        Task t2 = Task.Factory.StartNew(ExecuteThreadSingle);
+                    Task t2 = Task.Factory.StartNew(ExecuteThreadSingle);
                 }
-
             }
             catch (MeltdownExeption e)
             {
-                Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n"+e);
-                foreach (FuelRod.FuelRod fuelRod in fuelRods)
-                {
-                    DatabaseConnect.UpdateCurrentGame(fuelRod.getName().ToString(), fuelRod.GetHuidigeTemperatuur().ToString(), fuelRod.LiterWater.ToString(), generator.GetKWh().ToString());
-                }
+                Debug.WriteLine("Kerncentrale is geexplodeeerd door een meltdown in een reactor.\n" + e);
+
+                Environment.Exit(Environment.ExitCode);
                 return;
             }
-            //Thread.Sleep(1000);
-
-            
         }
+        //Thread.Sleep(1000);
 
-        private async Task<bool> ExecuteThreadMulti()
+
+
+
+        private void ExecuteThreadMulti(object fuelRod)
         {
-            bool success = false;
+            if (fuelRod.GetType() == typeof(FuelRod.Plutonium))
+            {
+                var x = (fuelRod as FuelRod.Plutonium);
+                x.Excecute();
+            }
+            if (fuelRod.GetType() == typeof(FuelRod.Uranium))
+            {
+                var x = (fuelRod as FuelRod.Uranium);
 
-
-
-            return success;
+                x.Excecute();
+            }
         }
-
+        public void IncTempIncrease(int increase)
+        {
+            foreach (FuelRod.FuelRod fuelrod in fuelRods)
+            {
+                fuelrod.SetTempIncrease(fuelrod.TempIncrease + increase);
+            }
+        }
         private void ExecuteThreadSingle()
         {
             foreach (FuelRod.FuelRod fuelRod in fuelRods)

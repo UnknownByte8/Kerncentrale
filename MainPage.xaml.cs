@@ -1,11 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -34,10 +26,9 @@ namespace Kerncentrale
             ThreadingType = type;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Highscore_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-
+            Frame.Navigate(sourcePageType: typeof(Highscore));
         }
 
         /*

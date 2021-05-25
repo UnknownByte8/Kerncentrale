@@ -16,7 +16,7 @@ namespace Kerncentrale
         private Kerncentrale kerncentrale;
         private int reactorOffset = 0;
         BackgroundWorker bgWorker;
-        
+
 
         public ThreadingType ThreadingType { get => threadingType; set => threadingType = value; }
         public bool EnergyLabelInUse { get; set; } = false;
@@ -34,7 +34,7 @@ namespace Kerncentrale
 
             UpdateLabels();
 
-            TotalReactors.Text = "Reactor present: " + (kerncentrale.GetReactors().Count);
+            TotalReactors.Text = "Reactors present: " + (kerncentrale.GetReactors().Count);
             // wacht 5 seconden om de UI in te laten laden, voer dan de functie uit.
             Task.Delay(TimeSpan.FromSeconds(5));
 
@@ -62,7 +62,7 @@ namespace Kerncentrale
             {
                 Debug.WriteLine("Exception occurred!\n", e.Message);
             }
-            
+
         }
 
         /// <summary>
@@ -108,8 +108,8 @@ namespace Kerncentrale
             UpdateLabels();
 
         }
-
-        void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) 
+        
+        void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled)
             {
@@ -161,7 +161,7 @@ namespace Kerncentrale
                     Water.Value = kerncentrale.GetReactors()[reactorOffset].GetWaterFuelRods();
                     WaterText.Text = Water.Value.ToString();
                     Water2.Value = kerncentrale.GetReactors()[reactorOffset + 1].GetWaterFuelRods();
-                    WaterText2.Text = Water2.Value.ToString(); 
+                    WaterText2.Text = Water2.Value.ToString();
                     Water3.Value = kerncentrale.GetReactors()[reactorOffset + 2].GetWaterFuelRods();
                     WaterText3.Text = Water3.Value.ToString();
                 }
@@ -170,12 +170,12 @@ namespace Kerncentrale
             {
                 Debug.WriteLine("Exception occurred during updating of water labels!\n", e.Message);
             }
-            
-        }
 
+        }
+       
         private void UpdateTemperatureLabels()
         {
-            
+
             double value1 = (kerncentrale.GetReactors()[reactorOffset].GetTemperatureFuelRods(1) / kerncentrale.GetReactors()[reactorOffset].GetOverheatTemperatureFuelRods()) * 100;
             double value2 = (kerncentrale.GetReactors()[reactorOffset + 1].GetTemperatureFuelRods(1) / kerncentrale.GetReactors()[reactorOffset + 1].GetOverheatTemperatureFuelRods()) * 100;
             double value3 = (kerncentrale.GetReactors()[reactorOffset + 2].GetTemperatureFuelRods(1) / kerncentrale.GetReactors()[reactorOffset + 2].GetOverheatTemperatureFuelRods()) * 100;
@@ -191,36 +191,40 @@ namespace Kerncentrale
             {
                 value3 = 0;
             }
-            //Temperatuur value
+            //Temperatuur value1
             UpdateValuesDispatch(value: value1,
                                  progressbarControl: Temperature);
-            //energy text
+            //Temperatuur text1
             UpdateValuesDispatch(value: value1,
                                  textBlock: TemperatureText,
-                                 text: "%");
-            //energy value
+                                 Inhoudsmaat: "%",
+                                 inhoud: "Danger level: ");
+            //Temperatuur value2
             UpdateValuesDispatch(value: value2,
                                  progressbarControl: Temperature2);
-            //energy text
+            //Temperatuur text2
             UpdateValuesDispatch(value: value2,
                                  textBlock: TemperatureText2,
-                                 text: "%");
-            //energy value
+                                 Inhoudsmaat: "%",
+                                 inhoud: "Danger level: ");
+            //Temperatuur value3
             UpdateValuesDispatch(value: value3,
                                  progressbarControl: Temperature3);
-            //energy text
+            //Temperatuur text3
             UpdateValuesDispatch(value: value3,
                                  textBlock: TemperatureText3,
-                                 text: "%");
+                                 Inhoudsmaat: "%",
+                                 inhoud: "Danger level: ");
         }
 
-        private async void UpdateValuesDispatch(double value, Control progressbarControl = null, TextBlock textBlock = null, String text = null)
+        private async void UpdateValuesDispatch(double value, Control progressbarControl = null, TextBlock textBlock = null, String Inhoudsmaat = null, String inhoud = null)
         {
             if (progressbarControl != null)
             {
                 if (progressbarControl.GetType() == typeof(ProgressBar))
                 {
-                    await (progressbarControl as ProgressBar).Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                    await (progressbarControl as ProgressBar).Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    {
                         (progressbarControl as ProgressBar).Value = value;
 
                     });
@@ -230,9 +234,10 @@ namespace Kerncentrale
             {
                 if (textBlock.GetType() == typeof(TextBlock))
                 {
-                    await textBlock.Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
-                    double t = Math.Round(value, 2);
-                        textBlock.Text = t.ToString() + text;
+                    await textBlock.Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    {
+                        double t = Math.Round(value, 2);
+                        textBlock.Text = inhoud + t.ToString() + Inhoudsmaat;
                     });
 
 
@@ -250,27 +255,30 @@ namespace Kerncentrale
             {
                 try
                 {
-                    //energy value
+                    //energy value1
                     UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset].GetEnergy(),
                                          progressbarControl: Energy);
-                    //energy text
+                    //energy text1
                     UpdateValuesDispatch(value: Energy.Value,
                                          textBlock: EnergyText,
-                                         text: "kWh");
-                    //energy value
+                                         Inhoudsmaat: "kWh",
+                                         inhoud: "Energie: ");
+                    //energy value2
                     UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 1].GetEnergy(),
                                          progressbarControl: Energy2);
-                    //energy text
+                    //energy text2
                     UpdateValuesDispatch(value: Energy2.Value,
                                          textBlock: EnergyText2,
-                                         text: "kWh");
-                    //energy value
+                                         Inhoudsmaat: "kWh",
+                                         inhoud: "Energie: ");
+                    //energy value3
                     UpdateValuesDispatch(value: kerncentrale.GetReactors()[reactorOffset + 2].GetEnergy(),
                                          progressbarControl: Energy3);
-                    //energy text
+                    //energy text3
                     UpdateValuesDispatch(value: Energy3.Value,
                                          textBlock: EnergyText3,
-                                         text: "kWh");
+                                         Inhoudsmaat: "kWh",
+                                         inhoud: "Energie: ");
                 }
                 catch (Exception e)
                 {
@@ -278,10 +286,6 @@ namespace Kerncentrale
                 }
             }
 
-            /*Thread thread = new Thread(this.UpdateEnergyLabels);
-            thread.Name = "Update Energy Labels ";
-            //Thread.Sleep(1000);
-            thread.Start();*/
         }
 
         private void UpdateNameLabels(int id)
@@ -311,7 +315,8 @@ namespace Kerncentrale
                         water = WaterText3.Text;
                         break;
                 }
-                kerncentrale.GetReactors()[offset].KoelFuelrods(Int32.Parse(water));
+                int t = Int32.Parse(water);
+                kerncentrale.GetReactors()[offset].KoelFuelrods(t);
             }
         }
 
@@ -378,7 +383,7 @@ namespace Kerncentrale
         private void WaterUp3(object sender, RoutedEventArgs e)
         {
             Water3.Value += 1;
-            WaterText3.Text = Water3.Value.ToString() + "L";
+            WaterText3.Text = Water3.Value.ToString();
             Debug.WriteLine(Water3.Value);
             this.Execute(reactorOffset + 2, 3);
         }
@@ -386,7 +391,7 @@ namespace Kerncentrale
         private void WaterDown3(object sender, RoutedEventArgs e)
         {
             Water3.Value -= 1;
-            WaterText3.Text = Water3.Value.ToString() + "L";
+            WaterText3.Text = Water3.Value.ToString();
             this.Execute(reactorOffset + 2, 3);
         }
         #endregion

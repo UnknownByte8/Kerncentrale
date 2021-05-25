@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 using Windows.System.Threading;
 using ThreadPool = System.Threading.ThreadPool;
 
@@ -39,7 +37,7 @@ namespace Kerncentrale
         {
             foreach (var reactor in reactors)
             {
-                reactor.IncTempIncrease(3);
+                reactor.IncTempIncrease(10);
             }
         }
 
@@ -98,9 +96,9 @@ namespace Kerncentrale
             }
             catch (Exception e)
             {
-                Debug.WriteLine("\n\n\n\nException\nmessage: {0}\nStacktrace: {1}", e.Message,e.StackTrace);
+                Debug.WriteLine("\n\n\n\nException\nmessage: {0}\nStacktrace: {1}", e.Message, e.StackTrace);
             }
-            
+
         }
     }
 }

@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
 using Windows.Storage;
-using System.Threading;
 
 namespace Kerncentrale
 {
@@ -14,7 +10,7 @@ namespace Kerncentrale
     {
         public DatabaseConnect()
         {
-            
+
         }
 
         //init for the database

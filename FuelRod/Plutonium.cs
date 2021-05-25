@@ -59,9 +59,9 @@ namespace Kerncentrale.FuelRod
 
         public override void AfkoelenMetLitersWater(double waterInLiter)
         {
-           SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
+            SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
 
-           GenerateSteam(GetHuidigeTemperatuur());
+            GenerateSteam(GetHuidigeTemperatuur());
         }
 
         /*
@@ -80,7 +80,7 @@ namespace Kerncentrale.FuelRod
         {
             return this.huidigeTemperatuur;
         }
-            public override double GetOverHittingsTempreatuur()
+        public override double GetOverHittingsTempreatuur()
         {
             return this.overhittingsTemperatuur;
         }

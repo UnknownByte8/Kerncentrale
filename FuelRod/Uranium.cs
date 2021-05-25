@@ -55,7 +55,7 @@ namespace Kerncentrale.FuelRod
                     Environment.Exit(Environment.ExitCode);
                     return;
                 }
-                
+
             }
             AfkoelenMetLitersWater(this.LiterWater);
 

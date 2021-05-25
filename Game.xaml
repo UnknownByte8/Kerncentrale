@@ -24,8 +24,8 @@
         <Grid x:Name="Grid1" Grid.Column="0" Grid.Row="0" Padding="20" VerticalAlignment="Top" BorderBrush="Black" >
             <Rectangle HorizontalAlignment="Center" Stroke="Black" Height="800" Margin="0,0,0,0"  VerticalAlignment="Top" Width="580"/>
 
-            <RepeatButton Content="Up" Margin="103,699,0,0" VerticalAlignment="Top" Click="WaterUp"/>
-            <RepeatButton Content="Down" Margin="94,745,0,0" VerticalAlignment="Top" Click="WaterDown"/>
+            <RepeatButton Content="More water" Margin="80,0,0,60" VerticalAlignment="Bottom" Width="100" Click="WaterUp"/>
+            <RepeatButton Content="Less water" Margin="80,0,0,10" VerticalAlignment="Bottom" Width="100" Click="WaterDown"/>
             <Rectangle HorizontalAlignment="Left" Height="600" Margin="50,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="150"/>
 
             <ProgressBar x:Name="Water" Value="50" Maximum="100" Foreground="Aqua" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="150" Margin="-175,311,0,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">
@@ -48,8 +48,8 @@
             </ProgressBar>
 
             <TextBlock x:Name="WaterText" HorizontalAlignment="Left" Margin="114,61,0,0" Text="20" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock x:Name="EnergyText" HorizontalAlignment="Left" Margin="291,64,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock x:Name="TemperatureText" HorizontalAlignment="Left" Margin="466,66,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="EnergyText" HorizontalAlignment="Center" Margin="0,64,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="TemperatureText" HorizontalAlignment="Right" Margin="0,64,70,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <TextBlock x:Name="NameLabel" HorizontalAlignment="Left" Margin="269,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
 
@@ -59,8 +59,8 @@
             <Rectangle HorizontalAlignment="Center" Height="800" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="580"/>
             <Rectangle HorizontalAlignment="Center" Stroke="Black" Height="800" Margin="0,0,0,0"  VerticalAlignment="Top" Width="580"/>
 
-            <RepeatButton Content="Up" Margin="103,699,0,0" VerticalAlignment="Top" Click="WaterUp2"/>
-            <RepeatButton Content="Down" Margin="94,745,0,0" VerticalAlignment="Top" Click="WaterDown2"/>
+            <RepeatButton Content="More water" Margin="80,0,0,60" VerticalAlignment="Bottom" Width="100" Click="WaterUp2"/>
+            <RepeatButton Content="Less water" Margin="80,0,0,10" VerticalAlignment="Bottom" Width="100" Click="WaterDown2"/>
             <Rectangle HorizontalAlignment="Left" Height="600" Margin="50,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="150"/>
 
             <ProgressBar x:Name="Water2" Value="50" Maximum="100" Foreground="Aqua" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="150" Margin="-175,311,0,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">
@@ -83,20 +83,20 @@
             </ProgressBar>
 
             <TextBlock x:Name="WaterText2" HorizontalAlignment="Left" Margin="114,61,0,0" Text="20" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock x:Name="EnergyText2" HorizontalAlignment="Left" Margin="291,64,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock x:Name="TemperatureText2" HorizontalAlignment="Left" Margin="466,66,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="EnergyText2" HorizontalAlignment="Center" Margin="0,64,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="TemperatureText2" HorizontalAlignment="Right" Margin="0,64,70,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <TextBlock x:Name="NameLabel2" HorizontalAlignment="Center" Margin="0,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <TextBlock x:Name="TotalReactors" HorizontalAlignment="Center" Margin="0,-35,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <Button Content="Button Up" Margin="0,-35,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="ReactorOffsetUp" Grid.Column="1"/>
-            <Button Content="Button Down" Margin="0,-35,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ReactorOffsetDown" Grid.ColumnSpan="2"/>
+            <Button Content="Next reactors" Margin="0,-35,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="ReactorOffsetUp" Grid.Column="1"/>
+            <Button Content="Previous reactors" Margin="0,-35,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ReactorOffsetDown" Grid.ColumnSpan="2"/>
         </Grid>
 
         <Grid x:Name="Grid3" Grid.Column="2" Grid.Row="0" Padding="20" VerticalAlignment="Top" >
             <Rectangle HorizontalAlignment="Center" Height="800" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="580"/>
             <Rectangle HorizontalAlignment="Center" Stroke="Black" Height="800" Margin="0,0,0,0"  VerticalAlignment="Top" Width="580"/>
 
-            <RepeatButton Content="Up" Margin="103,699,0,0" VerticalAlignment="Top" Click="WaterUp3"/>
-            <RepeatButton Content="Down" Margin="94,745,0,0" VerticalAlignment="Top" Click="WaterDown3"/>
+            <RepeatButton Content="More water" Margin="80,0,0,60" VerticalAlignment="Bottom" Width="100" Click="WaterUp3"/>
+            <RepeatButton Content="Less water" Margin="80,0,0,10" VerticalAlignment="Bottom" Width="100" Click="WaterDown3" />
             <Rectangle HorizontalAlignment="Left" Height="600" Margin="50,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="150"/>
 
             <ProgressBar x:Name="Water3" Value="50" Maximum="100" Foreground="Aqua" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="150" Margin="-175,311,0,0" Width="600" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" VerticalAlignment="Top">
@@ -119,8 +119,8 @@
             </ProgressBar>
 
             <TextBlock x:Name="WaterText3" HorizontalAlignment="Left" Margin="114,61,0,0" Text="20" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock x:Name="EnergyText3" HorizontalAlignment="Left" Margin="291,64,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock x:Name="TemperatureText3" HorizontalAlignment="Left" Margin="466,66,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="EnergyText3" HorizontalAlignment="Center" Margin="0,64,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="TemperatureText3" HorizontalAlignment="Right" Margin="0,64,70,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <TextBlock x:Name="NameLabel3" HorizontalAlignment="Left" Margin="286,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
         </Grid>

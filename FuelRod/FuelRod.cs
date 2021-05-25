@@ -5,6 +5,7 @@
         private double literWater;
         private double stoom;
         private double tempIncrease;
+        public string name;
         /*
          * Meldown will throw an MeltdownExeption
          */
