@@ -15,6 +15,11 @@ namespace Kerncentrale
             this.ThreadTypeTextBlock.Text = "Current threadtype: " + (App.Current as App).threadingType.ToString();
         }
 
+        /// <summary>
+        /// Selection for selecting what type of threading will be used
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var threadtypeComboBox = (ComboBox)sender;
@@ -36,12 +41,21 @@ namespace Kerncentrale
             }
         }
 
+        /// <summary>
+        /// Navigate to Main page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
             this.Frame.Navigate(typeof(MainPage), sender);
         }
 
+        /// <summary>
+        /// Updates what threading type will be used
+        /// </summary>
+        /// <param name="type"></param>
         private void UpdateThreadingType(ThreadingType type)
         {
             (App.Current as App).threadingType = type;

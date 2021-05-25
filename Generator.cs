@@ -12,12 +12,11 @@
             return kWh;
         }
 
-        /* 
-         * <summary>
-         * Sets current KWh
-         *</summary>
-         *<param name="value">Value to set KWh to</param>
-         */
+
+        /// <summary>
+        /// Sets current KWh
+        /// </summary>
+        /// <param name="value">Value to set KWh to</param>
         private void SetKWh(double value)
         {
             kWh = value;
@@ -33,19 +32,17 @@
         {
             return this.stoom;
         }
-        public Generator(int stoom)
-        {
-            SetStoom(stoom);
-        }
 
         public Generator()
         {
 
         }
 
-        /*
-       * calculate how much energy is created
-       */
+        /// <summary>
+        /// calculate how much energy is created
+        /// </summary>
+        /// <param name="tmpStoom"></param>
+        /// <returns></returns>
         public double GenerateEnergy(double tmpStoom)
         {
             SetStoom(tmpStoom);

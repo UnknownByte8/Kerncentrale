@@ -12,7 +12,6 @@ namespace Kerncentrale
     public sealed partial class MainPage : Page
     {
         public ThreadingType threadingType;
-        public GameParameters parameters = null;
 
         public ThreadingType ThreadingType { get => threadingType; set => threadingType = value; }
 
@@ -21,6 +20,10 @@ namespace Kerncentrale
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets the current threading type
+        /// </summary>
+        /// <param name="type"></param>
         public void SetThreadType(ThreadingType type)
         {
             ThreadingType = type;
@@ -31,31 +34,39 @@ namespace Kerncentrale
             Frame.Navigate(sourcePageType: typeof(Highscore));
         }
 
-        /*
-         * click on settings button
-         */
+        /// <summary>
+        /// click on settings button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(sourcePageType: typeof(Settings));
         }
 
-        /* 
-         * click on play button
-         */
+        /// <summary>
+        /// click on play button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             InitDB();
-            Frame.Navigate(sourcePageType: typeof(Game), parameters);
+            Frame.Navigate(sourcePageType: typeof(Game), null);
         }
 
+        /// <summary>
+        /// Creates/checks the db creation 
+        /// </summary>
         private void InitDB()
         {
             DatabaseConnect.CreateDB();
-            //userView.ItemsSource = DatabaseConnect.GetRecords();
-            //userView2.ItemsSource = DatabaseConnect.GetHighscore();
-
         }
 
+        /// <summary>
+        /// Navigation
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //If action in EditPage occurred, determine that here

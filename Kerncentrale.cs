@@ -41,6 +41,10 @@ namespace Kerncentrale
             }
         }
 
+        /// <summary>
+        /// Returns total produced energy of all the reactors.
+        /// </summary>
+        /// <returns></returns>
         public double getTotalEnergy()
         {
             double t = 0;
@@ -53,9 +57,9 @@ namespace Kerncentrale
             return t;
         }
 
-        /*
-         * Set random fuelRods to the reactor
-         */
+        /// <summary>
+        /// Set random fuelRods to the reactor
+        /// </summary>
         public void InitializeTmpReactors()
         {
             Random rnd = new Random();
@@ -75,9 +79,9 @@ namespace Kerncentrale
             }
         }
 
-        /*
-         * setup for threads
-         */
+        /// <summary>
+        /// setup for threads
+        /// </summary>
         public void GenerateThreads()
         {
             try

@@ -3,7 +3,6 @@ using System.Diagnostics;
 
 namespace Kerncentrale.FuelRod
 {
-    //voorbeeld soort fuelrod
     class Uranium : FuelRod
     {
         private double huidigeTemperatuur;
@@ -13,11 +12,11 @@ namespace Kerncentrale.FuelRod
         private double onderLimietTemperatuur;
         private double tempIncrease;
 
+        /// <summary>
+        /// assign data to uranium
+        /// </summary>
         public Uranium()
         {
-            /*
-             * assign data to uranium
-             */
             SetName("Uranium");
             SetHuidigeTemperatuur(200);
             SetOverhittingsTemperatuur(3500);
@@ -29,9 +28,10 @@ namespace Kerncentrale.FuelRod
 
         }
 
-        /*
-        * This wil get executed to increase the temperature or cool 
-        */
+        /// <summary>
+        /// This wil get executed to increase the temperature or cool 
+        /// Will throw meltdown when to hot
+        /// </summary>
         public override void Excecute()
         {
             if (huidigeTemperatuur < onderLimietTemperatuur)
@@ -62,6 +62,10 @@ namespace Kerncentrale.FuelRod
 
         }
 
+        /// <summary>
+        /// Cools the reactor with some water
+        /// </summary>
+        /// <param name="waterInLiter">Wil decide how much cooling is done</param>
         public override void AfkoelenMetLitersWater(double waterInLiter)
         {
             SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
@@ -69,9 +73,10 @@ namespace Kerncentrale.FuelRod
             GenerateSteam(GetHuidigeTemperatuur());
         }
 
-        /*
-         * Steam will be created so energy will come to existence 
-         */
+        /// <summary>
+        ///  Steam will be created so energy will come to existence 
+        /// </summary>
+        /// <param name="temperatuur">Decides how much steam/energy is created</param>
         public override void GenerateSteam(double temperatuur)
         {
             double tmp = temperatuur * 0.1;

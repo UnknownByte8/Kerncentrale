@@ -4,6 +4,9 @@ namespace Kerncentrale
 {
     public class MeltdownExeption : Exception
     {
+        /// <summary>
+        /// Meltdown exeption is made when fuelrod goes over maximal tempreature
+        /// </summary>
         public MeltdownExeption()
         {
 

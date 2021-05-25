@@ -127,7 +127,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameParameters.cs" />
     <Compile Include="MeltdownExeption.cs" />
     <Compile Include="DatabaseConnect.cs" />
     <Compile Include="FuelRod\FuelRod.cs" />

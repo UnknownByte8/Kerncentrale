@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using Windows.Storage;
 
@@ -14,7 +13,9 @@ namespace Kerncentrale
 
         }
 
-        //init for the database
+        /// <summary>
+        /// init for the database
+        /// </summary>
         public async static void CreateDB()
         {
             //file location for the DB
@@ -48,6 +49,13 @@ namespace Kerncentrale
             }
         }
 
+        /// <summary>
+        /// All data is saved
+        /// </summary>
+        /// <param name="FuelType"></param>
+        /// <param name="Temparature"></param>
+        /// <param name="Water"></param>
+        /// <param name="Generated"></param>
         public static void UpdateCurrentGame(String FuelType, String Temparature, String Water, String Generated)
         {
             if (!FuelType.Equals("") && !Temparature.Equals("") && !Water.Equals("") && !Generated.Equals(""))
@@ -77,6 +85,10 @@ namespace Kerncentrale
                 }
             }
         }
+
+        /// <summary>
+        /// Database information can be set or returned
+        /// </summary>
         public class DBinfo
         {
             public String FuelType { get; set; }
@@ -91,52 +103,10 @@ namespace Kerncentrale
                 Generated = Generated1;
             }
         }
-        public static List<DBinfo> GetRecords()
-        {
-            List<DBinfo> powerPlantList = new List<DBinfo>();
-            string DBPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "PowerPlantDatabase.db");
-            using (SqliteConnection con = new SqliteConnection($"Filename={DBPath}"))
-            {
-                con.Open();
-                String selectCmd = "SELECT FuelType, Temparature, Water, Generated FROM PowerPlantData";
-                SqliteCommand cmd_getData = new SqliteCommand(selectCmd, con);
-                SqliteDataReader reader = cmd_getData.ExecuteReader();
-                while (reader.Read())
-                {
-                    powerPlantList.Add(new DBinfo(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3)));
-                }
-                con.Close();
-            }
-            return powerPlantList;
-        }
-        public static void UpdateHighScore(String GameNumber, String WaterUsed, String WattGenerated, String PointsScored)
-        {
-            if (!GameNumber.Equals("") && !WaterUsed.Equals("") && !WattGenerated.Equals("") && !PointsScored.Equals(""))
-            {
-                string pathToDB = Path.Combine(ApplicationData.Current.LocalFolder.Path, "PowerPlantDatabase.db");
-                using (SqliteConnection con = new SqliteConnection($"Filename={pathToDB}"))
-                {
-                    try
-                    {
-                        con.Open();
-                        SqliteCommand CMD_Insert = new SqliteCommand();
-                        CMD_Insert.Connection = con;
-                        //command that prepares the data to be inserted to the database
-                        CMD_Insert.CommandText = "INSERT INTO [HighScoreData] (GameNumber, WaterUsed, WattGenerated, PointsScored) VALUES (@GameNumber, @WaterUsed, @WattGenerated, @PointsScored)";
-                        CMD_Insert.Parameters.AddWithValue("GameNumber", GameNumber);
-                        CMD_Insert.Parameters.AddWithValue("WaterUsed", WaterUsed);
-                        CMD_Insert.Parameters.AddWithValue("WattGenerated", WattGenerated);
-                        CMD_Insert.Parameters.AddWithValue("PointsScored", PointsScored);
-                        CMD_Insert.ExecuteReader();
-                        con.Close();
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                }
-            }
-        }
+
+        /// <summary>
+        /// Score information can be set or returned
+        /// </summary>
         public class ScoreInfo
         {
             public String GameNumber { get; set; }
@@ -144,6 +114,14 @@ namespace Kerncentrale
             public String WattGenerated { get; set; }
             public String Name { get; set; }
             public String PointsScored { get; set; }
+
+            /// <summary>
+            /// Sets the following data
+            /// </summary>
+            /// <param name="GameNumber1"></param>
+            /// <param name="WaterUsed1"></param>
+            /// <param name="WattGenerated1"></param>
+            /// <param name="PointsScored1"></param>
             public ScoreInfo(String GameNumber1, String WaterUsed1, String WattGenerated1, String PointsScored1)
             {
                 GameNumber = GameNumber1;
@@ -151,31 +129,23 @@ namespace Kerncentrale
                 WattGenerated = WattGenerated1;
                 PointsScored = PointsScored1;
             }
+
+            /// <summary>
+            /// Sets the following data
+            /// </summary>
+            /// <param name="Name1"></param>
+            /// <param name="PointsScored1"></param>
             public ScoreInfo(String Name1, String PointsScored1)
             {
                 Name = Name1;
                 PointsScored = PointsScored1;
             }
         }
-        public static List<ScoreInfo> GetHighscore()
-        {
-            List<ScoreInfo> ScoreList = new List<ScoreInfo>();
-            string DBPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "PowerPlantDatabase.db");
-            using (SqliteConnection con = new SqliteConnection($"Filename={DBPath}"))
-            {
-                con.Open();
-                String selectCmd = "SELECT GameNumber, WaterUsed, WattGenerated, PointsScored FROM HighScoreData ORDER BY PointsScored ASC";
-                SqliteCommand cmd_getData = new SqliteCommand(selectCmd, con);
-                SqliteDataReader reader = cmd_getData.ExecuteReader();
-                while (reader.Read())
-                {
-                    ScoreList.Add(new ScoreInfo(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3)));
-                }
-                con.Close();
-            }
-            return ScoreList;
-        }
-
+        /// <summary>
+        /// Sets a new score into the database
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="PointsScored"></param>
         public static void SetScore(String Name, String PointsScored)
         {
             if (!Name.Equals("") && !PointsScored.Equals(""))
@@ -202,6 +172,11 @@ namespace Kerncentrale
                 }
             }
         }
+
+        /// <summary>
+        /// returns list of highscores 
+        /// </summary>
+        /// <returns></returns>
         public static List<ScoreInfo> GetScore()
         {
             List<ScoreInfo> ScoreList = new List<ScoreInfo>();
@@ -209,7 +184,7 @@ namespace Kerncentrale
             using (SqliteConnection con = new SqliteConnection($"Filename={DBPath}"))
             {
                 con.Open();
-                
+
                 String selectCmd = "SELECT Name, PointsScored FROM HighScoreData ORDER BY PointsScored DESC";
                 SqliteCommand cmd_getData = new SqliteCommand(selectCmd, con);
                 SqliteDataReader reader = cmd_getData.ExecuteReader();

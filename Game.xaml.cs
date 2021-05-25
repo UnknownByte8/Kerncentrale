@@ -107,7 +107,7 @@ namespace Kerncentrale
             UpdateLabels();
 
         }
-        
+
         void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled)
@@ -148,9 +148,9 @@ namespace Kerncentrale
 
             }
         }
-        /*
-       * This wil change waterlabels 
-       */
+        /// <summary>
+        /// This wil change waterlabels 
+        /// </summary>
         private void UpdateWaterLabels()
         {
             try
@@ -171,7 +171,10 @@ namespace Kerncentrale
             }
 
         }
-       
+
+        /// <summary>
+        /// Update Temperature labels
+        /// </summary>
         private void UpdateTemperatureLabels()
         {
 
@@ -216,6 +219,14 @@ namespace Kerncentrale
                                  inhoud: "Danger level: ");
         }
 
+        /// <summary>
+        /// Updates labels on the UI
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="progressbarControl"></param>
+        /// <param name="textBlock"></param>
+        /// <param name="Inhoudsmaat"></param>
+        /// <param name="inhoud"></param>
         private async void UpdateValuesDispatch(double value, Control progressbarControl = null, TextBlock textBlock = null, String Inhoudsmaat = null, String inhoud = null)
         {
             if (progressbarControl != null)
@@ -245,9 +256,9 @@ namespace Kerncentrale
 
         }
 
-        /*
-          * This wil change energylabels 
-        */
+        /// <summary>
+        /// This wil change energylabels 
+        /// </summary>
         private void UpdateEnergyLabels()
         {
             if ((reactorOffset + 2) < 5)
@@ -287,6 +298,10 @@ namespace Kerncentrale
 
         }
 
+        /// <summary>
+        /// This wil change namelabels 
+        /// </summary>
+        /// <param name="id"></param>
         private void UpdateNameLabels(int id)
         {
             NameLabel.Text = "Reactor " + (id + 1);
@@ -294,9 +309,11 @@ namespace Kerncentrale
             NameLabel3.Text = "Reactor " + (id + 3);
         }
 
-        /*
-        * This wil get executed to change labels 
-        */
+        /// <summary>
+        /// This wil get executed to change labels 
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="labelNumber"></param>
         private void Execute(int offset, int labelNumber)
         {
             if (offset < 5)
@@ -345,8 +362,11 @@ namespace Kerncentrale
             UpdateTemperatureLabels();
         }
 
-        // Reactor 1
-        // Water wordt toegevoegd aan de reactor
+        /// <summary>
+        /// Water wordt toegevoegd aan de reactor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WaterUp(object sender, RoutedEventArgs e)
         {
             Water.Value += 1;
@@ -395,11 +415,16 @@ namespace Kerncentrale
         }
         #endregion
 
+        /// <summary>
+        /// Exits the game and sets the highscore into the database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void ExitGame(object sender, RoutedEventArgs e)
         {
-              double finalScore = Math.Round(kerncentrale.getTotalEnergy());
-              DatabaseConnect.SetScore("" + DateTime.Now, finalScore.ToString());
-              Environment.Exit(Environment.ExitCode);
+            double finalScore = Math.Round(kerncentrale.getTotalEnergy());
+            DatabaseConnect.SetScore("" + DateTime.Now, finalScore.ToString());
+            Environment.Exit(Environment.ExitCode);
         }
     }
 }

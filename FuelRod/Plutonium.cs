@@ -11,12 +11,11 @@ namespace Kerncentrale.FuelRod
         private double overhittingsTemperatuur;
         private double onderLimietTemperatuur;
 
-
+        /// <summary>
+        /// Initializes Plutonium
+        /// </summary>
         public Plutonium()
         {
-            /*
-             * assign data to plutonium
-             */
             SetName("Plutonium");
             SetHuidigeTemperatuur(200);
             SetOverhittingsTemperatuur(3500);
@@ -27,9 +26,10 @@ namespace Kerncentrale.FuelRod
             LiterWater = 10;
         }
 
-        /*
-         * This wil get executed to increase the temperature or cool 
-         */
+        /// <summary>
+        /// This wil get executed to increase the temperature or cool 
+        /// Will throw meltdown when to hot
+        /// </summary>
         public override void Excecute()
         {
             if (huidigeTemperatuur < onderLimietTemperatuur)
@@ -57,6 +57,10 @@ namespace Kerncentrale.FuelRod
             AfkoelenMetLitersWater(this.LiterWater);
         }
 
+        /// <summary>
+        /// Cools the reactor with some water
+        /// </summary>
+        /// <param name="waterInLiter">Wil decide how much cooling is done</param>
         public override void AfkoelenMetLitersWater(double waterInLiter)
         {
             SetHuidigeTemperatuur(huidigeTemperatuur - (waterInLiter * graadPerLiter));
@@ -64,9 +68,10 @@ namespace Kerncentrale.FuelRod
             GenerateSteam(GetHuidigeTemperatuur());
         }
 
-        /*
-         * Steam will be created so energy will come to existence 
-         */
+        /// <summary>
+        /// Steam will be created so energy will come to existence 
+        /// </summary>
+        /// <param name="temperatuur">Decides how much steam/energy is created</param>
         public override void GenerateSteam(double temperatuur)
         {
             double tmpStoom = temperatuur * 0.2;
