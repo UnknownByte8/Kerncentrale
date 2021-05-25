@@ -10,12 +10,12 @@
 
     <Grid>
         <TextBlock Text="HighScores" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" Margin="0,20,0,0"></TextBlock>
-        <ListBox Width="666" Height="500" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,150,0,0">
-            <ListBoxItem HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="500" HorizontalContentAlignment="Center" Margin="0,10,0,0">ListBox Item #1</ListBoxItem>
-            <ListBoxItem HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="500" HorizontalContentAlignment="Center" Margin="0,10,0,0">ListBox Item #2</ListBoxItem>
-            <ListBoxItem HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="500" HorizontalContentAlignment="Center" Margin="0,10,0,0">ListBox Item #3</ListBoxItem>
-            <ListBoxItem HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="500" HorizontalContentAlignment="Center" Margin="0,10,0,0">ListBox Item #4</ListBoxItem>
-            <ListBoxItem HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Width="500" HorizontalContentAlignment="Center" Margin="0,10,0,0">ListBox Item #5</ListBoxItem>
+        <ListBox Name="ScoreList" Height="500" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,150,0,0">
+            <ListBoxItem x:Name="Score1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="45" HorizontalContentAlignment="Center" Margin="0,15,0,0" Content="Score #1" ></ListBoxItem>
+            <ListBoxItem x:Name="Score2" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" HorizontalContentAlignment="Center" Margin="0,15,0,0" Content="Score #2"></ListBoxItem>
+            <ListBoxItem x:Name="Score3" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="35" HorizontalContentAlignment="Center" Margin="0,15,0,0" Content="Score #3"></ListBoxItem>
+            <ListBoxItem x:Name="Score4" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" HorizontalContentAlignment="Center" Margin="0,15,0,0" Content="Score #4"></ListBoxItem>
+            <ListBoxItem x:Name="Score5" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" HorizontalContentAlignment="Center" Margin="0,15,0,0" Content="Score #5"></ListBoxItem>
         </ListBox>
         <Button Content="Return" Margin="0,0,0,100" Height="89" Width="335" FontSize="48" Click="Return_Click" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
      </Grid>

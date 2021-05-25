@@ -41,6 +41,18 @@ namespace Kerncentrale
             }
         }
 
+        public double getTotalEnergy()
+        {
+            double t = 0;
+
+            foreach (var reactor in reactors)
+            {
+                t += reactor.GetTotalEnergy();
+            }
+            Debug.WriteLine(t);
+            return t;
+        }
+
         /*
          * Set random fuelRods to the reactor
          */

@@ -23,6 +23,7 @@
 
         <Grid x:Name="Grid1" Grid.Column="0" Grid.Row="0" Padding="20" VerticalAlignment="Top" BorderBrush="Black" >
             <Rectangle HorizontalAlignment="Center" Stroke="Black" Height="800" Margin="0,0,0,0"  VerticalAlignment="Top" Width="580"/>
+            <Button Content="Exit game" Margin="0,-35,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ExitGame" Grid.ColumnSpan="2"/>
 
             <RepeatButton Content="More water" Margin="80,0,0,60" VerticalAlignment="Bottom" Width="100" Click="WaterUp"/>
             <RepeatButton Content="Less water" Margin="80,0,0,10" VerticalAlignment="Bottom" Width="100" Click="WaterDown"/>

@@ -31,7 +31,6 @@ namespace Kerncentrale
         {
             ThreadingType = (App.Current as App).threadingType;
             kerncentrale = new Kerncentrale(threadingType: threadingType);
-
             UpdateLabels();
 
             TotalReactors.Text = "Reactors present: " + (kerncentrale.GetReactors().Count);
@@ -395,5 +394,12 @@ namespace Kerncentrale
             this.Execute(reactorOffset + 2, 3);
         }
         #endregion
+
+        public void ExitGame(object sender, RoutedEventArgs e)
+        {
+              double finalScore = Math.Round(kerncentrale.getTotalEnergy());
+              DatabaseConnect.SetScore("" + DateTime.Now, finalScore.ToString());
+              Environment.Exit(Environment.ExitCode);
+        }
     }
 }

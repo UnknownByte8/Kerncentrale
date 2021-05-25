@@ -12,10 +12,12 @@ namespace Kerncentrale
         public ThreadingType selectedThreadingType;
         private Generator generator;
         public double energy = 0;
+        public double totalEnergy;
         public Reactor()
         {
             this.generator = new Generator();
-        }
+            SetTotalEnergy(0);
+    }
 
         /*
          * set the selected TreadingType 
@@ -29,7 +31,11 @@ namespace Kerncentrale
         {
             this.fuelRods.Add(fuelRod);
         }
-
+        public void SetTotalEnergy(double value) => this.totalEnergy = value;
+        public double GetTotalEnergy()
+        {
+            return this.totalEnergy;
+        }
         /*
          * every fuelrods will be cooled of with an assigned amount of water
          */
@@ -69,6 +75,7 @@ namespace Kerncentrale
                 generator.GenerateEnergy(tmpStoom);
                 this.energy = generator.GetKWh();
             }
+            totalEnergy += this.energy;
             return this.energy;
         }
 
@@ -106,11 +113,8 @@ namespace Kerncentrale
                 return;
             }
         }
-        //Thread.Sleep(1000);
-
-
-
-
+        
+      
         private void ExecuteThreadMulti(object fuelRod)
         {
             if (fuelRod.GetType() == typeof(FuelRod.Plutonium))
