@@ -424,7 +424,8 @@ namespace Kerncentrale
         {
             double finalScore = Math.Round(kerncentrale.getTotalEnergy());
             DatabaseConnect.SetScore("" + DateTime.Now, finalScore.ToString());
-            Environment.Exit(Environment.ExitCode);
+
+            this.Frame.Navigate(typeof(MainPage), sender);
         }
     }
 }
